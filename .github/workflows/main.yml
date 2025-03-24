@@ -1,0 +1,68 @@
+name: CI
+
+on: 
+  push: # trigger on every push
+  workflow_dispatch: # manual trigger
+  
+jobs:
+  build_and_test:
+    timeout-minutes: 360  # Set the timeout to the maximum allowed
+    name: "Build and test"
+    env:
+      QT_VERSION: "5.15.2"  # Define the Qt version as a variable
+    strategy:
+      matrix:
+        os: [ubuntu-latest] # we build on GitHub-provided Windows and Linux images
+    runs-on: ${{ matrix.os }} # use value from the matrix
+    steps:
+    - name: Install dependencies (linux)
+      run: sudo apt install ninja-build
+      if: matrix.os == 'ubuntu-latest' # conditional, runs this step only on the Ubuntu runner
+    - name: Install Ninja (windows)    # Ninja is not available in GitHub-provided images,
+                                       # see https://github.com/actions/runner-images/issues/514
+      run: choco install ninja         # So let's install it through Chocolatey
+      if: matrix.os == 'windows-latest'
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Use Python 3.x
+
+    - name: Install aqt
+      run: pip install aqtinstall
+      
+    - name: see list of available desktop versions 
+      run: aqt list-qt linux desktop
+      
+    - name: see list of available archs for version
+      run: aqt list-qt linux desktop --arch $QT_VERSION
+      
+
+    - name: list packages
+      run: aqt list-qt linux desktop --modules $QT_VERSION gcc_64
+
+
+    #- name: Install Qt on Linux
+    #  if: matrix.os == 'ubuntu-latest'
+    #  run: |
+     #     aqt install-qt linux desktop $QT_VERSION gcc_64 \
+    #        --modules qtbase qtdeclarative qtquick qtquickcontrols qtquickcontrols2 charts datavisualization
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '5.15.2'
+        host: linux
+        modules: qtcharts
+        #modules: qtbase, qtdeclarative, qtquickcontrols2, qtquickcontrols, qtquick charts datavisualization
+    - uses: ilammy/msvc-dev-cmd@v1 # This action essentially calls vcvarsall.bat for the latest VS in the runner for x64
+    - uses: actions/checkout@v3    # Actually check out the sources. GH Actions can run for events that may not require
+                                   # sources (e.g. when someone comments on an issue)
+
+    # Here we call CMake manually, there are solutions for that in the Marketplace: https://github.com/marketplace/actions/run-cmake
+    - name: Build
+      # We don't need to set up the environment variable for CMake to see Qt because the install-qt-action
+      # sets up the necessary variables automatically
+      run: |
+          qmake CONFIG+=release
+          make
