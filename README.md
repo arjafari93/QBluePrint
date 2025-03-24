@@ -12,6 +12,15 @@ The project currently uses **Qt 5.15** and **qmake**, with plans to support **CM
 
 Tested on **Windows and Linux**.
 
+![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)
+![Build Status](https://github.com/arjafari93/QBluePrint/actions/workflows/main.yml/badge.svg)
+![GitHub release](https://img.shields.io/github/v/release/arjafari93/QBluePrint)
+![GitHub stars](https://img.shields.io/github/stars/arjafari93/QBluePrint?style=social)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)
+![GitHub all releases](https://img.shields.io/github/downloads/yourusername/yourrepository/total)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
+
+
 ## Key Features
 
 ### 🔹 Visual Logic Creation
