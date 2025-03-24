@@ -27,7 +27,8 @@ Tested on **Windows and Linux**.
 ### 🔹 Comprehensive Box Library
 QBlueprint includes various **box types**, categorized by function:
 <img src="https://github.com/arjafari93/QBluePrint/blob/master/ScreenShots/screenshot4.JPG" alt="Dark/Light Theme" width="25%" align="right">
-- **Logical Operations:** AND, OR, NOT, XOR, SHIFT, etc.
+- **Logical Operations:** AND, OR, NOT, etc.
+- **Bitwise Operations:** AND, OR, XOR, Left SHIFT, Right SHIFT, etc.
 - **Mathematical Operations:** Multiplication, Division, Modulus, Absolute, Power, etc.
 - **Comparative Operators:** Equal (`==`), Less than (`<`), Greater than (`>`), etc.
 - **Conditional Branching** to control execution flow.
