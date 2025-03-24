@@ -33,7 +33,7 @@ QBlueprint includes various **box types**, categorized by function:
 - **Comparative Operators:** Equal (`==`), Less than (`<`), Greater than (`>`), etc.
 - **Conditional Branching** to control execution flow.
 - **Input Sources:** TCP/UDP servers, Timer-based triggers.
-- **Output Sinks:** TCP/UDP clients, Line-series chart visualization.
+- **Output Sinks:** TCP/UDP clients, Line-series chart visualization, String View Sink.
 
 ### 🔹 Enhanced User Experience
 - **Dark/Light mode** for better readability.
