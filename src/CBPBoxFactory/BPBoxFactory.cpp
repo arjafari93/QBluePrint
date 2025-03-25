@@ -19,15 +19,15 @@
 #include "src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h"
 #include "src/COperationBox/BitwiseOperationBoxes/BitWiseComplement.h"
 #include "src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h"
-#include "src/COperationBox/CConditionalBranch/ConditionalBranch.h"
+#include "src/COperationBox/Miscellaneous/ConditionalBranch.h"
 #include "src/COperationBox/DataComparisonOperations/DataComparisonEqual.h"
 #include "src/COperationBox/DataComparisonOperations/DataComparisonGreater.h"
 #include "src/COperationBox/DataComparisonOperations/DataComparisonLess.h"
 #include "src/COperationBox/dataSourceBoxes/TCPSocketServerSource.h"
 #include "src/COperationBox/dataSourceBoxes/UDPSocketServerSource.h"
-#include "src/COperationBox/CUniversalTypeConvertor/UniversalTypeConvertor.h"
+#include "src/COperationBox/Miscellaneous/UniversalTypeConvertor.h"
 #include "src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h"
-#include "src/COperationBox/CDataCounter/DataCounter.h"
+#include "src/COperationBox/Miscellaneous/DataCounter.h"
 
 
 class CBPBoxFactoryInterface
@@ -75,11 +75,13 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CTimerSendValSrc        ::getUniqueName()          ] = new CTimerSendValSrcFactory        () ;
     m_mapOfBPBoxToFactory[ CTCPSocketServerSource  ::getUniqueName()          ] = new CTCPSocketServerSourceFactory  () ;
     m_mapOfBPBoxToFactory[ CUDPSocketServerSource  ::getUniqueName()          ] = new CUDPSocketServerSourceFactory  () ;
-    m_mapOfBPBoxToFactory[ CUniversalTypeConvertor ::getUniqueName()          ] = new CUniversalTypeConvertorFactory () ;
     m_mapOfBPBoxToFactory[ CLineSeriesChartBox     ::getUniqueName()          ] = new CLineSeriesChartBoxFactory     () ;
     m_mapOfBPBoxToFactory[ CStringOutputSink       ::getUniqueName()          ] = new CStringOutputSinkFactory       () ;
     m_mapOfBPBoxToFactory[ "TCP Client"                                       ] = new CTCPSocketClientSinkFactory    () ;
     m_mapOfBPBoxToFactory[ "UDP Client"                                       ] = new CUDPSocketClientSinkFactory    () ;
+    m_mapOfBPBoxToFactory[ CDataCounter            ::getUniqueName()          ] = new CDataCounterFactory            () ;
+    m_mapOfBPBoxToFactory[ CUniversalTypeConvertor ::getUniqueName()          ] = new CUniversalTypeConvertorFactory () ;
+    m_mapOfBPBoxToFactory[ CConditionalBranch      ::getUniqueName()          ] = new CConditionalBranchFactory      () ;
     m_mapOfBPBoxToFactory[ CLogicalAND             ::getUniqueName()          ] = new CLogicalANDFactory             () ;
     m_mapOfBPBoxToFactory[ CLogicalOR              ::getUniqueName()          ] = new CLogicalORFactory              () ;
     m_mapOfBPBoxToFactory[ CLogicalNOT             ::getUniqueName()          ] = new CLogicalNOTFactory             () ;
@@ -92,7 +94,6 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CDataComparisonEqual    ::getUniqueName()          ] = new CDataComparisonEqualFactory    () ;
     m_mapOfBPBoxToFactory[ CDataComparisonGreater  ::getUniqueName()          ] = new CDataComparisonGreaterFactory  () ;
     m_mapOfBPBoxToFactory[ CDataComparisonLess     ::getUniqueName()          ] = new CDataComparisonLessFactory     () ;
-    m_mapOfBPBoxToFactory[ CConditionalBranch      ::getUniqueName()          ] = new CConditionalBranchFactory      () ;
     m_mapOfBPBoxToFactory[ CMathMultiplication     ::getUniqueName()          ] = new CMathMultiplicationFactory     () ;
     m_mapOfBPBoxToFactory[ CMathAddition           ::getUniqueName()          ] = new CMathAdditionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathDivision           ::getUniqueName()          ] = new CMathDivisionFactory           () ;
@@ -100,7 +101,6 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CMathModulus            ::getUniqueName()          ] = new CMathModulusFactory            () ;
     m_mapOfBPBoxToFactory[ CMathAbsolute           ::getUniqueName()          ] = new CMathAbsoluteFactory           () ;
     m_mapOfBPBoxToFactory[ CMathPower              ::getUniqueName()          ] = new CMathPowerFactory              () ;
-    m_mapOfBPBoxToFactory[ CDataCounter            ::getUniqueName()          ] = new CDataCounterFactory            () ;
 
 
 }
@@ -137,11 +137,13 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CTimerSendValSrc        ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CTCPSocketServerSource  ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUDPSocketServerSource  ::getUniqueName() , 600 , 100 )) ;
-    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUniversalTypeConvertor ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLineSeriesChartBox     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CStringOutputSink       ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  "UDP Client"                              , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  "TCP Client"                              , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataCounter            ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUniversalTypeConvertor ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CConditionalBranch      ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLogicalAND             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLogicalOR              ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLogicalNOT             ::getUniqueName() , 600 , 100 )) ;
@@ -154,7 +156,6 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonEqual    ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonGreater  ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonLess     ::getUniqueName() , 600 , 100 )) ;
-    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CConditionalBranch      ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathMultiplication     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAddition           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathDivision           ::getUniqueName() , 600 , 100 )) ;
@@ -162,7 +163,6 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathModulus            ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAbsolute           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathPower              ::getUniqueName() , 600 , 100 )) ;
-    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataCounter            ::getUniqueName() , 600 , 100 )) ;
 
     return sListOfAllBPBoxes;
 }

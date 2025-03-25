@@ -26,8 +26,8 @@ SOURCES += \
         src/COperationBox/BitwiseOperationBoxes/BitWiseOR.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.cpp \
-        src/COperationBox/CConditionalBranch/ConditionalBranch.cpp \
-        src/COperationBox/CDataCounter/DataCounter.cpp \
+        src/COperationBox/Miscellaneous/ConditionalBranch.cpp \
+        src/COperationBox/Miscellaneous/DataCounter.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonEqual.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonGreater.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonLess.cpp \
@@ -48,7 +48,7 @@ SOURCES += \
         src/COperationBox/dataSourceBoxes/TCPSocketServerSource.cpp \
         src/COperationBox/dataSourceBoxes/TimerSendValSrc.cpp \
         src/COperationBox/dataSourceBoxes/UDPSocketServerSource.cpp \
-        src/COperationBox/CUniversalTypeConvertor/UniversalTypeConvertor.cpp \
+        src/COperationBox/Miscellaneous/UniversalTypeConvertor.cpp \
         src/COperationBox/OperationBox.cpp \
         src/CRawValueBase/RawValueBase.cpp
 
@@ -79,8 +79,8 @@ HEADERS += \
     src/COperationBox/BitwiseOperationBoxes/BitWiseOR.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h \
-    src/COperationBox/CConditionalBranch/ConditionalBranch.h \
-    src/COperationBox/CDataCounter/DataCounter.h \
+    src/COperationBox/Miscellaneous/ConditionalBranch.h \
+    src/COperationBox/Miscellaneous/DataCounter.h \
     src/COperationBox/DataComparisonOperations/DataComparisonEqual.h \
     src/COperationBox/DataComparisonOperations/DataComparisonGreater.h \
     src/COperationBox/DataComparisonOperations/DataComparisonLess.h \
@@ -101,7 +101,7 @@ HEADERS += \
     src/COperationBox/dataSourceBoxes/TCPSocketServerSource.h \
     src/COperationBox/dataSourceBoxes/TimerSendValSrc.h \
     src/COperationBox/dataSourceBoxes/UDPSocketServerSource.h \
-    src/COperationBox/CUniversalTypeConvertor/UniversalTypeConvertor.h \
+    src/COperationBox/Miscellaneous/UniversalTypeConvertor.h \
     src/COperationBox/OperationBox.h \
     src/CommonHeader.h \
     src/CRawValueBase/RawValueBase.h

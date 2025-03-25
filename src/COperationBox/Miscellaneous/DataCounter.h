@@ -20,13 +20,12 @@ class CDataCounter : public COperationBox
 public:
     ~CDataCounter();
     virtual void  evaluateOperation(  ) override ;
-
     GETUNIQUENAMEFUNC;
 
 private:
     inline const static QString    m_uniqueBoxName  = "Data Counter" ;
     QString    m_operatorSymbol = "#";
-    std::unique_ptr<CValue_int> mp_resetValue {nullptr};
+    long long m_initialValue = 0 ;
     long long m_dataCounter = 0;
     long long m_stepSize = 1;
 
