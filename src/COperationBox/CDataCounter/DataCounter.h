@@ -18,7 +18,7 @@ class CDataCounter : public COperationBox
             int      newBlueBox_yPos  ,
             QObject *parent = nullptr );
 public:
-
+    ~CDataCounter();
     virtual void  evaluateOperation(  ) override ;
 
     GETUNIQUENAMEFUNC;

@@ -40,6 +40,11 @@ CDataCounter::CDataCounter ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 
+CDataCounter::~CDataCounter()
+{
+
+}
+
 
 
 void CDataCounter::evaluateOperation()
