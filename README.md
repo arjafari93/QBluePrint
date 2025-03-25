@@ -76,6 +76,14 @@ To build and run QBlueprint:
    ```
    _(CMake-based builds will be introduced in future updates.)_
 
+## 📝 Code Overview
+
+QBlueprint's codebase is designed to be **easy to understand and extend**. If you're interested in exploring the implementation, it helps to be familiar with **design patterns** like the **Visitor**, **Factory**, **observer** etc.  
+
+Each box in the system has some **input terminals**, and each terminal supports **all possible data types**. This allows for a vast number of **combinations**. I have implemented this flexibility using the **Visitor Pattern**, ensuring that each combination is processed correctly.  
+
+However, the result of a specific combination **depends on how it has been handled** in the implementation and **may not always match your expectations**. If you encounter any unexpected behavior, feel free to **open an issue** on GitHub!
+
 
 ## 💡 Usage Instructions
 1. Launch the application.
