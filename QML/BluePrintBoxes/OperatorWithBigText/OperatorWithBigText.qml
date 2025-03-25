@@ -10,7 +10,7 @@ SingleBoxInstance{
     boxHeaderRectID.visible: false
     Label{
         id: stringLabelSinkID
-        text: modelData.getOperatorSymbol();
+        text: operatorSymbol
         anchors.centerIn: parent
         font.pointSize: 35
         font.bold: true
