@@ -207,8 +207,8 @@ Drawer {
                     leftSideDrawerID.dragImageObject =
                             dragBoxComp.createObject(appMainWindowID ,
                                                      {
-                                                         "x":(posInParentCoord.x - mouse.x*0.5)* appMainWindowID.scaleFactorOfApp,
-                                                         "y":(posInParentCoord.y - mouse.y*0.5)*appMainWindowID.scaleFactorOfApp,
+                                                         "x":(posInParentCoord.x - mouse.x*0.5)* appMainWindowID.scaleFactorOfApp  - scrollViewInappMainWindowID.flickableItem.contentX ,
+                                                         "y":(posInParentCoord.y - mouse.y*0.5 )*appMainWindowID.scaleFactorOfApp - scrollViewInappMainWindowID.flickableItem.contentY ,
                                                          "opacity":0.4,
                                                          "scale":  appMainWindowID.scaleFactorOfApp
                                                      });

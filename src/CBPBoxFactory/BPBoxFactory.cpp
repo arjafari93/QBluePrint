@@ -27,6 +27,7 @@
 #include "src/COperationBox/dataSourceBoxes/UDPSocketServerSource.h"
 #include "src/COperationBox/CUniversalTypeConvertor/UniversalTypeConvertor.h"
 #include "src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h"
+#include "src/COperationBox/CDataCounter/DataCounter.h"
 
 
 class CBPBoxFactoryInterface
@@ -64,6 +65,7 @@ class CTCPSocketServerSourceFactory       : public CBPBoxFactoryInterface { publ
 class CUDPSocketServerSourceFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CUDPSocketServerSource  ( posX , posY   )                      ;} ; };
 class CUniversalTypeConvertorFactory      : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CUniversalTypeConvertor ( posX , posY   )                      ;} ; };
 class CLineSeriesChartBoxFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CLineSeriesChartBox     ( posX , posY   )                      ;} ; };
+class CDataCounterFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataCounter            ( posX , posY   )                      ;} ; };
 
 
 
@@ -98,6 +100,7 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CMathModulus            ::getUniqueName()          ] = new CMathModulusFactory            () ;
     m_mapOfBPBoxToFactory[ CMathAbsolute           ::getUniqueName()          ] = new CMathAbsoluteFactory           () ;
     m_mapOfBPBoxToFactory[ CMathPower              ::getUniqueName()          ] = new CMathPowerFactory              () ;
+    m_mapOfBPBoxToFactory[ CDataCounter            ::getUniqueName()          ] = new CDataCounterFactory            () ;
 
 
 }
@@ -159,6 +162,7 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathModulus            ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAbsolute           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathPower              ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataCounter            ::getUniqueName() , 600 , 100 )) ;
 
     return sListOfAllBPBoxes;
 }

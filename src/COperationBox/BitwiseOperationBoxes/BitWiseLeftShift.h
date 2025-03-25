@@ -22,7 +22,7 @@ class CBitWiseLeftShift : public COperationBox
 public:
 
     virtual void  evaluateOperation(  ) override ;
-    static Q_INVOKABLE  QString getOperatorSymbol() {return m_operatorSymbol;}
+    
     GETUNIQUENAMEFUNC;
 
 private:
