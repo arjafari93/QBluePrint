@@ -41,10 +41,10 @@ public:
         E_BP_INVALIDTYPE          ,
         E_BP_MathOperation        ,
         E_BP_DataComparison       ,
-        E_BP_ConversionOperation  ,
         E_BP_LogicalOperation     ,
         E_BP_OutPutSink           ,
         E_BP_InputSource          ,
+        E_BP_Miscellaneous        ,
         E_BP_BigPictureOperator
     };
     Q_ENUM(EBPBoxCategoryType)
@@ -53,10 +53,10 @@ public:
         { EBPBoxCategoryType::E_BP_INVALIDTYPE            , "Ivalid"              },
         { EBPBoxCategoryType::E_BP_MathOperation          , "Math"                },
         { EBPBoxCategoryType::E_BP_DataComparison         , "Data Comparison"     },
-        { EBPBoxCategoryType::E_BP_ConversionOperation    , "Conversion"          },
         { EBPBoxCategoryType::E_BP_LogicalOperation       , "Logical"             },
         { EBPBoxCategoryType::E_BP_OutPutSink             , "Output Sink"         },
         { EBPBoxCategoryType::E_BP_InputSource            , "Input Source"        },
+        { EBPBoxCategoryType::E_BP_Miscellaneous          , "Miscellaneous"       },
         { EBPBoxCategoryType::E_BP_BigPictureOperator     , "Conditional Branch"  }
     };
 
