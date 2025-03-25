@@ -27,6 +27,7 @@ SOURCES += \
         src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.cpp \
         src/COperationBox/CConditionalBranch/ConditionalBranch.cpp \
+        src/COperationBox/CDataCounter/DataCounter.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonEqual.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonGreater.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonLess.cpp \
@@ -79,6 +80,7 @@ HEADERS += \
     src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h \
     src/COperationBox/CConditionalBranch/ConditionalBranch.h \
+    src/COperationBox/CDataCounter/DataCounter.h \
     src/COperationBox/DataComparisonOperations/DataComparisonEqual.h \
     src/COperationBox/DataComparisonOperations/DataComparisonGreater.h \
     src/COperationBox/DataComparisonOperations/DataComparisonLess.h \
