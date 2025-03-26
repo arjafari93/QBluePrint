@@ -17,7 +17,7 @@ Tested on **Windows and Linux**.
 ![GitHub release](https://img.shields.io/github/v/release/arjafari93/QBluePrint)
 ![GitHub stars](https://img.shields.io/github/stars/arjafari93/QBluePrint?style=social)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)
-![GitHub all releases](https://img.shields.io/github/downloads/yourusername/yourrepository/total)
+![GitHub all releases](https://img.shields.io/github/downloads/arjafari93/QBluePrint/total)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
 
 
