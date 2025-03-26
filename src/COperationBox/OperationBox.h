@@ -54,7 +54,7 @@ public:
                            int      newBlueBox_height ,
                            QObject *parent = nullptr );
 
-    virtual void  evaluateOperation( ) = 0 ;
+    Q_INVOKABLE virtual void  evaluateOperation( ) = 0 ;
 
     QQmlListProperty<COutputTerminal>             listOfOutputTerminals () ;
     QQmlListProperty<CInputTerminal>              listOfInputTerminals  () ;

@@ -41,7 +41,6 @@ void CStringOutputSink::evaluateOperation()
         m_stringToBeDisplayed =  QString::number(pVal->value()) ;
     }
     emit stringToBeDisplayedChanged() ;
-    return  ;
 }
 
 

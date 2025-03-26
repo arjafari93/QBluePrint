@@ -45,6 +45,7 @@ SOURCES += \
         src/COperationBox/MathOperationBoxes/MathSubtraction.cpp \
         src/COperationBox/dataSinkBoxes/CSocketClientSink.cpp \
         src/COperationBox/dataSinkBoxes/StringOutputSink.cpp \
+        src/COperationBox/dataSourceBoxes/ButtonSource.cpp \
         src/COperationBox/dataSourceBoxes/TCPSocketServerSource.cpp \
         src/COperationBox/dataSourceBoxes/TimerSendValSrc.cpp \
         src/COperationBox/dataSourceBoxes/UDPSocketServerSource.cpp \
@@ -98,6 +99,7 @@ HEADERS += \
     src/COperationBox/MathOperationBoxes/MathSubtraction.h \
     src/COperationBox/dataSinkBoxes/CSocketClientSink.h \
     src/COperationBox/dataSinkBoxes/StringOutputSink.h \
+    src/COperationBox/dataSourceBoxes/ButtonSource.h \
     src/COperationBox/dataSourceBoxes/TCPSocketServerSource.h \
     src/COperationBox/dataSourceBoxes/TimerSendValSrc.h \
     src/COperationBox/dataSourceBoxes/UDPSocketServerSource.h \

@@ -27,7 +27,7 @@ SingleBoxInstance{
         verticalOffset: 5
         radius: 10.0
         samples: 10
-        color: "#f0000000"
+        color: "#000000"
         source: bigPictureOperatorImageID
     }
 
@@ -40,9 +40,9 @@ SingleBoxInstance{
 
     gradient: Gradient {
         orientation: Gradient.Vertical
-        GradientStop { position: 0.0; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.3 ) }
-        GradientStop { position: 0.5; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.1 ) }
-        GradientStop { position: 1.0; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.3 ) }
+        GradientStop { position: 0.0; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.4 ) }
+        GradientStop { position: 0.5; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.15 ) }
+        GradientStop { position: 1.0; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.4 ) }
     }
 }
 
