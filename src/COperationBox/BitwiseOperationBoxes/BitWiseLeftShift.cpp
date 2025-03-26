@@ -19,11 +19,12 @@ public:
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>(lhs.value() << pVal->value());
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() << (long long)pVal->value());
+            m_result = std::make_shared<CValue_int>(lhs.value() << (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>(lhs.value() << (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            auto numShifts = pVal->value().toLongLong();
+            m_result = std::make_shared<CValue_int>(lhs.value() << numShifts);
         }
     }
 
@@ -35,32 +36,53 @@ public:
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_double>((long long)lhs.value() << (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            auto numShifts = pVal->value().toLongLong();
+            m_result = std::make_shared<CValue_double>((long long)lhs.value() << numShifts);
         }
     }
 
     void visit(const CValue_string& lhs) override {
-        Q_UNUSED(lhs)
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_int>(-1);
+            if(lhs.value().length() >= pVal->value() ){
+                auto trmiedStr = lhs.value().right(lhs.value().length() - pVal->value() );  // Keeps all but the last character
+                m_result = std::make_shared<CValue_string>(trmiedStr);
+            }else{
+                m_result = std::make_shared<CValue_string>("");
+            }
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(-1);
+            if(lhs.value().length() >= (long long)pVal->value() ){
+                auto trmiedStr = lhs.value().right(lhs.value().length() - (long long)pVal->value() );  // Keeps all but the last character
+                m_result = std::make_shared<CValue_string>(trmiedStr);
+            }else{
+                m_result = std::make_shared<CValue_string>("");
+            }
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_bool>(false);
+            if(lhs.value().length() >= (long long)pVal->value() ){
+                auto trmiedStr = lhs.value().right(lhs.value().length() - (long long)pVal->value() );  // Keeps all but the last character
+                m_result = std::make_shared<CValue_string>(trmiedStr);
+            }else{
+                m_result = std::make_shared<CValue_string>("");
+            }
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            if(lhs.value().length() >= pVal->value().toLongLong() ){
+                auto trmiedStr = lhs.value().right(lhs.value().length() - pVal->value().toLongLong() );  // Keeps all but the last character
+                m_result = std::make_shared<CValue_string>(trmiedStr);
+            }else{
+                m_result = std::make_shared<CValue_string>("");
+            }
         }
     }
 
     void visit(const CValue_bool& lhs) override {
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_int>(lhs.value() << pVal->value());
+            m_result = std::make_shared<CValue_int>((long long)lhs.value() << pVal->value());
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() << (long long)pVal->value());
+            m_result = std::make_shared<CValue_int>((long long)lhs.value() << (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>((long long)lhs.value() << (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            auto numShifts = pVal->value().toLongLong();
+            m_result = std::make_shared<CValue_int>((long long)lhs.value() << numShifts);
         }
     }
 
@@ -86,9 +108,9 @@ CBitWiseLeftShift::CBitWiseLeftShift ( int newBlueBox_xPos, int newBlueBox_yPos 
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigTextOperator ;
     m_blueBox_HeadColor = QColor(218, 15, 129);
     auto inputNode1 = new CInputTerminal(0, this);
-    inputNode1->setTerminalName("n");
+    inputNode1->setTerminalName("Val");
     auto inputNode2 = new CInputTerminal(1, this);
-    inputNode2->setTerminalName("Num");
+    inputNode2->setTerminalName("n");
     m_listOfInputTerminals.push_back(inputNode1 );
     m_listOfInputTerminals.push_back(inputNode2 );
 
