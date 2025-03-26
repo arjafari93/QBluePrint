@@ -59,5 +59,7 @@
         <file>Images/chartIcon.png</file>
         <file>QML/BluePrintBoxes/ChartBoxes/ChartBoxSettings.qml</file>
         <file>Images/settingsIcon.png</file>
+        <file>Images/buttonClickIcon.png</file>
+        <file>QML/BluePrintBoxes/ButtonSourceBox/ButtonSourceBox.qml</file>
     </qresource>
 </RCC>

@@ -28,6 +28,7 @@ public:
         E_OutputSinkNetworkClient ,
         E_InputSpinBoxWithTimer   ,
         E_InputNetworkServer      ,
+        E_InputButtonSource       ,
         E_BigTextOperator         ,
         E_BigPictureOperator      ,
         E_TypeConvrtrOperator     ,

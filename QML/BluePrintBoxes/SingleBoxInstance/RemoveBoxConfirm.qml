@@ -23,9 +23,6 @@ Popup {
 
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
-
-
-
     TempQuick.Overlay.modal:  Rectangle{
         color: "#E0000000"
     }
@@ -52,11 +49,6 @@ Popup {
     onClosed: {
         pupUpCompID.destroy();
     }
-
-
-
-
-
 
     Label{
         id:popUpMsgHeaderLabelID
