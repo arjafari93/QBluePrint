@@ -451,12 +451,12 @@ bool CBPBoxManager::saveBluePrintInfo(const QString & pathToFile)
 
 bool CBPBoxManager::loadBluePrintInfo(const QString &pathToFile)
 {
-    setCurrentBluePrintFilePath(pathToFile);
+
     // Read the JSON file
-    QFile file(m_currentBluePrintFilePath);
+    QFile file(pathToFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        DEBUG_MSG_PRINT << "Failed to open JSON file" << m_currentBluePrintFilePath;
+        DEBUG_MSG_PRINT << "Failed to open JSON file" << pathToFile;
         return false;
     }
 
@@ -473,12 +473,9 @@ bool CBPBoxManager::loadBluePrintInfo(const QString &pathToFile)
         DEBUG_MSG_PRINT << "Failed to parse JSON document";
         return false ;
     }
-
+    setCurrentBluePrintFilePath(pathToFile);
     // lets clear current info if any
-    qDeleteAll(m_listOfBlueBoxes);
-    qDeleteAll(m_listOfFlowConnectionLines);
-    m_listOfBlueBoxes.clear();
-    m_listOfFlowConnectionLines.clear();
+    clearCurrentBluePrintSession();
     // Access the main JSON object
     QJsonObject mainObject = jsonDocument.object();
 
