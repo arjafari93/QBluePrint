@@ -94,7 +94,7 @@ CDataComparisonEqual::CDataComparisonEqual ( int newBlueBox_xPos, int newBlueBox
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Comparator equal compare same";
+    m_blueBox_keyWords = "Comparator compare comparison equal  same";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_DataComparison ;
 }
 

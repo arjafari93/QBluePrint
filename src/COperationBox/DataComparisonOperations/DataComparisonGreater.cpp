@@ -93,7 +93,7 @@ CDataComparisonGreater::CDataComparisonGreater ( int newBlueBox_xPos, int newBlu
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Comparator greater than compare bigger ";
+    m_blueBox_keyWords = "Comparator compare comparison greater than bigger ";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_DataComparison ;
 }
 
