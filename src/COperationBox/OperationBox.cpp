@@ -213,7 +213,7 @@ void COperationBox::serializeBoxInfoIntoJson(QJsonObject &jsonObj)
 
 static inline bool setTerminalValuesForBox(const QJsonObject & jsonObj , COperationBox * pBox ){
     QString terminalType = jsonObj["Type"].toString();
-    int terminalID = jsonObj["TrmnlIndex"].toInt();
+    int terminalID = jsonObj["TrmnlIndex"].toString().toInt();
     ASSERTWITHRETURN(terminalID < pBox->getListOfInputTerminals().length() , false);
 
     std::shared_ptr<CRawValueBase> pDataVal {nullptr};
