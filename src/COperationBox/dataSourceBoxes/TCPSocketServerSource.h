@@ -33,7 +33,7 @@ public:
 private:
     int  m_serverPortNum = 0 ;
     inline const static QString    m_uniqueBoxName = "TCP Server" ;
-    std::unique_ptr< QTcpServer>   mp_tcpServer{nullptr};
+    std::unique_ptr< QTcpServer>   mp_tcpServer ;
 
 signals:
     void  serverPortNumChanged       () ;

@@ -33,7 +33,7 @@ public:
 private:
     int  m_serverPortNum = 0 ;
     inline const static QString    m_uniqueBoxName = "UDP Server" ;
-    std::unique_ptr< QUdpSocket>   mp_udpServer{nullptr};
+    std::unique_ptr< QUdpSocket>   mp_udpServer ;
 
 signals:
     void  serverPortNumChanged       () ;

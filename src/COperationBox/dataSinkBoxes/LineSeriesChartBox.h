@@ -31,8 +31,8 @@ public:
 
 private:
     inline const static QString    m_uniqueBoxName  = "Line Series Chart" ;
-    std::unique_ptr<QtCharts::QVXYModelMapper>      mp_modelXYMapperLiveData {nullptr};
-    std::unique_ptr<CLiveDataXYModel>               mp_dataListModelInstace {nullptr};
+    std::unique_ptr<QtCharts::QVXYModelMapper>      mp_modelXYMapperLiveData ;
+    std::unique_ptr<CLiveDataXYModel>               mp_dataListModelInstace ;
 };
 
 #endif // CLINESERIESCHARTBOX_H
