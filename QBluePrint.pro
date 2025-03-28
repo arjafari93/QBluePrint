@@ -31,6 +31,7 @@ SOURCES += \
         src/COperationBox/DataComparisonOperations/DataComparisonEqual.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonGreater.cpp \
         src/COperationBox/DataComparisonOperations/DataComparisonLess.cpp \
+        src/COperationBox/Miscellaneous/StopWatch.cpp \
         src/COperationBox/dataSinkBoxes/LiveDataXYModel.cpp \
         src/COperationBox/dataSinkBoxes/LineSeriesChartBox.cpp \
         src/COperationBox/LogicalOperationBoxes/LogicalAND.cpp \
@@ -85,6 +86,7 @@ HEADERS += \
     src/COperationBox/DataComparisonOperations/DataComparisonEqual.h \
     src/COperationBox/DataComparisonOperations/DataComparisonGreater.h \
     src/COperationBox/DataComparisonOperations/DataComparisonLess.h \
+    src/COperationBox/Miscellaneous/StopWatch.h \
     src/COperationBox/dataSinkBoxes/LiveDataXYModel.h \
     src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h \
     src/COperationBox/LogicalOperationBoxes/LogicalAND.h \

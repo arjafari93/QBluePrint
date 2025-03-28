@@ -61,5 +61,7 @@
         <file>Images/settingsIcon.png</file>
         <file>Images/buttonClickIcon.png</file>
         <file>QML/BluePrintBoxes/ButtonSourceBox/ButtonSourceBox.qml</file>
+        <file>QML/BluePrintBoxes/StopWatchBox/StopWatchBox.qml</file>
+        <file>Images/stopWatch.png</file>
     </qresource>
 </RCC>

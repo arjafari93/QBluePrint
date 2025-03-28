@@ -32,6 +32,8 @@ Repeater{
             return "qrc:/QML/BluePrintBoxes/ChartBoxes/LineSeriesChartBox.qml"
         case CBPStatic.E_InputButtonSource:
             return "qrc:/QML/BluePrintBoxes/ButtonSourceBox/ButtonSourceBox.qml"
+        case CBPStatic.E_StopWatch:
+            return "qrc:/QML/BluePrintBoxes/StopWatchBox/StopWatchBox.qml"
         }
         console.log("GUI Type Doesnt exist " ,guiType );
         return "qrc:/QML/BluePrintBoxes/BigPictureOperator/BigPictureOperator.qml"
