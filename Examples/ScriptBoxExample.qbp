@@ -7,17 +7,17 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "int",
-                    "Value": "15"
+                    "Value": "17"
                 },
                 {
                     "TrmnlIndex": "1",
                     "Type": "double",
-                    "Value": "15.00"
+                    "Value": "15.59"
                 },
                 {
                     "TrmnlIndex": "2",
                     "Type": "int",
-                    "Value": "15"
+                    "Value": "13"
                 }
             ],
             "numInputs": "3",
@@ -29,10 +29,10 @@
         {
             "BoxName": "Send Source Timer",
             "boolVal": "0",
-            "doubleVal": "15",
+            "doubleVal": "15.59",
             "inptTrmnls": [
             ],
-            "intVal": "15",
+            "intVal": "17",
             "interval": "1000",
             "stringVal": "test string",
             "uniqueID": "35",
@@ -42,10 +42,10 @@
         {
             "BoxName": "Send Source Timer",
             "boolVal": "0",
-            "doubleVal": "15",
+            "doubleVal": "16",
             "inptTrmnls": [
             ],
-            "intVal": "15",
+            "intVal": "13",
             "interval": "1000",
             "stringVal": "test string",
             "uniqueID": "36",
@@ -58,7 +58,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "15"
+                    "Value": "17"
                 }
             ],
             "uniqueID": "37",
@@ -71,7 +71,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "30"
+                    "Value": "32.59"
                 }
             ],
             "uniqueID": "38",
@@ -84,7 +84,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "30"
+                    "Value": "28"
                 }
             ],
             "uniqueID": "39",
@@ -97,7 +97,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "15 Value"
+                    "Value": "13 Value"
                 }
             ],
             "uniqueID": "40",
