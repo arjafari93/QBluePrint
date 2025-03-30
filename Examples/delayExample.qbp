@@ -1,0 +1,110 @@
+{
+    "BPBoxesInfo": [
+        {
+            "BoxName": "Data Counter",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "0"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "int",
+                    "Value": "0"
+                },
+                {
+                    "TrmnlIndex": "2",
+                    "Type": "int",
+                    "Value": "1"
+                }
+            ],
+            "uniqueID": "34",
+            "xPos": "474",
+            "yPos": "265"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "1"
+                }
+            ],
+            "uniqueID": "35",
+            "xPos": "1128",
+            "yPos": "89"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "0"
+                }
+            ],
+            "uniqueID": "36",
+            "xPos": "1121",
+            "yPos": "275"
+        },
+        {
+            "BoxName": "Button",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "0"
+                }
+            ],
+            "uniqueID": "37",
+            "xPos": "189",
+            "yPos": "167"
+        },
+        {
+            "BoxName": "Delay",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "1"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "int",
+                    "Value": "1000"
+                }
+            ],
+            "uniqueID": "38",
+            "xPos": "785",
+            "yPos": "196"
+        }
+    ],
+    "BPFlowLinesInfo": [
+        {
+            "endBoxID": "34",
+            "endTerminalIndex": "0",
+            "startBoxID": "37",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "38",
+            "endTerminalIndex": "0",
+            "startBoxID": "34",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "35",
+            "endTerminalIndex": "0",
+            "startBoxID": "38",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "36",
+            "endTerminalIndex": "0",
+            "startBoxID": "38",
+            "startTerminalIndex": "1"
+        }
+    ]
+}
