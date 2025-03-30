@@ -8,8 +8,8 @@
 #include <QJSEngine>
 #include <QJsonObject>
 
-inline const static int blueBoxWidth  = 380 ;
-inline const static int blueBoxHeight = 300 ;
+inline const static int blueBoxWidth  = 500 ;
+inline const static int blueBoxHeight = 350 ;
 
 
 CBlueScriptBox::CBlueScriptBox ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)

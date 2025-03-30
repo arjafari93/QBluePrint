@@ -85,7 +85,7 @@ void CLineSeriesChartBox::evaluateOperation()
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentData)) {
         result = pVal->value() ;
     }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentData)) {
-        result = pVal->value() .toDouble();
+        result = pVal->value().toDouble();
     }else{
         DEBUG_MSG_PRINT << " invalid data type " ;
         return ;

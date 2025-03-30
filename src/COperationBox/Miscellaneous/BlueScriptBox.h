@@ -47,9 +47,8 @@ private:
     inline const static QString    m_uniqueBoxName  = "Script Box" ;
     QString       m_operatorSymbol = "$$$";
     QString       m_jsErrorMessage = "";
-    QString       m_scriptFunctionBody =R"(
-function functionBlock(inp0) {
- return [parseInt(inp0)*2];
+    QString       m_scriptFunctionBody =R"(function functionBlock(in0) {
+ return [in0];
 }
     )";
     int           m_numInputs = 1;
