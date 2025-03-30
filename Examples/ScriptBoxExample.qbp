@@ -1,0 +1,171 @@
+{
+    "BPBoxesInfo": [
+        {
+            "BoxName": "Script Box",
+            "funcBody": "function functionBlock(in0, in1, in2) {\nvar addition = parseInt(in0) + parseFloat(in1);\nvar diff = parseInt(in1) + parseFloat(in2);\nvar appendedVal = in2 + \" Value\"\n return [in0, addition, diff, appendedVal, \"custom value\" ];\n}\n    ",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "15"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "double",
+                    "Value": "15.00"
+                },
+                {
+                    "TrmnlIndex": "2",
+                    "Type": "int",
+                    "Value": "15"
+                }
+            ],
+            "numInputs": "3",
+            "numOutputs": "5",
+            "uniqueID": "34",
+            "xPos": "718",
+            "yPos": "219"
+        },
+        {
+            "BoxName": "Send Source Timer",
+            "boolVal": "0",
+            "doubleVal": "15",
+            "inptTrmnls": [
+            ],
+            "intVal": "15",
+            "interval": "1000",
+            "stringVal": "test string",
+            "uniqueID": "35",
+            "xPos": "223",
+            "yPos": "78"
+        },
+        {
+            "BoxName": "Send Source Timer",
+            "boolVal": "0",
+            "doubleVal": "15",
+            "inptTrmnls": [
+            ],
+            "intVal": "15",
+            "interval": "1000",
+            "stringVal": "test string",
+            "uniqueID": "36",
+            "xPos": "223",
+            "yPos": "377"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "15"
+                }
+            ],
+            "uniqueID": "37",
+            "xPos": "1363",
+            "yPos": "22"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "30"
+                }
+            ],
+            "uniqueID": "38",
+            "xPos": "1359",
+            "yPos": "182"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "30"
+                }
+            ],
+            "uniqueID": "39",
+            "xPos": "1356",
+            "yPos": "344"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "15 Value"
+                }
+            ],
+            "uniqueID": "40",
+            "xPos": "1356",
+            "yPos": "506"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "custom value"
+                }
+            ],
+            "uniqueID": "41",
+            "xPos": "1359",
+            "yPos": "669"
+        }
+    ],
+    "BPFlowLinesInfo": [
+        {
+            "endBoxID": "34",
+            "endTerminalIndex": "0",
+            "startBoxID": "35",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "34",
+            "endTerminalIndex": "1",
+            "startBoxID": "35",
+            "startTerminalIndex": "1"
+        },
+        {
+            "endBoxID": "34",
+            "endTerminalIndex": "2",
+            "startBoxID": "36",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "37",
+            "endTerminalIndex": "0",
+            "startBoxID": "34",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "38",
+            "endTerminalIndex": "0",
+            "startBoxID": "34",
+            "startTerminalIndex": "1"
+        },
+        {
+            "endBoxID": "39",
+            "endTerminalIndex": "0",
+            "startBoxID": "34",
+            "startTerminalIndex": "2"
+        },
+        {
+            "endBoxID": "40",
+            "endTerminalIndex": "0",
+            "startBoxID": "34",
+            "startTerminalIndex": "3"
+        },
+        {
+            "endBoxID": "41",
+            "endTerminalIndex": "0",
+            "startBoxID": "34",
+            "startTerminalIndex": "4"
+        }
+    ]
+}

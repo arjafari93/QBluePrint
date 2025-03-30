@@ -23,6 +23,10 @@ COperationBox::COperationBox(QString newBlueBox_name, int newBlueBox_xPos, int n
     m_boxUniqueIDNumber = uniqueIDCounter;
 }
 
+COperationBox::~COperationBox()
+{
+}
+
 void COperationBox::setBoxUniqueIDNumber(const int &newValue)
 {
     m_boxUniqueIDNumber = newValue;

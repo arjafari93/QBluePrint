@@ -89,8 +89,8 @@ private :
     int    m_flowLine_endX    = 0 ; // relative to startX
     int    m_flowLine_endY    = 0 ; // relative to startY
 
-    COutputTerminal *            mp_startPoint = nullptr ;
-    CInputTerminal  *            mp_endPoint   = nullptr ;
+    COutputTerminal *         mp_startPoint = nullptr ;
+    CInputTerminal  *         mp_endPoint   = nullptr ;
     QColor                    m_flowLine_color = QColor(0,255,255);
     int                       m_flowLine_strokeWidth = 1 ;
 
@@ -100,9 +100,8 @@ signals:
     void    flowLine_startYChanged ( ) ;
     void    flowLine_endXChanged   ( ) ;
     void    flowLine_endYChanged   ( ) ;
+    void    flowLine_colorChanged  ( ) ;
     void    flowLine_strokeWidthChanged( );
-
-    void flowLine_colorChanged();
 };
 
 #endif // CFLOWCONNECTIONLINE_H

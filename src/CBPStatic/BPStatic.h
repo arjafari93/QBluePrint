@@ -33,6 +33,7 @@ public:
         E_BigPictureOperator      ,
         E_TypeConvrtrOperator     ,
         E_StopWatch               ,
+        E_ScriptRunner            ,
         E_ChartBoxLineSeries
 
     };

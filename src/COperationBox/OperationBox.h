@@ -47,6 +47,7 @@ class COperationBox : public QObject
 public:
     Q_DISABLE_COPY_MOVE(COperationBox)
     explicit COperationBox(QObject *parent = nullptr) = delete;
+    ~COperationBox( );
     explicit COperationBox(QString  newBlueBox_name  ,
                            int      newBlueBox_xPos  ,
                            int      newBlueBox_yPos  ,

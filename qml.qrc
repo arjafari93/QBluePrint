@@ -63,5 +63,9 @@
         <file>QML/BluePrintBoxes/ButtonSourceBox/ButtonSourceBox.qml</file>
         <file>QML/BluePrintBoxes/StopWatchBox/StopWatchBox.qml</file>
         <file>Images/stopWatch.png</file>
+        <file>QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerBox.qml</file>
+        <file>Images/codeIcon.png</file>
+        <file>QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerSettingsPopup.qml</file>
+        <file>Images/warningIcon.png</file>
     </qresource>
 </RCC>
