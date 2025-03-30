@@ -7,6 +7,7 @@ import org.bluePrintType.OperationBox 1.0
 Rectangle{
     id:boxMainRectID
     property COperationBox pBoxInstance: modelData
+    property alias settingBtnImageID: settingBtnImageID
     color:  "#b00F110F"
     x: boxMainRectID.pBoxInstance.blueBox_xPos
     y: boxMainRectID.pBoxInstance.blueBox_yPos
@@ -127,7 +128,7 @@ Rectangle{
         anchors.topMargin: 0 // dont change this
         anchors.bottom: parent.bottom
         width: fontMetricsID.height * 5
-        model: listOfInputTerminals
+        model: boxMainRectID.pBoxInstance.listOfInputTerminals
         clip: false
         delegate: SingleTerminalInstance {
             id: inputKnobsOfTheBoxDelegateID
@@ -150,7 +151,7 @@ Rectangle{
         anchors.top: boxHeaderRectID.bottom
         anchors.bottom: parent.bottom
         width: fontMetricsID.height * 5
-        model: listOfOutputTerminals
+        model: boxMainRectID.pBoxInstance.listOfOutputTerminals
         clip: false
         delegate: SingleTerminalInstance {
             id: outputKnobsOfTheBoxDelegateID

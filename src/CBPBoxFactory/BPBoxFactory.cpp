@@ -29,7 +29,8 @@
 #include "src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h"
 #include "src/COperationBox/Miscellaneous/DataCounter.h"
 #include "src/COperationBox/dataSourceBoxes/ButtonSource.h"
-#include "src/COperationBox/Miscellaneous/StopWatch.h""
+#include "src/COperationBox/Miscellaneous/StopWatch.h"
+#include "src/COperationBox/Miscellaneous/BlueScriptBox.h"
 
 
 class CBPBoxFactoryInterface
@@ -57,6 +58,7 @@ class CDataComparisonGreaterFactory       : public CBPBoxFactoryInterface { publ
 class CDataComparisonLessFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonLess     ( posX , posY   )                      ;} ; };
 class CConditionalBranchFactory           : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CConditionalBranch      ( posX , posY   )                      ;} ; };
 class CStopWatchFactory                   : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CStopWatch              ( posX , posY   )                      ;} ; };
+class CBlueScriptBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CBlueScriptBox          ( posX , posY   )                      ;} ; };
 class CMathMultiplicationFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathMultiplication     ( posX , posY   )                      ;} ; };
 class CMathAdditionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathAddition           ( posX , posY   )                      ;} ; };
 class CMathDivisionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathDivision           ( posX , posY   )                      ;} ; };
@@ -87,7 +89,8 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CDataCounter            ::getUniqueName()          ] = new CDataCounterFactory            () ;
     m_mapOfBPBoxToFactory[ CUniversalTypeConvertor ::getUniqueName()          ] = new CUniversalTypeConvertorFactory () ;
     m_mapOfBPBoxToFactory[ CConditionalBranch      ::getUniqueName()          ] = new CConditionalBranchFactory      () ;
-    m_mapOfBPBoxToFactory[ CStopWatch              ::getUniqueName()          ] = new CStopWatchFactory               () ;
+    m_mapOfBPBoxToFactory[ CStopWatch              ::getUniqueName()          ] = new CStopWatchFactory              () ;
+    m_mapOfBPBoxToFactory[ CBlueScriptBox           ::getUniqueName()         ] = new CBlueScriptBoxFactory          () ;
     m_mapOfBPBoxToFactory[ CLogicalAND             ::getUniqueName()          ] = new CLogicalANDFactory             () ;
     m_mapOfBPBoxToFactory[ CLogicalOR              ::getUniqueName()          ] = new CLogicalORFactory              () ;
     m_mapOfBPBoxToFactory[ CLogicalNOT             ::getUniqueName()          ] = new CLogicalNOTFactory             () ;
@@ -152,6 +155,7 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUniversalTypeConvertor ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CConditionalBranch      ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CStopWatch              ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CBlueScriptBox          ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLogicalAND             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLogicalOR              ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLogicalNOT             ::getUniqueName() , 600 , 100 )) ;
