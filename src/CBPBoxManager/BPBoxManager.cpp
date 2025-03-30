@@ -473,9 +473,9 @@ bool CBPBoxManager::loadBluePrintInfo(const QString &pathToFile)
         DEBUG_MSG_PRINT << "Failed to parse JSON document";
         return false ;
     }
-    setCurrentBluePrintFilePath(pathToFile);
     // lets clear current info if any
     clearCurrentBluePrintSession();
+    setCurrentBluePrintFilePath(pathToFile);
     // Access the main JSON object
     QJsonObject mainObject = jsonDocument.object();
 
