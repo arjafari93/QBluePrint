@@ -103,3 +103,18 @@ void CDelayMakerBox::evaluateOperation()
     m_listOfOutputTerminals.at(1)->sendValueToFlowLine( std::make_shared<CValue_int>(m_valuesToBeSent.size()) );
 
 }
+
+
+void CDelayMakerBox::deserializeBoxInfoFromJson(const QJsonObject &jsonObj)
+{
+    // in this specific box we call the base deserialize method after the derived body, bcz teminals will change in derived body
+    COperationBox::deserializeBoxInfoFromJson(jsonObj);
+    auto pNewDelay =  dynamic_cast<CValue_int*>(m_listOfInputTerminals.at(1)->terminalCurrentData().get());
+    if(pNewDelay->value() != m_msDelay){
+        if(pNewDelay->value() < 0 )
+            m_msDelay = 0 ;
+        else
+            m_msDelay = pNewDelay->value() ;
+        mp_sendValueTimer->setInterval(m_msDelay);
+    }
+}

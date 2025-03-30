@@ -22,6 +22,8 @@ public:
     virtual void  evaluateOperation(  ) override ;
     GETUNIQUENAMEFUNC;
 
+    virtual void deserializeBoxInfoFromJson( const QJsonObject & jsonObj ) override ;
+
 private:
     inline const static QString    m_uniqueBoxName  = "Delay" ;
     QTimer * mp_sendValueTimer = nullptr ;
