@@ -52,7 +52,7 @@ void CConditionalBranch::evaluateOperation()
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCondData)) {
             condData = pVal->value();
         } else if (auto* pVal = dynamic_cast<CValue_string*>(pCondData)) {
-            condData = pVal->value().size();
+            condData = pVal->value().toLongLong();
         }else{
             DEBUG_MSG_PRINT << "inavlid daata type " ;
             return ;

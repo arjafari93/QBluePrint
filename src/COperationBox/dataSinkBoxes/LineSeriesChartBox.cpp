@@ -65,7 +65,7 @@ void CLineSeriesChartBox::evaluateOperation()
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pResetStatus)) {
         resetChart = pVal->value() ;
     }else if (auto* pVal = dynamic_cast<CValue_string*>(pResetStatus)) {
-        resetChart = pVal->value().size();
+        resetChart = pVal->value().toLongLong();
     }
 
     if(resetChart == true ){
@@ -73,8 +73,6 @@ void CLineSeriesChartBox::evaluateOperation()
         m_listOfInputTerminals.at(1)->setTerminalCurrentData( std::make_shared<CValue_bool>(false ) );
         return ;
     }
-
-
 
     auto pCurrentData = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
     float result = 0 ;;

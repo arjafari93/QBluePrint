@@ -25,7 +25,7 @@ public:
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(lhs.value() && pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_bool>(lhs.value()  && pVal->value().size() );
+            m_result = std::make_shared<CValue_bool>(lhs.value()  && pVal->value().toLongLong() );
         }
     }
 
@@ -37,7 +37,7 @@ public:
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(lhs.value() && pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_bool>(lhs.value()  && pVal->value().size());
+            m_result = std::make_shared<CValue_bool>(lhs.value()  && pVal->value().toLongLong());
         }
     }
 
@@ -50,7 +50,7 @@ public:
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(false);
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_bool>(lhs.value().size()  && pVal->value().size());
+            m_result = std::make_shared<CValue_bool>(lhs.value().toLongLong()  && pVal->value().toLongLong());
         }
     }
 
@@ -62,7 +62,7 @@ public:
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(lhs.value() && pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_bool>(lhs.value() && pVal->value().size());
+            m_result = std::make_shared<CValue_bool>(lhs.value() && pVal->value().toLongLong());
         }
     }
 
