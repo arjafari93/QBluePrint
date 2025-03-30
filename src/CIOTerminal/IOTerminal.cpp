@@ -48,6 +48,7 @@ void CIOTerminal::changeTerminalCurrentData(const QVariant &newValue)
         DEBUG_MSG_PRINT << " type doesnt exist " ;
         break;
     }
+    emit nodeIsPassingNewValue(); // this can be helpful for signal/slots and finding the data has changed though GUI popup
 
 }
 

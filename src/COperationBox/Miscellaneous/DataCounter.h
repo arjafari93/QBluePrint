@@ -5,8 +5,6 @@
 #include <QObject>
 #include "../OperationBox.h"
 
-
-
 class CDataCounter : public COperationBox
 {
     Q_OBJECT
