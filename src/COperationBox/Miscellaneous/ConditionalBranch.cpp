@@ -39,22 +39,24 @@ CConditionalBranch::CConditionalBranch ( int newBlueBox_xPos, int newBlueBox_yPo
 
 void CConditionalBranch::evaluateOperation()
 {
-    auto pCondData = m_listOfInputTerminals.at(1)->terminalCurrentData().get() ;
-    if(!pCondData)
-        return ;
-
     bool condData = false ;
-    if (auto* pVal = dynamic_cast<CValue_int*>(pCondData)) {
-        condData =  (bool)pVal->value()   ;
-    } else if (auto* pVal = dynamic_cast<CValue_double*>(pCondData)) {
-        condData = (bool)pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCondData)) {
-        condData = pVal->value();
-    } else if (auto* pVal = dynamic_cast<CValue_string*>(pCondData)) {
-        condData = pVal->value().size();
-    }else{
-        DEBUG_MSG_PRINT << "inavlid daata type " ;
-        return ;
+    {// make scope to minimize the stack size on recursion
+        auto pCondData = m_listOfInputTerminals.at(1)->terminalCurrentData().get() ;
+        if(!pCondData)
+            return ;
+
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCondData)) {
+            condData =  (bool)pVal->value()   ;
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCondData)) {
+            condData = (bool)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCondData)) {
+            condData = pVal->value();
+        } else if (auto* pVal = dynamic_cast<CValue_string*>(pCondData)) {
+            condData = pVal->value().size();
+        }else{
+            DEBUG_MSG_PRINT << "inavlid daata type " ;
+            return ;
+        }
     }
 
     if(!m_listOfInputTerminals.at(0)->terminalCurrentData().get())

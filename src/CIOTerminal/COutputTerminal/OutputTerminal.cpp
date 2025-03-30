@@ -14,7 +14,7 @@ COutputTerminal::COutputTerminal(const int &terminalIndexInBox, COperationBox *p
     });
 }
 
-void COutputTerminal::sendValueToFlowLine(std::shared_ptr<CRawValueBase> valueToBeSent)
+void COutputTerminal::sendValueToFlowLine(const std::shared_ptr<CRawValueBase> & valueToBeSent)
 {
     emit nodeIsPassingNewValue();
     setTerminalCurrentData(valueToBeSent );

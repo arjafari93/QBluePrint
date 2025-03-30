@@ -86,7 +86,7 @@ void CFlowConnectionLine::serializeFlowLineInfoIntoJson(QJsonObject &jsonObj)
 
 
 
-void CFlowConnectionLine::passValueToEndPoint( std::shared_ptr<CRawValueBase> valueToBePassed)
+void CFlowConnectionLine::passValueToEndPoint(const  std::shared_ptr<CRawValueBase> &  valueToBePassed)
 {
     // value is coming from startPoint, we have to pass it to the end point
     if( mp_endPoint  == nullptr ){

@@ -50,47 +50,49 @@ void CDataCounter::evaluateOperation()
 {
     if(!m_listOfInputTerminals.at(0)->terminalCurrentData().get() || !m_listOfInputTerminals.at(1)->terminalCurrentData().get() )
         return ;
+    { // make scope to minimize the stack size on recursion
+        auto pinitialValue = m_listOfInputTerminals.at(1)->terminalCurrentData().get() ;
+        int newResetVal = 0 ;
+        if (auto* pVal = dynamic_cast<CValue_int*>(pinitialValue)) {
+            newResetVal = pVal->value();
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pinitialValue)) {
+            newResetVal = (long long)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pinitialValue)) {
+            newResetVal = (long long)pVal->value() ;
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pinitialValue)) {
+            newResetVal = pVal->value().toLongLong();
+        }
 
-    auto pinitialValue = m_listOfInputTerminals.at(1)->terminalCurrentData().get() ;
-    int newResetVal = 0 ;
-    if (auto* pVal = dynamic_cast<CValue_int*>(pinitialValue)) {
-        newResetVal = pVal->value();
-    } else if (auto* pVal = dynamic_cast<CValue_double*>(pinitialValue)) {
-        newResetVal = (long long)pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_bool*>(pinitialValue)) {
-        newResetVal = (long long)pVal->value() ;
-    }else if (auto* pVal = dynamic_cast<CValue_string*>(pinitialValue)) {
-        newResetVal = pVal->value().toLongLong();
+        if(newResetVal != m_initialValue ){
+            // we have a new reset value, set new reset value wihtout adding to counter
+            m_dataCounter = newResetVal ; // reset the actual counter
+            m_initialValue = newResetVal ;
+            sendValueOnAllOutputTerminals( std::make_shared<CValue_int>(newResetVal) );
+            return ;
+        }
+    }
+    {
+        auto pStepSizeValue = m_listOfInputTerminals.at(2)->terminalCurrentData().get() ;
+        int newStepVal = 1 ;
+        if (auto* pVal = dynamic_cast<CValue_int*>(pStepSizeValue)) {
+            newStepVal = pVal->value();
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pStepSizeValue)) {
+            newStepVal = (long long)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pStepSizeValue)) {
+            newStepVal = (long long)pVal->value() ;
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pStepSizeValue)) {
+            newStepVal = pVal->value().toLongLong();
+        }
+
+        if(newStepVal != m_stepSize ){
+            // we have a new stepSize , set new stepsize value wihtout adding to counter
+            m_stepSize = newStepVal ;
+            return ;
+        }
     }
 
-    if(newResetVal != m_initialValue ){
-        // we have a new reset value, set new reset value wihtout adding to counter
-        m_dataCounter = newResetVal ; // reset the actual counter
-        m_initialValue = newResetVal ;
-        sendValueOnAllOutputTerminals( std::make_shared<CValue_int>(newResetVal) );
-        return ;
-    }
-
-    auto pStepSizeValue = m_listOfInputTerminals.at(2)->terminalCurrentData().get() ;
-    int newStepVal = 1 ;
-    if (auto* pVal = dynamic_cast<CValue_int*>(pStepSizeValue)) {
-        newStepVal = pVal->value();
-    } else if (auto* pVal = dynamic_cast<CValue_double*>(pStepSizeValue)) {
-        newStepVal = (long long)pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_bool*>(pStepSizeValue)) {
-        newStepVal = (long long)pVal->value() ;
-    }else if (auto* pVal = dynamic_cast<CValue_string*>(pStepSizeValue)) {
-        newStepVal = pVal->value().toLongLong();
-    }
-
-    if(newStepVal != m_stepSize ){
-        // we have a new stepSize , set new stepsize value wihtout adding to counter
-        m_stepSize = newStepVal ;
-        return ;
-    }
-
-   // if we are here, it means there was a reception of data at terminal 0, we dont care what the data was
-   // we only increament the counter and send it to the output
+    // if we are here, it means there was a reception of data at terminal 0, we dont care what the data was
+    // we only increament the counter and send it to the output
     m_dataCounter += m_stepSize;
     sendValueOnAllOutputTerminals( std::make_shared<CValue_int>( m_dataCounter) );
 }

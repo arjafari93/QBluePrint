@@ -135,7 +135,7 @@ void COperationBox::setBlueBox_height     ( const int     & newValue ) {
 
 
 
-void COperationBox::sendValueOnAllOutputTerminals(std::shared_ptr<CRawValueBase> valueToBeSent)
+void COperationBox::sendValueOnAllOutputTerminals(const std::shared_ptr<CRawValueBase> & valueToBeSent)
 {
     for(auto currentOutTerminal : m_listOfOutputTerminals ){
        // if(!valueToBeSent.get())

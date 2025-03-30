@@ -13,7 +13,7 @@ CInputTerminal::CInputTerminal(const int &terminalIndexInBox, COperationBox *par
 
 
 
-void CInputTerminal::receivedValueFromFlowLine(std::shared_ptr<CRawValueBase> newValue)
+void CInputTerminal::receivedValueFromFlowLine(const std::shared_ptr<CRawValueBase> &  newValue)
 {
     try{
         emit nodeIsPassingNewValue();

@@ -96,7 +96,7 @@ public slots:
     void setBlueBox_height    ( const int     & newValue ) ;
 
 protected:
-    void  sendValueOnAllOutputTerminals( std::shared_ptr<CRawValueBase>  valueToBeSent );
+    void  sendValueOnAllOutputTerminals( const  std::shared_ptr<CRawValueBase> & valueToBeSent );
 
 
 protected:

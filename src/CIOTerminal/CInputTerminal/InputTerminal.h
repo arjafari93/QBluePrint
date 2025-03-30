@@ -12,7 +12,7 @@ class CInputTerminal : public CIOTerminal
 public:
     explicit CInputTerminal( const int &terminalIndexInBox, COperationBox *parent );
     virtual ~CInputTerminal(){};
-    void    receivedValueFromFlowLine( std::shared_ptr<CRawValueBase> newValue );
+    void    receivedValueFromFlowLine( const  std::shared_ptr<CRawValueBase> & newValue );
 
 };
 

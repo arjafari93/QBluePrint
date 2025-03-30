@@ -65,7 +65,7 @@ public:
     void setFlowLine_strokeWidth( const int & newValue );
     int  flowLine_strokeWidth( ) const { return m_flowLine_strokeWidth;}
 
-    void passValueToEndPoint(std::shared_ptr<CRawValueBase> valueToBePassed ) ;
+    void passValueToEndPoint(const std::shared_ptr<CRawValueBase> & valueToBePassed ) ;
 
     static void bindFlowLineToInputTerminal( CFlowConnectionLine * pFlowLine , CInputTerminal * pInputTerminal );
     static void bindFlowLineToOutputTerminal( CFlowConnectionLine * pFlowLine , COutputTerminal * pOutputTerminal );

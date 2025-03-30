@@ -13,7 +13,7 @@ public:
     explicit COutputTerminal( const int &terminalIndexInBox, COperationBox *parent );
     virtual ~COutputTerminal(){};
 
-    void     sendValueToFlowLine( std::shared_ptr<CRawValueBase> valueToBeSent );
+    void     sendValueToFlowLine( const std::shared_ptr<CRawValueBase> & valueToBeSent );
 
 };
 
