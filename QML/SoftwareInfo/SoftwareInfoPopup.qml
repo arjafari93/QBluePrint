@@ -139,39 +139,7 @@ Popup {
         }
 
         Text {
-            text: qsTr("Designed And Developed By Alireza Jafari")
-            color: "white"
-            font.pointSize: fontMetricsID.font.pointSize + 2
-            anchors.left: parent.left
-        }
-
-        Text {
             text: qsTr("Release On April 2025")
-            color: "white"
-            font.pointSize: fontMetricsID.font.pointSize + 2
-            anchors.left: parent.left
-        }
-
-        Text {
-            text: "www.alirezajafari.ir"
-            color: "#489EE2"
-            font.pointSize: fontMetricsID.font.pointSize + 2
-            anchors.left: parent.left
-            font.underline: true
-            MouseArea{
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: {
-                    cursorShape = Qt.PointingHandCursor
-                }
-                onClicked: {
-                    Qt.openUrlExternally("https://www.alirezajafari.ir")
-                }
-            }
-        }
-
-        Text {
-            text: "Email: alirezajafari28@gmail.com"
             color: "white"
             font.pointSize: fontMetricsID.font.pointSize + 2
             anchors.left: parent.left
@@ -191,6 +159,25 @@ Popup {
                 }
                 onClicked: {
                     Qt.openUrlExternally("https://github.com/arjafari93")
+                }
+            }
+        }
+
+
+        Text {
+            text: "Demo Videos at my youtube channel "
+            color: "#489EE2"
+            font.pointSize: fontMetricsID.font.pointSize + 2
+            anchors.left: parent.left
+            font.underline: true
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    cursorShape = Qt.PointingHandCursor
+                }
+                onClicked: {
+                    Qt.openUrlExternally("https://www.youtube.com/playlist?list=PLWlFycMes7_7DIiUJyj-BgJh1ARTclklZ")
                 }
             }
         }
