@@ -1,0 +1,190 @@
+{
+    "BPBoxesInfo": [
+        {
+            "BoxName": "HTTP Get",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+                }
+            ],
+            "rawHeaderInfo": [
+                {
+                }
+            ],
+            "uniqueID": "35",
+            "xPos": "446",
+            "yPos": "165"
+        },
+        {
+            "BoxName": "Button",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+                }
+            ],
+            "uniqueID": "36",
+            "xPos": "30",
+            "yPos": "38"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"data\":{\"amount\":\"82393.575\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+                }
+            ],
+            "uniqueID": "37",
+            "xPos": "770",
+            "yPos": "23"
+        },
+        {
+            "BoxName": "Json Parser",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"data\":{\"amount\":\"82393.575\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "data"
+                }
+            ],
+            "uniqueID": "42",
+            "xPos": "793",
+            "yPos": "216"
+        },
+        {
+            "BoxName": "Json Parser",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"amount\":\"82393.575\",\"base\":\"BTC\",\"currency\":\"USD\"}"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "amount"
+                }
+            ],
+            "uniqueID": "43",
+            "xPos": "1065",
+            "yPos": "165"
+        },
+        {
+            "BoxName": "Line Series Chart",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "82393.575"
+                }
+            ],
+            "movingWinLen": "300",
+            "uniqueID": "46",
+            "xPos": "1327",
+            "yPos": "94"
+        },
+        {
+            "BoxName": "Send Source Timer",
+            "boolVal": "0",
+            "doubleVal": "15",
+            "inptTrmnls": [
+            ],
+            "intVal": "15",
+            "interval": "1000",
+            "stringVal": "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+            "uniqueID": "47",
+            "xPos": "8",
+            "yPos": "245"
+        },
+        {
+            "BoxName": "Script Box",
+            "funcBody": "function functionBlock(in0) {\ntry {\n       const jsonObject = JSON.parse(in0);\n        return [jsonObject.data.amount];\n    } catch (error) {\n        return [\"\"];\n    }\n}\n    ",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"data\":{\"amount\":\"82393.575\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+                }
+            ],
+            "numInputs": "1",
+            "numOutputs": "1",
+            "uniqueID": "50",
+            "xPos": "777",
+            "yPos": "388"
+        },
+        {
+            "BoxName": "Line Series Chart",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "82393.575"
+                }
+            ],
+            "movingWinLen": "300",
+            "uniqueID": "51",
+            "xPos": "1321",
+            "yPos": "465"
+        }
+    ],
+    "BPFlowLinesInfo": [
+        {
+            "endBoxID": "35",
+            "endTerminalIndex": "0",
+            "startBoxID": "36",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "37",
+            "endTerminalIndex": "0",
+            "startBoxID": "35",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "42",
+            "endTerminalIndex": "0",
+            "startBoxID": "35",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "43",
+            "endTerminalIndex": "0",
+            "startBoxID": "42",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "46",
+            "endTerminalIndex": "0",
+            "startBoxID": "43",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "35",
+            "endTerminalIndex": "0",
+            "startBoxID": "47",
+            "startTerminalIndex": "2"
+        },
+        {
+            "endBoxID": "50",
+            "endTerminalIndex": "0",
+            "startBoxID": "35",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "51",
+            "endTerminalIndex": "0",
+            "startBoxID": "50",
+            "startTerminalIndex": "0"
+        }
+    ]
+}
