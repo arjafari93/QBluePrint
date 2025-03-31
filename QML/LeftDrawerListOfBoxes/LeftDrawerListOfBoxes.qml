@@ -33,6 +33,7 @@ Drawer {
         anchors.margins: fontMetricsID.height * 0.5
         height: fontMetricsID.height * 3
         font.pointSize:  fontMetricsID.font.pointSize + 2
+        selectByMouse: true
         placeholderText: "Search A Box"
         onTextChanged: {
             // Remove any newline characters from the text

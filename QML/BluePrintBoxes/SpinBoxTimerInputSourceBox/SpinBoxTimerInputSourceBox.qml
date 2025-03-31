@@ -143,6 +143,7 @@ SingleBoxInstance{
                 anchors.leftMargin: intervalSpingBoxID.anchors.leftMargin
                 anchors.verticalCenter: valueToBeSentStringLabelID.verticalCenter
                 width: intervalSpingBoxID.width
+                selectByMouse: true
                 text: valueToBeSentString
                 Material.theme: Material.Dark
                 horizontalAlignment: TextInput.AlignHCenter
