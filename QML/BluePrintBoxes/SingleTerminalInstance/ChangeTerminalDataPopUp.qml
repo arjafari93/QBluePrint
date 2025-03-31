@@ -188,6 +188,7 @@ Popup {
         id: stringComponent
         TextField {
             placeholderText: "Enter text"
+            selectByMouse: true
             text: pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : ""
             onTextChanged:  {
                 pTerminalInstance.changeTerminalCurrentData( text )

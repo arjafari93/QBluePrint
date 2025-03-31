@@ -68,5 +68,9 @@
         <file>QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerSettingsPopup.qml</file>
         <file>Images/warningIcon.png</file>
         <file>Images/hourGlassIcon.png</file>
+        <file>Images/httpGet.png</file>
+        <file>Images/jsonIcon.png</file>
+        <file>QML/BluePrintBoxes/NetworkBoxes/HTTPHeaderSettingsPopup.qml</file>
+        <file>Images/httpPost.png</file>
     </qresource>
 </RCC>

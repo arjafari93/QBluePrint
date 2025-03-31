@@ -26,6 +26,7 @@ SOURCES += \
         src/COperationBox/BitwiseOperationBoxes/BitWiseOR.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.cpp \
+        src/COperationBox/DataComparisonOperations/JsonParser.cpp \
         src/COperationBox/Miscellaneous/BlueScriptBox.cpp \
         src/COperationBox/Miscellaneous/ConditionalBranch.cpp \
         src/COperationBox/Miscellaneous/DataCounter.cpp \
@@ -49,6 +50,9 @@ SOURCES += \
         src/COperationBox/dataSinkBoxes/CSocketClientSink.cpp \
         src/COperationBox/dataSinkBoxes/StringOutputSink.cpp \
         src/COperationBox/dataSourceBoxes/ButtonSource.cpp \
+        src/COperationBox/dataSourceBoxes/HTTPBase.cpp \
+        src/COperationBox/dataSourceBoxes/HTTPGetter.cpp \
+        src/COperationBox/dataSourceBoxes/HTTPPoster.cpp \
         src/COperationBox/dataSourceBoxes/TCPSocketServerSource.cpp \
         src/COperationBox/dataSourceBoxes/TimerSendValSrc.cpp \
         src/COperationBox/dataSourceBoxes/UDPSocketServerSource.cpp \
@@ -83,6 +87,7 @@ HEADERS += \
     src/COperationBox/BitwiseOperationBoxes/BitWiseOR.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h \
+    src/COperationBox/DataComparisonOperations/JsonParser.h \
     src/COperationBox/Miscellaneous/BlueScriptBox.h \
     src/COperationBox/Miscellaneous/ConditionalBranch.h \
     src/COperationBox/Miscellaneous/DataCounter.h \
@@ -106,6 +111,9 @@ HEADERS += \
     src/COperationBox/dataSinkBoxes/CSocketClientSink.h \
     src/COperationBox/dataSinkBoxes/StringOutputSink.h \
     src/COperationBox/dataSourceBoxes/ButtonSource.h \
+    src/COperationBox/dataSourceBoxes/HTTPBase.h \
+    src/COperationBox/dataSourceBoxes/HTTPGetter.h \
+    src/COperationBox/dataSourceBoxes/HTTPPoster.h \
     src/COperationBox/dataSourceBoxes/TCPSocketServerSource.h \
     src/COperationBox/dataSourceBoxes/TimerSendValSrc.h \
     src/COperationBox/dataSourceBoxes/UDPSocketServerSource.h \
