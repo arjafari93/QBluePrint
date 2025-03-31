@@ -32,6 +32,9 @@
 #include "src/COperationBox/Miscellaneous/StopWatch.h"
 #include "src/COperationBox/Miscellaneous/BlueScriptBox.h"
 #include "src/COperationBox/Miscellaneous/DelayMakerBox.h"
+#include "src/COperationBox/dataSourceBoxes/HTTPGetter.h"
+#include "src/COperationBox/dataSourceBoxes/HTTPPoster.h"
+#include "src/COperationBox/DataComparisonOperations/JsonParser.h"
 
 
 class CBPBoxFactoryInterface
@@ -57,10 +60,11 @@ class CBitWiseXORFactory                  : public CBPBoxFactoryInterface { publ
 class CDataComparisonEqualFactory         : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonEqual    ( posX , posY   )                      ;} ; };
 class CDataComparisonGreaterFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonGreater  ( posX , posY   )                      ;} ; };
 class CDataComparisonLessFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonLess     ( posX , posY   )                      ;} ; };
+class CJsonParserFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CJsonParser             ( posX , posY   )                      ;} ; };
 class CConditionalBranchFactory           : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CConditionalBranch      ( posX , posY   )                      ;} ; };
 class CStopWatchFactory                   : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CStopWatch              ( posX , posY   )                      ;} ; };
 class CBlueScriptBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CBlueScriptBox          ( posX , posY   )                      ;} ; };
-class CDelayMakerBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDelayMakerBox           ( posX , posY   )                      ;} ; };
+class CDelayMakerBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDelayMakerBox          ( posX , posY   )                      ;} ; };
 class CMathMultiplicationFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathMultiplication     ( posX , posY   )                      ;} ; };
 class CMathAdditionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathAddition           ( posX , posY   )                      ;} ; };
 class CMathDivisionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathDivision           ( posX , posY   )                      ;} ; };
@@ -71,6 +75,8 @@ class CMathPowerFactory                   : public CBPBoxFactoryInterface { publ
 class CTCPSocketServerSourceFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CTCPSocketServerSource  ( posX , posY   )                      ;} ; };
 class CUDPSocketServerSourceFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CUDPSocketServerSource  ( posX , posY   )                      ;} ; };
 class CButtonSourceFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CButtonSource           ( posX , posY   )                      ;} ; };
+class CHTTPGetterFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CHTTPGetter             ( posX , posY   )                      ;} ; };
+class CHTTPPosterFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CHTTPPoster             ( posX , posY   )                      ;} ; };
 class CUniversalTypeConvertorFactory      : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CUniversalTypeConvertor ( posX , posY   )                      ;} ; };
 class CLineSeriesChartBoxFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CLineSeriesChartBox     ( posX , posY   )                      ;} ; };
 class CDataCounterFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataCounter            ( posX , posY   )                      ;} ; };
@@ -84,6 +90,8 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CTCPSocketServerSource  ::getUniqueName()          ] = new CTCPSocketServerSourceFactory  () ;
     m_mapOfBPBoxToFactory[ CUDPSocketServerSource  ::getUniqueName()          ] = new CUDPSocketServerSourceFactory  () ;
     m_mapOfBPBoxToFactory[ CButtonSource           ::getUniqueName()          ] = new CButtonSourceFactory           () ;
+    m_mapOfBPBoxToFactory[ CHTTPGetter             ::getUniqueName()          ] = new CHTTPGetterFactory             () ;
+    m_mapOfBPBoxToFactory[ CHTTPPoster             ::getUniqueName()          ] = new CHTTPPosterFactory             () ;
     m_mapOfBPBoxToFactory[ CLineSeriesChartBox     ::getUniqueName()          ] = new CLineSeriesChartBoxFactory     () ;
     m_mapOfBPBoxToFactory[ CStringOutputSink       ::getUniqueName()          ] = new CStringOutputSinkFactory       () ;
     m_mapOfBPBoxToFactory[ "TCP Client"                                       ] = new CTCPSocketClientSinkFactory    () ;
@@ -106,6 +114,7 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CDataComparisonEqual    ::getUniqueName()          ] = new CDataComparisonEqualFactory    () ;
     m_mapOfBPBoxToFactory[ CDataComparisonGreater  ::getUniqueName()          ] = new CDataComparisonGreaterFactory  () ;
     m_mapOfBPBoxToFactory[ CDataComparisonLess     ::getUniqueName()          ] = new CDataComparisonLessFactory     () ;
+    m_mapOfBPBoxToFactory[ CJsonParser             ::getUniqueName()          ] = new CJsonParserFactory             () ;
     m_mapOfBPBoxToFactory[ CMathMultiplication     ::getUniqueName()          ] = new CMathMultiplicationFactory     () ;
     m_mapOfBPBoxToFactory[ CMathAddition           ::getUniqueName()          ] = new CMathAdditionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathDivision           ::getUniqueName()          ] = new CMathDivisionFactory           () ;
@@ -150,12 +159,13 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CTCPSocketServerSource  ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUDPSocketServerSource  ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CButtonSource           ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CHTTPGetter             ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CHTTPPoster             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLineSeriesChartBox     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CStringOutputSink       ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  "UDP Client"                              , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  "TCP Client"                              , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataCounter            ::getUniqueName() , 600 , 100 )) ;
-    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUniversalTypeConvertor ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CConditionalBranch      ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CStopWatch              ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CBlueScriptBox          ::getUniqueName() , 600 , 100 )) ;
@@ -172,6 +182,8 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonEqual    ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonGreater  ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonLess     ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CJsonParser             ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUniversalTypeConvertor ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathMultiplication     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAddition           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathDivision           ::getUniqueName() , 600 , 100 )) ;

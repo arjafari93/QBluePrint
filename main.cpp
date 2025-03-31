@@ -28,6 +28,7 @@
 #include "src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h"
 #include "src/COperationBox/dataSinkBoxes/LiveDataXYModel.h"
 #include "src/COperationBox/Miscellaneous/BlueScriptBox.h"
+#include "src/COperationBox/dataSourceBoxes/HTTPGetter.h"
 #include "src/CBPStatic/BPStatic.h"
 
 
@@ -57,6 +58,8 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<COutputTerminal>("org.bluePrintType.OutputTerminal", 1, 0, "COutputTerminal", " can not create COutputTerminal");
     qmlRegisterUncreatableType<CFlowConnectionLine>("org.bluePrintType.FlowConnectionLine", 1, 0, "CFlowConnectionLine", " can not create CFlowConnectionLine");
     qmlRegisterUncreatableType<CBlueScriptBox>("org.bluePrintType.BlueScriptBox", 1, 0, "CBlueScriptBox", " can not create CBlueScriptBox");
+    qmlRegisterUncreatableType<CHTTPGetter>("org.bluePrintType.HTTPGetter", 1, 0, "CHTTPGetter", " can not create CHTTPGetter");
+    qmlRegisterUncreatableType<CHTTPRawHeaderFormat>("org.bluePrintType.HTTPRawHeaderFormat", 1, 0, "CHTTPRawHeaderFormat", " can not create CHTTPRawHeaderFormat");
 
     QQuickStyle::setStyle("Material") ;
 

@@ -53,14 +53,14 @@ public:
     Q_ENUM(EBPBoxCategoryType)
 
     inline static const  QMap<CBPStatic::EBPBoxCategoryType, QString >  BPBoxCategoryName   = {
-        { EBPBoxCategoryType::E_BP_INVALIDTYPE            , "Ivalid"              },
-        { EBPBoxCategoryType::E_BP_MathOperation          , "Math"                },
-        { EBPBoxCategoryType::E_BP_DataComparison         , "Data Comparison"     },
-        { EBPBoxCategoryType::E_BP_LogicalOperation       , "Logical"             },
-        { EBPBoxCategoryType::E_BP_OutPutSink             , "Output Sink"         },
-        { EBPBoxCategoryType::E_BP_InputSource            , "Input Source"        },
-        { EBPBoxCategoryType::E_BP_Miscellaneous          , "Miscellaneous"       },
-        { EBPBoxCategoryType::E_BP_BigPictureOperator     , "Conditional Branch"  }
+        { EBPBoxCategoryType::E_BP_INVALIDTYPE            , "Ivalid"                         },
+        { EBPBoxCategoryType::E_BP_MathOperation          , "Math"                           },
+        { EBPBoxCategoryType::E_BP_DataComparison         , "Data Comparison/Conversion"     },
+        { EBPBoxCategoryType::E_BP_LogicalOperation       , "Logical"                        },
+        { EBPBoxCategoryType::E_BP_OutPutSink             , "Data Sink"                      },
+        { EBPBoxCategoryType::E_BP_InputSource            , "Data Source"                    },
+        { EBPBoxCategoryType::E_BP_Miscellaneous          , "Miscellaneous"                  },
+        { EBPBoxCategoryType::E_BP_BigPictureOperator     , "Conditional Branch"             }
     };
 
     inline static const QStringList  listOfSupportedTypes {"int" , "double" , "bool" , "string"};

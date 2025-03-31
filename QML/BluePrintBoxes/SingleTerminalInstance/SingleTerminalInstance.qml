@@ -100,9 +100,6 @@ Item{
     }
 
 
-
-
-
     Label{
         id:nameOfTerminalLabelID
         anchors.verticalCenter: parent.verticalCenter
@@ -122,9 +119,8 @@ Item{
         onVisibleChanged: {
             terminalToolTipID.text =  cBPStatic.getNameOfTypeAsString(pTerminalInstance) + " " + pTerminalInstance.getTerminalCurrentData()
         }
-
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
-        timeout: 3000
+        timeout: 30000
     }
 
 

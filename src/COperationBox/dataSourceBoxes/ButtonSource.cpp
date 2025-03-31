@@ -2,9 +2,6 @@
 
 
 #include <memory>
-#include <QTcpSocket>
-#include <QTcpServer>
-#include <QJsonObject>
 
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"

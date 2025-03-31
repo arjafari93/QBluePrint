@@ -163,14 +163,13 @@ Rectangle{
     }
 
 
-
-
     Image {
         id: settingBtnImageID
         source: "qrc:/Images/settingsIcon.png"
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: fontMetricsID.height * 0.25
+        anchors.rightMargin: fontMetricsID.height
         height: fontMetricsID.height * 1.5
         width: height
         visible: boxMainRectID.pBoxInstance.blueBox_settingQMLPath != ""
