@@ -9,7 +9,7 @@ win32:RC_ICONS += AppLogo.ico
 
 VERSION = 0.9.2
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
-
+#QMAKE_LFLAGS += /STACK:250000000
 
 SOURCES += \
         main.cpp \
@@ -35,6 +35,7 @@ SOURCES += \
         src/COperationBox/DataComparisonOperations/DataComparisonLess.cpp \
         src/COperationBox/Miscellaneous/DelayMakerBox.cpp \
         src/COperationBox/Miscellaneous/StopWatch.cpp \
+        src/COperationBox/dataSinkBoxes/FileSink.cpp \
         src/COperationBox/dataSinkBoxes/LiveDataXYModel.cpp \
         src/COperationBox/dataSinkBoxes/LineSeriesChartBox.cpp \
         src/COperationBox/LogicalOperationBoxes/LogicalAND.cpp \
@@ -50,6 +51,7 @@ SOURCES += \
         src/COperationBox/dataSinkBoxes/CSocketClientSink.cpp \
         src/COperationBox/dataSinkBoxes/StringOutputSink.cpp \
         src/COperationBox/dataSourceBoxes/ButtonSource.cpp \
+        src/COperationBox/dataSourceBoxes/FileSource.cpp \
         src/COperationBox/dataSourceBoxes/HTTPBase.cpp \
         src/COperationBox/dataSourceBoxes/HTTPGetter.cpp \
         src/COperationBox/dataSourceBoxes/HTTPPoster.cpp \
@@ -96,6 +98,7 @@ HEADERS += \
     src/COperationBox/DataComparisonOperations/DataComparisonLess.h \
     src/COperationBox/Miscellaneous/DelayMakerBox.h \
     src/COperationBox/Miscellaneous/StopWatch.h \
+    src/COperationBox/dataSinkBoxes/FileSink.h \
     src/COperationBox/dataSinkBoxes/LiveDataXYModel.h \
     src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h \
     src/COperationBox/LogicalOperationBoxes/LogicalAND.h \
@@ -111,6 +114,7 @@ HEADERS += \
     src/COperationBox/dataSinkBoxes/CSocketClientSink.h \
     src/COperationBox/dataSinkBoxes/StringOutputSink.h \
     src/COperationBox/dataSourceBoxes/ButtonSource.h \
+    src/COperationBox/dataSourceBoxes/FileSource.h \
     src/COperationBox/dataSourceBoxes/HTTPBase.h \
     src/COperationBox/dataSourceBoxes/HTTPGetter.h \
     src/COperationBox/dataSourceBoxes/HTTPPoster.h \
