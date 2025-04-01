@@ -75,7 +75,6 @@ public:
     void setCurrentBluePrintFilePath(const QString &newCurrentBluePrintFilePath);
 
 private:  // variables
-    static CBPBoxManager *                             smp_classInstance;
     QList<COperationBox*>                              m_listOfBlueBoxes; // user has created these
     QList<COperationBox*>                              m_bpBoxBrowserList; // list of items in the left menue
     QList<COperationBox*>                              m_bpBoxBrowserListProxy ; // list of items in the left menu in search mode

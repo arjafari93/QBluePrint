@@ -17,9 +17,6 @@
 #include <QTimer>
 
 
-CBPBoxManager *   CBPBoxManager::smp_classInstance = nullptr;
-
-
 
 CBPBoxManager::CBPBoxManager(QObject *parent)
     : QObject{parent}
@@ -32,7 +29,7 @@ CBPBoxManager::CBPBoxManager(QObject *parent)
 
 CBPBoxManager::~CBPBoxManager()
 {
-
+    clearCurrentBluePrintSession();
 }
 
 
@@ -41,10 +38,8 @@ CBPBoxManager::~CBPBoxManager()
 
 CBPBoxManager * CBPBoxManager::getInstance()
 {
-    if(smp_classInstance == nullptr){
-        smp_classInstance = new CBPBoxManager();
-    }
-    return  smp_classInstance;
+    static auto pInstance = std::unique_ptr<CBPBoxManager>(new CBPBoxManager());
+    return  pInstance.get();
 }
 
 
