@@ -149,6 +149,19 @@ void CIOTerminal::removeAllFlowLines()
     }
 }
 
+bool CIOTerminal::emissionEnabled() const
+{
+    return m_emissionEnabled;
+}
+
+void CIOTerminal::setEmissionEnabled(bool newEmissionEnabled)
+{
+    if (m_emissionEnabled == newEmissionEnabled)
+        return;
+    m_emissionEnabled = newEmissionEnabled;
+    emit emissionEnabledChanged();
+}
+
 QColor CIOTerminal::terminalColor() const
 {
     return m_terminalColor;

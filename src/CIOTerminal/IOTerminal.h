@@ -20,7 +20,8 @@ class CIOTerminal : public QObject
     Q_PROPERTY(int     terminalYPos  MEMBER m_terminalYPos )
     Q_PROPERTY(int     terminalSize  MEMBER m_terminalSize )
     Q_PROPERTY(bool    isTerminalHovered  READ isTerminalHovered WRITE setIsTerminalHovered NOTIFY isTerminalHoveredChanged )
-    Q_PROPERTY(QColor   terminalColor     READ terminalColor     WRITE setTerminalColor     NOTIFY terminalColorChanged     )
+    Q_PROPERTY(bool    emissionEnabled    READ emissionEnabled   WRITE setEmissionEnabled   NOTIFY emissionEnabledChanged   )
+    Q_PROPERTY(QColor  terminalColor      READ terminalColor     WRITE setTerminalColor     NOTIFY terminalColorChanged     )
     Q_PROPERTY(QQmlListProperty<CFlowConnectionLine>    listOfConnectedLines   READ   listOfConnectedLines   NOTIFY  listOfConnectedLinesChanged  )
 
 public:
@@ -57,6 +58,9 @@ public:
     QColor terminalColor() const;
     void setTerminalColor(const QColor &newTerminalColor);
 
+    bool emissionEnabled() const;
+    void setEmissionEnabled(bool newEmissionEnabled);
+
 public slots:
     void highlightLineFlowAtIndex(const int & lineFlowIndex , const bool & highLightOrNot );
     void removeLineFlowAtIndex(const int & lineFlowIndex);
@@ -75,7 +79,7 @@ protected : // change this to protected and seet get and set functions for prope
     QColor                            m_terminalColor = QColor(200,200,200) ;
     COperationBox *                   mp_containerBPBox = nullptr; // the BPBox that this terminal belongs to it
     int                               m_terminalIndexInBox = 0 ;
-
+    bool                              m_emissionEnabled = true ;
 
 
 signals:
@@ -83,6 +87,7 @@ signals:
     void isTerminalHoveredChanged() ;
     void nodeIsPassingNewValue();
     void terminalColorChanged();
+    void emissionEnabledChanged();
 
 };
 

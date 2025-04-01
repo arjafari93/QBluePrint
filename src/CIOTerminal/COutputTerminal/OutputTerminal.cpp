@@ -19,8 +19,10 @@ void COutputTerminal::sendValueToFlowLine(const std::shared_ptr<CRawValueBase> &
     emit nodeIsPassingNewValue();
     setTerminalCurrentData(valueToBeSent );
     // we have to find conncted flow lines and pass the value to those flow lines
-    for(int iter = 0 ; iter < m_listOfConnectedLines.length() ; iter++ ){
-        m_listOfConnectedLines.at(iter)->passValueToEndPoint( valueToBeSent ) ;
+    if(m_emissionEnabled){
+        for(int iter = 0 ; iter < m_listOfConnectedLines.length() ; iter++ ){
+            m_listOfConnectedLines.at(iter)->passValueToEndPoint( valueToBeSent ) ;
+        }
     }
 }
 
