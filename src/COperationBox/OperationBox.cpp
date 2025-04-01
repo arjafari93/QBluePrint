@@ -35,6 +35,19 @@ void COperationBox::setBoxUniqueIDNumber(const int &newValue)
     uniqueIDCounter++;
 }
 
+const QString &COperationBox::blueBox_warningMsg() const
+{
+    return m_blueBox_warningMsg;
+}
+
+void COperationBox::setBlueBox_warningMsg(const QString &newValue)
+{
+    if (m_blueBox_warningMsg == newValue)
+        return;
+    m_blueBox_warningMsg = newValue;
+    emit blueBox_warningMsgChanged();
+}
+
 QQmlListProperty<COutputTerminal> COperationBox::listOfOutputTerminals()
 {
     return QQmlListProperty<COutputTerminal>(this, &m_listOfOutputTerminals);

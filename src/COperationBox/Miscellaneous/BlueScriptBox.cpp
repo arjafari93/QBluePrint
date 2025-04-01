@@ -48,8 +48,8 @@ CBlueScriptBox::~CBlueScriptBox()
 void CBlueScriptBox::evaluateOperation()
 {
     if (!m_functionBlock.isCallable()) {
-        if(m_jsErrorMessage.length() == 0 ) // otherwise let the last error message to exist
-            setJsErrorMessage("function is not callable") ;
+        if(m_blueBox_warningMsg.length() == 0 ) // otherwise let the last error message to exist
+            setBlueBox_warningMsg("function is not callable") ;
         return ;
     }
     // following should never happen
@@ -68,7 +68,7 @@ void CBlueScriptBox::evaluateOperation()
 
     QJSValue result = m_functionBlock.call(args);
     if (result.isError()) {
-        setJsErrorMessage("Error At Line " + result.property("lineNumber").toString() + " :" + result.toString());
+        setBlueBox_warningMsg("Error At Line " + result.property("lineNumber").toString() + " :" + result.toString());
         return  ;
     }
     QStringList outputList;
@@ -78,11 +78,11 @@ void CBlueScriptBox::evaluateOperation()
             outputList.append(result.property(i).toString());
         }
     } else {
-        setJsErrorMessage("JS function is not returning an array");
+        setBlueBox_warningMsg("JS function is not returning an array");
         return  ;
     }
     if(outputList.length() > m_listOfOutputTerminals.length() ){ // TODO: show warning to user
-        setJsErrorMessage("JS function is supposed to return an array of " +
+        setBlueBox_warningMsg("JS function is supposed to return an array of " +
                           QString::number( m_listOfOutputTerminals.length()) +
                           " elements, but it returns " + QString::number(outputList.length()) + " elements" );
         return ;
@@ -91,7 +91,7 @@ void CBlueScriptBox::evaluateOperation()
     for(int iter=0; iter < outputList.length() ; iter++){
         m_listOfOutputTerminals.at(iter)->sendValueToFlowLine( std::make_shared<CValue_string>( outputList.at(iter)) );
     }
-    setJsErrorMessage("");
+    setBlueBox_warningMsg("");
 }
 
 const QString &CBlueScriptBox::scriptFunctionBody() const
@@ -108,11 +108,11 @@ void CBlueScriptBox::setScriptFunctionBody(const QString &newScriptFunctionBody)
     QJSValue result = mp_jsEngine->evaluate(m_scriptFunctionBody);  // Load the function
     // Check for syntax errors in JS code
     if (result.isError()) {
-        setJsErrorMessage("Error At Line " + result.property("lineNumber").toString() + " :" + result.toString());
+        setBlueBox_warningMsg("Error At Line " + result.property("lineNumber").toString() + " :" + result.toString());
         return  ;
     }
     m_functionBlock = mp_jsEngine->globalObject().property("functionBlock");  // Get function by name
-    setJsErrorMessage("");
+    setBlueBox_warningMsg("");
 }
 
 int CBlueScriptBox::numInputs() const
@@ -173,18 +173,6 @@ void CBlueScriptBox::setNumOutputs(int newNumOutputs)
     emit numOutputsChanged();
 }
 
-const QString &CBlueScriptBox::jsErrorMessage() const
-{
-    return m_jsErrorMessage;
-}
-
-void CBlueScriptBox::setJsErrorMessage(const QString &newJsErrorMessage)
-{
-    if (m_jsErrorMessage == newJsErrorMessage)
-        return;
-    m_jsErrorMessage = newJsErrorMessage;
-    emit jsErrorMessageChanged();
-}
 
 
 void CBlueScriptBox::serializeBoxInfoIntoJson(QJsonObject &jsonObj)

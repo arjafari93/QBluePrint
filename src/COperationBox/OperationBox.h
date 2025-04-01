@@ -31,6 +31,7 @@ class COperationBox : public QObject
     Q_OBJECT
     Q_PROPERTY(QString  blueBox_name        READ blueBox_name       WRITE setBlueBox_name       NOTIFY  blueBox_nameChanged       )
     Q_PROPERTY(QString  blueBox_keyWords    READ blueBox_keyWords   WRITE setBlueBox_keyWords   NOTIFY  blueBox_keyWordsChanged   )
+    Q_PROPERTY(QString  blueBox_warningMsg  READ blueBox_warningMsg WRITE setBlueBox_warningMsg NOTIFY blueBox_warningMsgChanged  )
     Q_PROPERTY(int      blueBox_xPos        READ blueBox_xPos       WRITE setBlueBox_xPos       NOTIFY  blueBox_xPosChanged       )
     Q_PROPERTY(int      blueBox_yPos        READ blueBox_yPos       WRITE setBlueBox_yPos       NOTIFY  blueBox_yPosChanged       )
     Q_PROPERTY(int      blueBox_width       READ blueBox_width      WRITE setBlueBox_width      NOTIFY  blueBox_widthChanged      )
@@ -81,6 +82,9 @@ public:
     int getBoxUniqueIDNumber() const {return m_boxUniqueIDNumber;}
     void setBoxUniqueIDNumber(const int & newValue );
 
+    const QString &blueBox_warningMsg() const;
+    void setBlueBox_warningMsg(const QString &newValue);
+
     void  reCalcOutGoingLineFlowPos();
     void  reCalcIncomingLineFlowPos();
 
@@ -102,6 +106,7 @@ protected:
 protected:
     QString                          m_blueBox_name      = "" ;
     QString                          m_blueBox_keyWords  = "" ;
+    QString                          m_blueBox_warningMsg = "" ;
     int                              m_blueBox_xPos      = 0 ;
     int                              m_blueBox_yPos      = 0 ;
     int                              m_blueBox_width     = 0 ;
@@ -123,6 +128,7 @@ signals:
     void   blueBox_widthChanged      () ;
     void   blueBox_heightChanged     () ;
     void   blueBox_keyWordsChanged   () ;
+    void   blueBox_warningMsgChanged    () ;
     void   listOfOutputTerminalsChanged () ;
     void   listOfInputTerminalsChanged  () ;
 
