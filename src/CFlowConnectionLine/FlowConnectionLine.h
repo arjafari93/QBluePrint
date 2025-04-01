@@ -32,8 +32,6 @@ class CFlowConnectionLine : public QObject
 
     Q_PROPERTY(int      flowLine_strokeWidth     MEMBER m_flowLine_strokeWidth    NOTIFY flowLine_strokeWidthChanged  )
 
-
-
 public:
     Q_DISABLE_COPY_MOVE(CFlowConnectionLine)
     explicit CFlowConnectionLine(QObject *parent = nullptr);

@@ -116,9 +116,8 @@ bool CIOTerminal::isTerminalHovered() const
 
 void CIOTerminal::highlightLineFlowAtIndex(const int &lineFlowIndex, const bool &highLightOrNot)
 {
-    bool isIndexInRange = lineFlowIndex < m_listOfConnectedLines.length() ;
-    // TODO: following will trigger a messagae on flow line removal which is unnecessary, we can remove it and just retunr if isIndexInRange is false
-    ASSERTWITHMSG( isIndexInRange ,  " Index Out Of Range, length: " + QString::number( m_listOfConnectedLines.length())  + " index: " + QString::number( lineFlowIndex )  ) ;
+    if( lineFlowIndex >= m_listOfConnectedLines.length() )
+        return ;
     if(highLightOrNot == true )
         m_listOfConnectedLines.at( lineFlowIndex )->setFlowLine_strokeWidth( 3 ) ;
     else

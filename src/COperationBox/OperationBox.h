@@ -104,8 +104,8 @@ protected:
 
 
 protected:
-    QString                          m_blueBox_name      = "" ;
-    QString                          m_blueBox_keyWords  = "" ;
+    QString                          m_blueBox_name       = "" ;
+    QString                          m_blueBox_keyWords   = "" ;
     QString                          m_blueBox_warningMsg = "" ;
     int                              m_blueBox_xPos      = 0 ;
     int                              m_blueBox_yPos      = 0 ;
@@ -122,12 +122,12 @@ protected:
 
 
 signals:
-    void   blueBox_nameChanged       () ;
-    void   blueBox_xPosChanged       () ;
-    void   blueBox_yPosChanged       () ;
-    void   blueBox_widthChanged      () ;
-    void   blueBox_heightChanged     () ;
-    void   blueBox_keyWordsChanged   () ;
+    void   blueBox_nameChanged          () ;
+    void   blueBox_xPosChanged          () ;
+    void   blueBox_yPosChanged          () ;
+    void   blueBox_widthChanged         () ;
+    void   blueBox_heightChanged        () ;
+    void   blueBox_keyWordsChanged      () ;
     void   blueBox_warningMsgChanged    () ;
     void   listOfOutputTerminalsChanged () ;
     void   listOfInputTerminalsChanged  () ;

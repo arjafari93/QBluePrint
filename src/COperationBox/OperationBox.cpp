@@ -25,6 +25,8 @@ COperationBox::COperationBox(QString newBlueBox_name, int newBlueBox_xPos, int n
 
 COperationBox::~COperationBox()
 {
+    qDeleteAll(m_listOfInputTerminals);
+    qDeleteAll(m_listOfOutputTerminals);
 }
 
 void COperationBox::setBoxUniqueIDNumber(const int &newValue)
@@ -151,8 +153,8 @@ void COperationBox::setBlueBox_height     ( const int     & newValue ) {
 void COperationBox::sendValueOnAllOutputTerminals(const std::shared_ptr<CRawValueBase> & valueToBeSent)
 {
     for(auto currentOutTerminal : m_listOfOutputTerminals ){
-       // if(!valueToBeSent.get())
-            currentOutTerminal->sendValueToFlowLine( valueToBeSent );
+        // if(!valueToBeSent.get())
+        currentOutTerminal->sendValueToFlowLine( valueToBeSent );
     }
 }
 
