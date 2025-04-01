@@ -1,11 +1,8 @@
 #ifndef CMATHSUBTRACTION_H
 #define CMATHSUBTRACTION_H
 
-
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathSubtraction : public COperationBox
 {

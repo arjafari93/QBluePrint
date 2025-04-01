@@ -1,10 +1,8 @@
 #ifndef CCONDITIONALBRANCH_H
 #define CCONDITIONALBRANCH_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CConditionalBranch : public COperationBox
 {

@@ -1,10 +1,8 @@
 #ifndef CMATHMODULUS_H
 #define CMATHMODULUS_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathModulus : public COperationBox
 {

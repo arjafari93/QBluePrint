@@ -49,7 +49,6 @@ void CIOTerminal::changeTerminalCurrentData(const QVariant &newValue)
         break;
     }
     emit nodeIsPassingNewValue(); // this can be helpful for signal/slots and finding the data has changed though GUI popup
-
 }
 
 QVariant CIOTerminal::getTerminalCurrentData()
@@ -89,16 +88,6 @@ void CIOTerminal::addFlowLineToConnectedList(CFlowConnectionLine *lineToBeAdded)
 
 
 
-
-
-
-
-
-
-
-
-
-
 void CIOTerminal::removeFlowLineFromConnectedList(CFlowConnectionLine *lineToBeRemoved)
 {
     ASSERTWITHINFO(m_listOfConnectedLines.length());
@@ -111,15 +100,6 @@ void CIOTerminal::removeFlowLineFromConnectedList(CFlowConnectionLine *lineToBeR
     emit listOfConnectedLinesChanged();
     // this function is NOT responsible for releasing the memory of line
 }
-
-
-
-
-
-
-
-
-
 
 void CIOTerminal::setIsTerminalHovered(const bool &newValue )
 {
@@ -134,12 +114,6 @@ bool CIOTerminal::isTerminalHovered() const
     return m_isTerminalHovered;
 }
 
-
-
-
-
-
-
 void CIOTerminal::highlightLineFlowAtIndex(const int &lineFlowIndex, const bool &highLightOrNot)
 {
     bool isIndexInRange = lineFlowIndex < m_listOfConnectedLines.length() ;
@@ -150,14 +124,6 @@ void CIOTerminal::highlightLineFlowAtIndex(const int &lineFlowIndex, const bool 
     else
         m_listOfConnectedLines.at( lineFlowIndex )->setFlowLine_strokeWidth( 1 ) ;
 }
-
-
-
-
-
-
-
-
 
 
 void CIOTerminal::removeLineFlowAtIndex(const int &lineFlowIndex)
@@ -174,14 +140,6 @@ void CIOTerminal::removeLineFlowAtIndex(const int &lineFlowIndex)
     // lets free the memoery of flow line
     delete lineToBeRemoved ;
 }
-
-
-
-
-
-
-
-
 
 
 void CIOTerminal::removeAllFlowLines()
@@ -203,19 +161,6 @@ void CIOTerminal::setTerminalColor(const QColor &newTerminalColor)
     m_terminalColor = newTerminalColor;
     emit terminalColorChanged();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

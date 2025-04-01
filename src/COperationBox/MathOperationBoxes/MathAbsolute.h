@@ -1,10 +1,8 @@
 #ifndef CMATHABSOLUTE_H
 #define CMATHABSOLUTE_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathAbsolute : public COperationBox
 {

@@ -113,7 +113,6 @@ Item{
         color: "white"
     }
 
-
     ToolTip{
         id:terminalToolTipID
         onVisibleChanged: {
@@ -122,7 +121,6 @@ Item{
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
         timeout: 30000
     }
-
 
     MouseArea {
         id:littleMouseAreaID
@@ -137,9 +135,6 @@ Item{
         onExited: {
             terminalToolTipID.visible = false
         }
-
-
-
 
         onPressed: {
             boxMainRectID.forceActiveFocus();
@@ -234,8 +229,6 @@ Item{
     }
 
 
-
-
        Component {
            id: changeDataMenuCompID
            MenuItem {
@@ -252,7 +245,6 @@ Item{
                }
            }
        }
-
 
 
 

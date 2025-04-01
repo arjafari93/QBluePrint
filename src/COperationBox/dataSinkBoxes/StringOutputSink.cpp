@@ -1,15 +1,11 @@
 #include "StringOutputSink.h"
 
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-
 #include "src/CRawValueBase/RawValueBase.h"
 
 
 inline const static int blueBoxWidth  = 300 ;
 inline const static int blueBoxHeight = 150 ;
-
-
-
 
 
 CStringOutputSink::CStringOutputSink ( int newBlueBox_xPos, int newBlueBox_yPos,  QObject *parent)

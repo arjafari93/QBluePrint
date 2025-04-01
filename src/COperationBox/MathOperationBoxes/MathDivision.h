@@ -1,11 +1,8 @@
 #ifndef CMATHDIVISION_H
 #define CMATHDIVISION_H
 
-
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathDivision : public COperationBox
 {
