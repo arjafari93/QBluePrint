@@ -1,7 +1,6 @@
 #ifndef CSTOPWATCH_H
 #define CSTOPWATCH_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
 class QTimer ;

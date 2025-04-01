@@ -10,7 +10,6 @@
 #endif
 
 
-
 #ifndef DEBUG_MSG_PRINT
 #define DEBUG_MSG_PRINT qDebug().noquote().nospace()   <<  FILEINFOMACRO
 #endif

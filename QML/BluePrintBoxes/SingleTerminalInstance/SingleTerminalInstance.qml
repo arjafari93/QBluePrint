@@ -11,6 +11,7 @@ Item{
     height: fontMetricsID.height * 2 // dont change this
     anchors.left: isInputTerminal ?  parent.left : undefined
     anchors.right: isInputTerminal ?  undefined : parent.right
+    anchors.rightMargin:  pTerminalInstance.emissionEnabled ? 0 : 3
 
 
 
@@ -65,7 +66,15 @@ Item{
         }
     }
 
-
+    Rectangle{
+        id: emissionDisabledRectID
+        anchors.left: terminalImageWrapperItemID.right
+        anchors.verticalCenter: terminalImageWrapperItemID.verticalCenter
+        height: terminalImageWrapperItemID.height
+        width: 4
+        color: "red"
+        visible: !pTerminalInstance.emissionEnabled
+    }
 
 
 
@@ -113,7 +122,6 @@ Item{
         color: "white"
     }
 
-
     ToolTip{
         id:terminalToolTipID
         onVisibleChanged: {
@@ -122,7 +130,6 @@ Item{
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
         timeout: 30000
     }
-
 
     MouseArea {
         id:littleMouseAreaID
@@ -137,9 +144,6 @@ Item{
         onExited: {
             terminalToolTipID.visible = false
         }
-
-
-
 
         onPressed: {
             boxMainRectID.forceActiveFocus();
@@ -182,7 +186,7 @@ Item{
                                                         import QtQuick 2.15
                                                         import QtQuick.Controls 2.15
                                                         MenuItem {
-                                                        text: "Edit"
+                                                        text: "Edit Terminal"
                                                         enabled: false
                                                         font.bold: true
                                                         }
@@ -193,6 +197,17 @@ Item{
                 var menuObject = changeDataMenuCompID.createObject(terminalMainItemID, {
                                                            "text": "Change Data"
                                                        });
+                // change emission menu
+
+                var emissionCntrlComp = Qt.createQmlObject(`
+                                                        import QtQuick 2.15
+                                                        import QtQuick.Controls 2.15
+                                                        MenuItem {
+                                                        text: (pTerminalInstance.emissionEnabled ?  "Disable" : "Enable" ) + " Emission"
+                                                        onTriggered: pTerminalInstance.emissionEnabled = ! pTerminalInstance.emissionEnabled ;
+                                                        }
+                                                        `, terminalConnectedLinesMenusID);
+                terminalConnectedLinesMenusID.addItem(emissionCntrlComp);
                 terminalConnectedLinesMenusID.addItem(menuObject);
 
 
@@ -234,8 +249,6 @@ Item{
     }
 
 
-
-
        Component {
            id: changeDataMenuCompID
            MenuItem {
@@ -252,7 +265,6 @@ Item{
                }
            }
        }
-
 
 
 

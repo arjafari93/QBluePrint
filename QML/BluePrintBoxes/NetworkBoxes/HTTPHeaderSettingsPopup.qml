@@ -90,7 +90,12 @@ Popup {
             width: listOfHeaderkeyValuesID.width * 0.9
             anchors.horizontalCenter: parent.horizontalCenter
             height: fontMetricsID.height * 3
-
+            ToolTip{
+                id: textFieldHoverTipID
+                text: rawHeaderNameTextID.text
+                visible: rawHeaderNameTextID.hovered && rawHeaderNameTextID.text.length > 10
+                timeout: 30000
+            }
             TextField {
                 id: rawHeaderNameTextID
                 anchors.verticalCenter: parent.verticalCenter
@@ -102,6 +107,12 @@ Popup {
                 onTextChanged:  {
                     deleageRectID.pHeaderInfo.headerName = text
                 }
+            }
+            ToolTip{
+                id: textFieldHoverTipID2
+                text: rawHeaderValueTextID.text
+                visible: rawHeaderValueTextID.hovered && rawHeaderValueTextID.text.length > 10
+                timeout: 30000
             }
             TextField {
                 id: rawHeaderValueTextID

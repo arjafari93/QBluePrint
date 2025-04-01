@@ -1,11 +1,8 @@
 #ifndef CMATHPOWER_H
 #define CMATHPOWER_H
 
-
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathPower : public COperationBox
 {

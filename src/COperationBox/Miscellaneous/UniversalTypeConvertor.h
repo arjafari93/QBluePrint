@@ -1,10 +1,8 @@
 #ifndef CUNIVERSALTYPECONVERTOR_H
 #define CUNIVERSALTYPECONVERTOR_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CUniversalTypeConvertor : public COperationBox
 {

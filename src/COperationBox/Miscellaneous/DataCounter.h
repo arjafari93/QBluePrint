@@ -1,7 +1,6 @@
 #ifndef CDATACOUNTER_H
 #define CDATACOUNTER_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
 

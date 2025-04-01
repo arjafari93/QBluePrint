@@ -25,6 +25,8 @@ COperationBox::COperationBox(QString newBlueBox_name, int newBlueBox_xPos, int n
 
 COperationBox::~COperationBox()
 {
+    qDeleteAll(m_listOfInputTerminals);
+    qDeleteAll(m_listOfOutputTerminals);
 }
 
 void COperationBox::setBoxUniqueIDNumber(const int &newValue)
@@ -33,6 +35,19 @@ void COperationBox::setBoxUniqueIDNumber(const int &newValue)
     if(newValue > uniqueIDCounter)
         uniqueIDCounter = newValue ;
     uniqueIDCounter++;
+}
+
+const QString &COperationBox::blueBox_warningMsg() const
+{
+    return m_blueBox_warningMsg;
+}
+
+void COperationBox::setBlueBox_warningMsg(const QString &newValue)
+{
+    if (m_blueBox_warningMsg == newValue)
+        return;
+    m_blueBox_warningMsg = newValue;
+    emit blueBox_warningMsgChanged();
 }
 
 QQmlListProperty<COutputTerminal> COperationBox::listOfOutputTerminals()
@@ -138,8 +153,8 @@ void COperationBox::setBlueBox_height     ( const int     & newValue ) {
 void COperationBox::sendValueOnAllOutputTerminals(const std::shared_ptr<CRawValueBase> & valueToBeSent)
 {
     for(auto currentOutTerminal : m_listOfOutputTerminals ){
-       // if(!valueToBeSent.get())
-            currentOutTerminal->sendValueToFlowLine( valueToBeSent );
+        // if(!valueToBeSent.get())
+        currentOutTerminal->sendValueToFlowLine( valueToBeSent );
     }
 }
 
@@ -206,16 +221,33 @@ void COperationBox::serializeBoxInfoIntoJson(QJsonObject &jsonObj)
             tempInTerminalObj["Type"] = CBPStatic::getNameOfTypeAsString(pInTeminal);
             tempInTerminalObj["TrmnlIndex"] = QString::number(iter) ;
             tempInTerminalObj["Value"] = pInTeminal->terminalCurrentData()->convertToString();
+            if(pInTeminal->emissionEnabled() == false ) // dont save it if its enabled
+                tempInTerminalObj["Emission"] =  QString::number( 0 );
             arrayOfInputValues.append(tempInTerminalObj);
         }
         iter++;
     }
     jsonObj["inptTrmnls"] = arrayOfInputValues;
+
+    QJsonArray arrayOfOutputValues;
+    iter = 0;
+    for(auto pOutTeminal : m_listOfOutputTerminals ){
+        if(pOutTeminal->terminalCurrentData()){
+            if(pOutTeminal->emissionEnabled() == false ){ // dont save it if its enabled
+                QJsonObject tempInTerminalObj;
+                tempInTerminalObj["TrmnlIndex"] = QString::number(iter) ;
+                tempInTerminalObj["Emission"] =  QString::number( 0 );
+                arrayOfOutputValues.append(tempInTerminalObj);
+            }
+        }
+        iter++;
+    }
+    jsonObj["outputTrmnls"] = arrayOfOutputValues;
 }
 
 
 
-static inline bool setTerminalValuesForBox(const QJsonObject & jsonObj , COperationBox * pBox ){
+static inline bool setInputTerminalValuesForBox(const QJsonObject & jsonObj , COperationBox * pBox ){
     QString terminalType = jsonObj["Type"].toString();
     int terminalID = jsonObj["TrmnlIndex"].toString().toInt();
     ASSERTWITHRETURN(terminalID < pBox->getListOfInputTerminals().length() , false);
@@ -234,6 +266,20 @@ static inline bool setTerminalValuesForBox(const QJsonObject & jsonObj , COperat
         return false ;
     }
     pBox->getListOfInputTerminals().at(terminalID)->setTerminalCurrentData(pDataVal);
+    if(jsonObj.contains("Emission") ){
+        pBox->getListOfInputTerminals().at(terminalID)->setEmissionEnabled( (bool)jsonObj["Emission"].toString().toInt() );\
+    }
+    return true ;
+}
+
+
+static inline bool setOutputTerminalValuesForBox(const QJsonObject & jsonObj , COperationBox * pBox ){
+    QString terminalType = jsonObj["Type"].toString();
+    int terminalID = jsonObj["TrmnlIndex"].toString().toInt();
+    ASSERTWITHRETURN(terminalID < pBox->getListOfOutputTerminals().length() , false);
+    if(jsonObj.contains("Emission") ){
+        pBox->getListOfOutputTerminals().at(terminalID)->setEmissionEnabled( (bool)jsonObj["Emission"].toString().toInt() );\
+    }
     return true ;
 }
 
@@ -247,7 +293,13 @@ void COperationBox::deserializeBoxInfoFromJson(const QJsonObject &jsonObj)
     QJsonArray inpTermnlsArray = jsonObj["inptTrmnls"].toArray();
     for (const QJsonValue& currentTermnl : inpTermnlsArray)
     {
-        setTerminalValuesForBox(currentTermnl.toObject() , this );
+        setInputTerminalValuesForBox(currentTermnl.toObject() , this );
+    }
+
+    QJsonArray outpTermnlsArray = jsonObj["outputTrmnls"].toArray();
+    for (const QJsonValue& currentTermnl : outpTermnlsArray)
+    {
+        setOutputTerminalValuesForBox(currentTermnl.toObject() , this );
     }
 }
 

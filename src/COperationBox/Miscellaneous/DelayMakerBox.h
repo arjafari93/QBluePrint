@@ -1,7 +1,6 @@
 #ifndef CDELAYMAKERBOX_H
 #define CDELAYMAKERBOX_H
 
-
 #include <QObject>
 #include <deque>
 #include "../OperationBox.h"

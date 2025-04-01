@@ -38,7 +38,7 @@ CTimerSendValSrc::CTimerSendValSrc ( int newBlueBox_xPos, int newBlueBox_yPos, Q
     outPutNodeBool->setTerminalName("Bool");
     m_listOfOutputTerminals.push_back( outPutNodeBool );
 
-    mp_sendValueTimer = new QTimer();
+    mp_sendValueTimer = new QTimer(this);
     connect(mp_sendValueTimer , SIGNAL(timeout()) , this ,  SLOT(sendValueTimerTimeOut())) ;
     mp_sendValueTimer->setInterval( m_sendValueInterval );
     mp_sendValueTimer->start();

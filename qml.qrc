@@ -72,5 +72,7 @@
         <file>Images/jsonIcon.png</file>
         <file>QML/BluePrintBoxes/NetworkBoxes/HTTPHeaderSettingsPopup.qml</file>
         <file>Images/httpPost.png</file>
+        <file>Images/fileOut.png</file>
+        <file>Images/fileIn.png</file>
     </qresource>
 </RCC>

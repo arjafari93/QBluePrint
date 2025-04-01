@@ -5,9 +5,6 @@
 #include <QObject>
 #include "../OperationBox.h"
 
-
-
-
 class CStringOutputSink : public COperationBox
 {
     Q_OBJECT

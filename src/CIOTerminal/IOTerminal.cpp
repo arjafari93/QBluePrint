@@ -49,7 +49,6 @@ void CIOTerminal::changeTerminalCurrentData(const QVariant &newValue)
         break;
     }
     emit nodeIsPassingNewValue(); // this can be helpful for signal/slots and finding the data has changed though GUI popup
-
 }
 
 QVariant CIOTerminal::getTerminalCurrentData()
@@ -89,16 +88,6 @@ void CIOTerminal::addFlowLineToConnectedList(CFlowConnectionLine *lineToBeAdded)
 
 
 
-
-
-
-
-
-
-
-
-
-
 void CIOTerminal::removeFlowLineFromConnectedList(CFlowConnectionLine *lineToBeRemoved)
 {
     ASSERTWITHINFO(m_listOfConnectedLines.length());
@@ -111,15 +100,6 @@ void CIOTerminal::removeFlowLineFromConnectedList(CFlowConnectionLine *lineToBeR
     emit listOfConnectedLinesChanged();
     // this function is NOT responsible for releasing the memory of line
 }
-
-
-
-
-
-
-
-
-
 
 void CIOTerminal::setIsTerminalHovered(const bool &newValue )
 {
@@ -134,30 +114,15 @@ bool CIOTerminal::isTerminalHovered() const
     return m_isTerminalHovered;
 }
 
-
-
-
-
-
-
 void CIOTerminal::highlightLineFlowAtIndex(const int &lineFlowIndex, const bool &highLightOrNot)
 {
-    bool isIndexInRange = lineFlowIndex < m_listOfConnectedLines.length() ;
-    // TODO: following will trigger a messagae on flow line removal which is unnecessary, we can remove it and just retunr if isIndexInRange is false
-    ASSERTWITHMSG( isIndexInRange ,  " Index Out Of Range, length: " + QString::number( m_listOfConnectedLines.length())  + " index: " + QString::number( lineFlowIndex )  ) ;
+    if( lineFlowIndex >= m_listOfConnectedLines.length() )
+        return ;
     if(highLightOrNot == true )
         m_listOfConnectedLines.at( lineFlowIndex )->setFlowLine_strokeWidth( 3 ) ;
     else
         m_listOfConnectedLines.at( lineFlowIndex )->setFlowLine_strokeWidth( 1 ) ;
 }
-
-
-
-
-
-
-
-
 
 
 void CIOTerminal::removeLineFlowAtIndex(const int &lineFlowIndex)
@@ -176,19 +141,24 @@ void CIOTerminal::removeLineFlowAtIndex(const int &lineFlowIndex)
 }
 
 
-
-
-
-
-
-
-
-
 void CIOTerminal::removeAllFlowLines()
 {
     while (m_listOfConnectedLines.length()) {
         removeLineFlowAtIndex( m_listOfConnectedLines.length() - 1  );
     }
+}
+
+bool CIOTerminal::emissionEnabled() const
+{
+    return m_emissionEnabled;
+}
+
+void CIOTerminal::setEmissionEnabled(bool newEmissionEnabled)
+{
+    if (m_emissionEnabled == newEmissionEnabled)
+        return;
+    m_emissionEnabled = newEmissionEnabled;
+    emit emissionEnabledChanged();
 }
 
 QColor CIOTerminal::terminalColor() const
@@ -203,19 +173,6 @@ void CIOTerminal::setTerminalColor(const QColor &newTerminalColor)
     m_terminalColor = newTerminalColor;
     emit terminalColorChanged();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

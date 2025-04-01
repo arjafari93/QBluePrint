@@ -1,10 +1,8 @@
 #ifndef CMATHMULTIPLICATION_H
 #define CMATHMULTIPLICATION_H
 
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathMultiplication : public COperationBox
 {

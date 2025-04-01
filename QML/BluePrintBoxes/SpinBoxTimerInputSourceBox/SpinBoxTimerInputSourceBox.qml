@@ -7,9 +7,6 @@ import "../SingleBoxInstance"
 SingleBoxInstance{
     id:timerSpinBoxMainBoxID
 
-
-
-
     Column{
         anchors.left: parent.left
         anchors.right: parent.right
@@ -137,6 +134,13 @@ SingleBoxInstance{
                 color: "white"
             }
 
+            ToolTip{
+                id: textFieldHoverTipID
+                text: valueToBeSendTextSpinBox.text
+                visible: valueToBeSendTextSpinBox.hovered  && valueToBeSendTextSpinBox.text.length > 10
+                timeout: 30000
+            }
+
             TextField{
                 id: valueToBeSendTextSpinBox
                 anchors.left: parent.left
@@ -178,26 +182,7 @@ SingleBoxInstance{
         }
     }
 
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

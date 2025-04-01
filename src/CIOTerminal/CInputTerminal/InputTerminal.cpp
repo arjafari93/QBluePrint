@@ -18,7 +18,8 @@ void CInputTerminal::receivedValueFromFlowLine(const std::shared_ptr<CRawValueBa
     try{
         emit nodeIsPassingNewValue();
         setTerminalCurrentData(newValue );
-        mp_containerBPBox->evaluateOperation(  );
+        if(m_emissionEnabled)
+            mp_containerBPBox->evaluateOperation(  );
     }catch(const std::exception & e){
         DEBUG_MSG_PRINT << " exception: " << e.what();
     }catch(...){

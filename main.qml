@@ -146,9 +146,9 @@ ApplicationWindow  {
             // Check if the Control key is pressed
             if (wheel.modifiers & Qt.ControlModifier) {
                 // Control button + wheel event handling
-                if (wheel.angleDelta.y > 0 && BPBoxManager.applicationScaleFactor < 1 ) {
-                    if(BPBoxManager.applicationScaleFactor * 1.1 > 1 ) // make sure we dont zoom
-                        BPBoxManager.applicationScaleFactor = 1.0 ;
+                if (wheel.angleDelta.y > 0 && BPBoxManager.applicationScaleFactor < 2.0 ) {
+                    if(BPBoxManager.applicationScaleFactor * 1.1 > 2.0 ) // make sure we dont zoom
+                        BPBoxManager.applicationScaleFactor = 2.0 ;
                     else
                         BPBoxManager.applicationScaleFactor *= 1.1
                     // Perform actions for scrolling up with Control pressed
@@ -162,10 +162,10 @@ ApplicationWindow  {
             // If shift key is pressed, scroll horizontally
             if (wheel.modifiers & Qt.ShiftModifier) {
                 scrollViewInappMainWindowID.flickableItem.contentX -= wheel.angleDelta.y / 120 * 20;
-                if(scrollViewInappMainWindowID.flickableItem.contentX < 0 )
-                    scrollViewInappMainWindowID.flickableItem.contentX = 0 ;
-                if(scrollViewInappMainWindowID.flickableItem.contentX > mainWindowWrapperItemID.width - appMainWindowID.width )
-                    scrollViewInappMainWindowID.flickableItem.contentX = mainWindowWrapperItemID.width - appMainWindowID.width ;
+//                if(scrollViewInappMainWindowID.flickableItem.contentX < 0 )
+//                    scrollViewInappMainWindowID.flickableItem.contentX = 0 ;
+//                if(scrollViewInappMainWindowID.flickableItem.contentX > mainWindowWrapperItemID.width - appMainWindowID.width )
+//                    scrollViewInappMainWindowID.flickableItem.contentX = mainWindowWrapperItemID.width - appMainWindowID.width ;
             }
             // Otherwise, scroll vertically
             else {

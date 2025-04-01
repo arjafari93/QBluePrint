@@ -22,7 +22,6 @@ public:
 private:
     inline const static QString    m_uniqueBoxName = "HTTP Post" ;
 
-
 };
 
 

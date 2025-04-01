@@ -1,12 +1,8 @@
 #ifndef CMATHADDITION_H
 #define CMATHADDITION_H
 
-
-
-
 #include <QObject>
 #include "../OperationBox.h"
-
 
 class CMathAddition : public COperationBox
 {

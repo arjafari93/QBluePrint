@@ -42,7 +42,7 @@ ShadowedRectangle {
         id: scaleSpinBpxID
         from: decimalToInt(0.001)   // Ensure 'from' is correctly scaled
         value: decimalToInt(1.0)
-        to: decimalToInt(1.0)
+        to: decimalToInt(2.0)
         stepSize: decimalToInt(0.1)  // Ensure step size is correctly scaled
         editable: true
         anchors.verticalCenter: parent.verticalCenter

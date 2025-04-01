@@ -162,6 +162,34 @@ Rectangle{
         }
     }
 
+    SequentialAnimation{
+        loops: Animation.Infinite
+        running:  pBoxInstance.blueBox_warningMsg.length
+        NumberAnimation { target: warningImageID; property: "opacity"; from: 1.0; to: 0.1; duration: 1000 }
+        NumberAnimation { target: warningImageID; property: "opacity"; from: 0.1; to: 1.0; duration: 1000 }
+    }
+    Image {
+        id: warningImageID
+        z:100
+        source: "qrc:/Images/warningIcon.png"
+        anchors.right: settingBtnImageID.left
+        anchors.rightMargin: fontMetricsID.height * 0.5
+        height: settingBtnImageID.height
+        width: height
+        anchors.verticalCenter: settingBtnImageID.verticalCenter
+        visible: pBoxInstance.blueBox_warningMsg.length
+        ToolTip{
+            id: jsErrorTipID
+            timeout: 30000
+            onVisibleChanged: jsErrorTipID.text = pBoxInstance.blueBox_warningMsg
+            visible: jsErrorMouseID.containsMouse
+        }
+        MouseArea{
+            id: jsErrorMouseID
+            anchors.fill: parent
+            hoverEnabled: true
+        }
+    }
 
     Image {
         id: settingBtnImageID

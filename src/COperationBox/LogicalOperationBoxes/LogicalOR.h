@@ -2,7 +2,6 @@
 #define CLOGICALOR_H
 
 
-
 #include <QObject>
 #include "../OperationBox.h"
 

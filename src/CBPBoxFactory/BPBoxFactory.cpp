@@ -35,6 +35,8 @@
 #include "src/COperationBox/dataSourceBoxes/HTTPGetter.h"
 #include "src/COperationBox/dataSourceBoxes/HTTPPoster.h"
 #include "src/COperationBox/DataComparisonOperations/JsonParser.h"
+#include "src/COperationBox/dataSinkBoxes/FileSink.h"
+#include "src/COperationBox/dataSourceBoxes/FileSource.h"
 
 
 class CBPBoxFactoryInterface
@@ -46,6 +48,7 @@ public :
 
 class CTimerSendValSrcFactory             : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CTimerSendValSrc        ( posX , posY   )                      ;} ; };
 class CStringOutputSinkFactory            : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CStringOutputSink       ( posX , posY   )                      ;} ; };
+class CFileSinkFactory                    : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CFileSink               ( posX , posY   )                      ;} ; };
 class CTCPSocketClientSinkFactory         : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CSocketClientSink       ( posX , posY , QAbstractSocket::TcpSocket   )           ;} ; };
 class CUDPSocketClientSinkFactory         : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CSocketClientSink       ( posX , posY , QAbstractSocket::UdpSocket   )           ;} ; };
 class CLogicalANDFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CLogicalAND             ( posX , posY   )                      ;} ; };
@@ -77,6 +80,7 @@ class CUDPSocketServerSourceFactory       : public CBPBoxFactoryInterface { publ
 class CButtonSourceFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CButtonSource           ( posX , posY   )                      ;} ; };
 class CHTTPGetterFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CHTTPGetter             ( posX , posY   )                      ;} ; };
 class CHTTPPosterFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CHTTPPoster             ( posX , posY   )                      ;} ; };
+class CFileSourceFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CFileSource             ( posX , posY   )                      ;} ; };
 class CUniversalTypeConvertorFactory      : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CUniversalTypeConvertor ( posX , posY   )                      ;} ; };
 class CLineSeriesChartBoxFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CLineSeriesChartBox     ( posX , posY   )                      ;} ; };
 class CDataCounterFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataCounter            ( posX , posY   )                      ;} ; };
@@ -92,8 +96,10 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CButtonSource           ::getUniqueName()          ] = new CButtonSourceFactory           () ;
     m_mapOfBPBoxToFactory[ CHTTPGetter             ::getUniqueName()          ] = new CHTTPGetterFactory             () ;
     m_mapOfBPBoxToFactory[ CHTTPPoster             ::getUniqueName()          ] = new CHTTPPosterFactory             () ;
+    m_mapOfBPBoxToFactory[ CFileSource             ::getUniqueName()          ] = new CFileSourceFactory             () ;
     m_mapOfBPBoxToFactory[ CLineSeriesChartBox     ::getUniqueName()          ] = new CLineSeriesChartBoxFactory     () ;
     m_mapOfBPBoxToFactory[ CStringOutputSink       ::getUniqueName()          ] = new CStringOutputSinkFactory       () ;
+    m_mapOfBPBoxToFactory[ CFileSink               ::getUniqueName()          ] = new CFileSinkFactory               () ;
     m_mapOfBPBoxToFactory[ "TCP Client"                                       ] = new CTCPSocketClientSinkFactory    () ;
     m_mapOfBPBoxToFactory[ "UDP Client"                                       ] = new CUDPSocketClientSinkFactory    () ;
     m_mapOfBPBoxToFactory[ CDataCounter            ::getUniqueName()          ] = new CDataCounterFactory            () ;
@@ -161,8 +167,10 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CButtonSource           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CHTTPGetter             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CHTTPPoster             ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CFileSource             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CLineSeriesChartBox     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CStringOutputSink       ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CFileSink               ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  "UDP Client"                              , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  "TCP Client"                              , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataCounter            ::getUniqueName() , 600 , 100 )) ;
