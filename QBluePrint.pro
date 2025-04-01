@@ -7,6 +7,7 @@ CONFIG += c++17
 
 win32:RC_ICONS += AppLogo.ico
 
+VERSION = 0.9.2
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 
