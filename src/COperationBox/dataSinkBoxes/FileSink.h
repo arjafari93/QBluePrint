@@ -5,6 +5,7 @@
 #include <QObject>
 #include "../OperationBox.h"
 
+class QTimer ;
 
 class CFileSink : public COperationBox
 {
