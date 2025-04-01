@@ -187,6 +187,13 @@ Popup {
     Component {
         id: stringComponent
         TextField {
+            id: textFieldID
+            ToolTip{
+                id: textFieldHoverTipID2
+                text: textFieldID.text
+                visible: textFieldID.hovered && textFieldID.text.length > 10
+                timeout: 30000
+            }
             placeholderText: "Enter text"
             selectByMouse: true
             text: pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : ""
