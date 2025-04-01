@@ -12,7 +12,6 @@ class CBlueScriptBox : public COperationBox
 {
     Q_OBJECT
     Q_PROPERTY(QString  scriptFunctionBody READ scriptFunctionBody WRITE setScriptFunctionBody NOTIFY scriptFunctionBodyChanged  )
-    Q_PROPERTY(QString  jsErrorMessage     READ jsErrorMessage     WRITE setJsErrorMessage     NOTIFY jsErrorMessageChanged      )
     Q_PROPERTY(int      numInputs          READ numInputs          WRITE setNumInputs          NOTIFY numInputsChanged           )
     Q_PROPERTY(int      numOutputs         READ numOutputs         WRITE setNumOutputs         NOTIFY numOutputsChanged          )
 
@@ -37,15 +36,13 @@ public:
     void setNumOutputs(int newNumOutputs);
 
 
-    const QString &jsErrorMessage() const;
-    void setJsErrorMessage(const QString &newJsErrorMessage);
+
 
     virtual void serializeBoxInfoIntoJson( QJsonObject & jsonObj ) override ;
     virtual void deserializeBoxInfoFromJson( const QJsonObject & jsonObj ) override ;
 
 private:
     inline const static QString    m_uniqueBoxName  = "Script Box" ;
-    QString       m_jsErrorMessage = "";
     QString       m_scriptFunctionBody =R"(function functionBlock(in0) {
  return [in0];
 }
@@ -61,7 +58,6 @@ signals:
     void scriptFunctionBodyChanged();
     void numInputsChanged();
     void numOutputsChanged();
-    void jsErrorMessageChanged();
 };
 
 
