@@ -20,12 +20,12 @@
 class CInputTerminal  ;
 class COutputTerminal ;
 
+class CBluePrintPage ;
 class CValue_string  ;
 class CValue_double  ;
 class CValue_int     ;
 class CRawValueBase  ;
 class QJsonObject    ;
-
 class COperationBox : public QObject
 {
     Q_OBJECT
@@ -91,6 +91,10 @@ public:
     virtual void serializeBoxInfoIntoJson( QJsonObject & jsonObj );
     virtual void deserializeBoxInfoFromJson( const QJsonObject & jsonObj );
 
+    CBluePrintPage * getParentBluePrintPage() const {return mp_parentBluePrintPage; }
+    void  setParentBluePrintPage(CBluePrintPage * pPage)  { mp_parentBluePrintPage = pPage ; }
+
+
 public slots:
     void setBlueBox_keyWords  ( const QString & newValue ) ;
     void setBlueBox_name      ( const QString & newValue ) ;
@@ -104,6 +108,7 @@ protected:
 
 
 protected:
+    CBluePrintPage *                 mp_parentBluePrintPage = nullptr;
     QString                          m_blueBox_name       = "" ;
     QString                          m_blueBox_keyWords   = "" ;
     QString                          m_blueBox_warningMsg = "" ;

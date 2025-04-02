@@ -79,6 +79,7 @@ public slots:
 
     static QString getNameOfTypeAsString( CIOTerminal * pNode);
     static QStringList  getListOfSupportedTypes  () {return listOfSupportedTypes ; };
+    static QString getFileNameFromPath( const QString & filePath);
 
 };
 

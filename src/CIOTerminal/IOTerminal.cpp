@@ -135,7 +135,9 @@ void CIOTerminal::removeLineFlowAtIndex(const int &lineFlowIndex)
     // lets remove the line from end Terminal
     lineToBeRemoved->endPoint()->removeFlowLineFromConnectedList(lineToBeRemoved);
     // lets remove the line from list model in CBPBoxManager
-    CBPBoxManager::getInstance()->removeLineFromListModel(lineToBeRemoved);
+    auto parentPage = mp_containerBPBox->getParentBluePrintPage();
+    ASSERTWITHINFO(parentPage);
+    parentPage->removeLineFromListModel(lineToBeRemoved);
     // lets free the memoery of flow line
     delete lineToBeRemoved ;
 }

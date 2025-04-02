@@ -14,6 +14,7 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 SOURCES += \
         main.cpp \
         src/CBPBoxFactory/BPBoxFactory.cpp \
+        src/CBPBoxManager/BluePrintPage.cpp \
         src/CBPStatic/BPStatic.cpp \
         src/CFlowConnectionLine/FlowConnectionLine.cpp \
         src/CIOTerminal/CInputTerminal/InputTerminal.cpp \
@@ -77,6 +78,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/CBPBoxFactory/BPBoxFactory.h \
+    src/CBPBoxManager/BluePrintPage.h \
     src/CBPStatic/BPStatic.h \
     src/CFlowConnectionLine/FlowConnectionLine.h \
     src/CIOTerminal/CInputTerminal/InputTerminal.h \

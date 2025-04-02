@@ -127,6 +127,7 @@ Item{
         onVisibleChanged: {
             terminalToolTipID.text =  cBPStatic.getNameOfTypeAsString(pTerminalInstance) + " " + pTerminalInstance.getTerminalCurrentData()
         }
+        width: Math.min((terminalToolTipID.text.length + 2) * fontMetricsID.height , fontMetricsID.height * 35 )
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
         timeout: 30000
     }
@@ -218,25 +219,25 @@ Item{
 
             if( isInputTerminal == true )
                 return ;
-            BPBoxManager.isLineFlowDrawActive = true;
-            BPBoxManager.lineFlowStartedFromConnectionPoint(  pTerminalInstance   );
+            bpPageItemID.pBluePrintPage.isLineFlowDrawActive = true;
+            bpPageItemID.pBluePrintPage.lineFlowStartedFromConnectionPoint(  pTerminalInstance   );
         }
 
         onReleased: {
-            if(BPBoxManager.isLineFlowDrawActive == false ) // this is possible for example when user has clicked on an input
+            if(bpPageItemID.pBluePrintPage.isLineFlowDrawActive == false ) // this is possible for example when user has clicked on an input
                 return ;
-            BPBoxManager.isLineFlowDrawActive = false ;
+            bpPageItemID.pBluePrintPage.isLineFlowDrawActive = false ;
             var posInParentCoord = boxesMainRepeaterID.mapFromItem( terminalMainItemID , mouse.x, mouse.y);
             // console.log( mouse.x , mouseX , posInParentCoord.x , posInParentCoord.y );
-            BPBoxManager.lineFlowReleased(    posInParentCoord.x , posInParentCoord.y  );
+            bpPageItemID.pBluePrintPage.lineFlowReleased(    posInParentCoord.x , posInParentCoord.y  );
         }
 
         onPositionChanged: {
-            if( BPBoxManager.isLineFlowDrawActive == false )
+            if( bpPageItemID.pBluePrintPage.isLineFlowDrawActive == false )
                 return ;
             var posInParentCoord = boxesMainRepeaterID.mapFromItem( terminalMainItemID , mouse.x, mouse.y);
             // console.log( mouse.x , mouseX , posInParentCoord.x , posInParentCoord.y );
-            BPBoxManager.lineFlowPosChagnedFromConnectionPoint(  mouseX - terminalMainItemID.width ,  mouseY - terminalMainItemID.height * 0.5 ,  posInParentCoord.x , posInParentCoord.y  );
+            bpPageItemID.pBluePrintPage.lineFlowPosChagnedFromConnectionPoint(  mouseX - terminalMainItemID.width ,  mouseY - terminalMainItemID.height * 0.5 ,  posInParentCoord.x , posInParentCoord.y  );
         }
     }
 

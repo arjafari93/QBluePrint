@@ -74,5 +74,9 @@
         <file>Images/httpPost.png</file>
         <file>Images/fileOut.png</file>
         <file>Images/fileIn.png</file>
+        <file>QML/BluePrintPageDelegate.qml</file>
+        <file>QML/BluePrintPagesSelector/BluePrintPagesSelector.qml</file>
+        <file>QML/BluePrintPagesSelector/PageSelectorDelegate.qml</file>
+        <file>QML/BluePrintPagesSelector/ExitConfirmationPopup.qml</file>
     </qresource>
 </RCC>

@@ -60,9 +60,9 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<CBlueScriptBox>("org.bluePrintType.BlueScriptBox", 1, 0, "CBlueScriptBox", " can not create CBlueScriptBox");
     qmlRegisterUncreatableType<CHTTPGetter>("org.bluePrintType.HTTPGetter", 1, 0, "CHTTPGetter", " can not create CHTTPGetter");
     qmlRegisterUncreatableType<CHTTPRawHeaderFormat>("org.bluePrintType.HTTPRawHeaderFormat", 1, 0, "CHTTPRawHeaderFormat", " can not create CHTTPRawHeaderFormat");
+    qmlRegisterUncreatableType<CBluePrintPage>("org.bluePrintType.BluePrintPage", 1, 0, "CBluePrintPage", " can not create CBluePrintPage");
 
     QQuickStyle::setStyle("Material") ;
-
 
     QQmlApplicationEngine engine;
     pQmlEngine = &engine ;

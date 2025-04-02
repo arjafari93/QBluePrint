@@ -3,7 +3,7 @@ import "SingleLineFlowInstance"
 Repeater{
     id:repeaterID
     anchors.fill: parent
-    model: BPBoxManager.listOfFlowConnectionLines
+    model: pBluePrintPage.listOfFlowConnectionLines
     delegate: SingleLineFlowInstance{
 
     }
