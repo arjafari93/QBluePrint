@@ -37,6 +37,7 @@ public:
 
 
 class CValue_int : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_int);
 public:
     long long value() const {return m_value; }
     explicit CValue_int(const long long & initVal) : m_value(initVal) {}
@@ -47,6 +48,7 @@ private:
 };
 
 class CValue_double : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_double);
 public:
     long double value() const {return m_value; }
     explicit CValue_double(const long double & initVal) : m_value(initVal) {}
@@ -57,6 +59,7 @@ private:
 };
 
 class CValue_string : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_string);
 public:
     QString value() const {return m_value; }
     explicit CValue_string(const QString & initVal) : m_value(std::move(initVal)) {}
@@ -67,6 +70,7 @@ private:
 };
 
 class CValue_bool : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_bool);
 public:
     bool value() const {return m_value; }
     explicit CValue_bool(const bool & initVal) : m_value(initVal) {}
@@ -77,18 +81,42 @@ private:
 };
 
 class CValue_list : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_list);
 public:
     QList<std::shared_ptr<CRawValueBase>> value() const {return m_value; }
     // Constructor accepting QList
     explicit CValue_list(const QList<std::shared_ptr<CRawValueBase>>& initVal)   : m_value(initVal) {}
     // Constructor accepting initializer list
     explicit CValue_list(std::initializer_list<std::shared_ptr<CRawValueBase>> initList)  : m_value(initList) {}
+//    // Move constructor
+//    CValue_list(CValue_list&& other) noexcept
+//        : m_value(std::move(other.m_value)) {}
+
+//    // Move assignment operator
+//    CValue_list& operator=(CValue_list&& other) noexcept {
+//        if (this != &other) {
+//            const_cast<QList<std::shared_ptr<CRawValueBase>>&>(m_value) = std::move(other.m_value);
+//        }
+//        return *this;
+//    }
+
+
     void accept(CValueVisitor& visitor) override;
+    virtual QString convertToString() const override {return QString(); } ;  // TODO: to be completed
+
+    std::shared_ptr<CRawValueBase> operator+(const long long &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator+(const long double &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator+(const bool &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator+(const QString &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator+(const CValue_list &  rhs) const;
+    friend std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_list& rhs);
+
 private:
-    const QList<std::shared_ptr<CRawValueBase>> m_value;
+    const QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
 };
 
 class CValue_map : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_map);
 public:
     QMap<std::shared_ptr<CRawValueBase> , std::shared_ptr<CRawValueBase>>  value() const {return m_value; }
     // Constructor accepting QList
