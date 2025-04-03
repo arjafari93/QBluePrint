@@ -81,6 +81,19 @@ void CBPBoxManager::setActivePageIndex(const int & newValue)
     emit activePageIndexChanged();
 }
 
+bool CBPBoxManager::terminalGlowEnable() const
+{
+    return m_terminalGlowEnable;
+}
+
+void CBPBoxManager::setTerminalGlowEnable(bool newTerminalGlowEnable)
+{
+    if (m_terminalGlowEnable == newTerminalGlowEnable)
+        return;
+    m_terminalGlowEnable = newTerminalGlowEnable;
+    emit terminalGlowEnableChanged();
+}
+
 
 void CBPBoxManager::boxListSearchBoxTextChanged(const QString &newSearch)
 {

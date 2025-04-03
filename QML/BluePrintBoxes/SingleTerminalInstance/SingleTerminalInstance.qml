@@ -91,9 +91,10 @@ Item{
             interval: 250
             onTriggered: terminalGlowID.isPassingValue = false
         }
-
+        visible: BPBoxManager.terminalGlowEnable && opacity > 0.01
         Connections{
             target: pTerminalInstance
+            enabled: BPBoxManager.terminalGlowEnable
             function onNodeIsPassingNewValue(){
                 terminalGlowID.isPassingValue = true;
                 turnOfPassingValEffectTimerID.restart();
@@ -105,7 +106,6 @@ Item{
         Behavior on opacity {
             NumberAnimation{}
         }
-        visible: opacity > 0.01
     }
 
 

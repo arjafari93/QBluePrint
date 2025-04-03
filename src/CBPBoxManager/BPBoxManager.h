@@ -24,6 +24,7 @@ class CBPBoxManager : public QObject
     Q_PROPERTY( QQmlListProperty<COperationBox> bpBoxBrowserListProxy READ bpBoxBrowserListProxy NOTIFY  bpBoxBrowserListProxyChanged )
     Q_PROPERTY(bool isArchiveSearchActive READ isArchiveSearchActive WRITE setIsArchiveSearchActive NOTIFY isArchiveSearchActiveChanged)
     Q_PROPERTY(bool darkThemeEnabled READ darkThemeEnabled WRITE setDarkThemeEnabled NOTIFY darkThemeEnabledChanged)
+    Q_PROPERTY(bool terminalGlowEnable READ terminalGlowEnable WRITE setTerminalGlowEnable NOTIFY terminalGlowEnableChanged)
     Q_PROPERTY(int  activePageIndex READ  activePageIndex  WRITE setActivePageIndex  NOTIFY activePageIndexChanged )
 
 private:
@@ -51,6 +52,9 @@ public:
     int activePageIndex() const;
     void setActivePageIndex(const int &newValue );
 
+    bool terminalGlowEnable() const;
+    void setTerminalGlowEnable(bool newTerminalGlowEnable);
+
 private:  // variables
     QList<CBluePrintPage*>         m_listOfBluePrintPages ;
     QList<COperationBox*>          m_bpBoxBrowserList; // list of items in the left menue
@@ -58,8 +62,7 @@ private:  // variables
     bool                           m_isArchiveSearchActive  = false  ;
     bool                           m_darkThemeEnabled = true ;
     int                            m_activePageIndex = 0 ;
-
-
+    bool                           m_terminalGlowEnable = false ;
 
 
 signals:
@@ -71,6 +74,7 @@ signals:
     void   showStatusBarMessage(const QString & msgText , const int & msgDuration , const QColor & msgColor = QColor(255,255,255));
     void   isArchiveSearchActiveChanged();
     void   activePageIndexChanged();
+    void   terminalGlowEnableChanged();
 };
 
 #endif // CBPBOXMANAGER_H
