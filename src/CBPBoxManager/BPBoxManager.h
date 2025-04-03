@@ -62,7 +62,7 @@ private:  // variables
     bool                           m_isArchiveSearchActive  = false  ;
     bool                           m_darkThemeEnabled = true ;
     int                            m_activePageIndex = 0 ;
-    bool                           m_terminalGlowEnable = false ;
+    bool                           m_terminalGlowEnable = true ;
 
 
 signals:

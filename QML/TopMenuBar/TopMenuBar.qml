@@ -110,6 +110,28 @@ ShadowedRectangle {
             }
         }
         Menu {
+            title: "Edit"
+            Material.background: BPBoxManager.darkThemeEnabled ?  "#272D34" : "#E9E9E9"
+            font.pointSize: mainMenuBarID.font.pointSize
+            MenuItem {
+                text: "Clean The Workspace"
+                onTriggered: {
+                    var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
+                    currentPageInstance.pBluePrintPage.clearCurrentBluePrintSession();
+                }
+            }
+            Menu {
+                title: "Preferences"
+                font.pointSize: mainMenuBarID.font.pointSize
+                MenuItem {
+                    text: (BPBoxManager.terminalGlowEnable ?  "Disable " : "Enable ") + "Termnial Glow"
+                    onTriggered: {
+                        BPBoxManager.terminalGlowEnable = !BPBoxManager.terminalGlowEnable ;
+                    }
+                }
+            }
+        }
+        Menu {
             title: "Help"
             Material.background: BPBoxManager.darkThemeEnabled ?  "#272D34" : "#E9E9E9"
 
