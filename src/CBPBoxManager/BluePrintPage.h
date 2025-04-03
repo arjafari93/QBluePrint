@@ -38,7 +38,7 @@ public:
     Q_INVOKABLE void  lineFlowReleased(const int & absPosX , const int & absPosY );
     Q_INVOKABLE void  removeLineFromListModel( CFlowConnectionLine * lineToBeRemoved );
     Q_INVOKABLE void  removeBPBoxFromListModel(QObject * boxToBeRemoved );
-    Q_INVOKABLE bool  createNewBoxFromGivenType( const QString & boxName , const int & posX , const int & posY  );
+    Q_INVOKABLE bool  createNewBoxFromGivenType( const QString & boxName , const int & posX , const int & posY , const bool & emitSignal = true );
     Q_INVOKABLE bool  saveBluePrintInfo(const QString & pathToFile)  ;
     Q_INVOKABLE bool  loadBluePrintInfo(const QString & pathToFile);
     Q_INVOKABLE void  clearCurrentBluePrintSession( );
@@ -52,14 +52,14 @@ public:
     COperationBox * getBPBoxFromUniqueID(const int &BPBoxID);
 
 private:  // variables
-    QList<COperationBox*>                              m_listOfBlueBoxes; // user has created these
-    QList<CFlowConnectionLine*>                        m_listOfFlowConnectionLines;
-    bool                                               m_isLineFlowDrawActive = false ;
-    CIOTerminal *                                      mp_lastGlowingTerminal = nullptr ;
-    float                                              m_applicationScaleFactor = 1.0 ;
-    QString                                            m_currentBluePrintFilePath = "" ;
-    int                                                m_maxBPBoxXpos = 0 ;
-    int                                                m_maxBPBoxYpos = 0 ;
+    QList<COperationBox*>          m_listOfBlueBoxes; // user has created these
+    QList<CFlowConnectionLine*>    m_listOfFlowConnectionLines;
+    bool                           m_isLineFlowDrawActive = false ;
+    CIOTerminal *                  mp_lastGlowingTerminal = nullptr ;
+    float                          m_applicationScaleFactor = 1.0 ;
+    QString                        m_currentBluePrintFilePath = "" ;
+    int                            m_maxBPBoxXpos = 0 ;
+    int                            m_maxBPBoxYpos = 0 ;
 
 
 

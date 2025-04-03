@@ -200,14 +200,15 @@ void CBluePrintPage::removeBPBoxFromListModel(QObject *boxToBeRemoved)
 }
 
 
-bool CBluePrintPage::createNewBoxFromGivenType( const QString &boxName , const int &posX, const int &posY )
+bool CBluePrintPage::createNewBoxFromGivenType( const QString &boxName , const int &posX, const int &posY ,  const bool & emitSignal )
 {
     try{
         auto pBox = CBPBoxFactory::getInstance()->createBPBoxInstance( boxName , posX , posY );
-        pBox->setParentBluePrintPage(this);
         ASSERTWITHRETURN(pBox , false );
+        pBox->setParentBluePrintPage(this);
         m_listOfBlueBoxes.push_back(pBox);
-        emit listOfBlueBoxesChanged();
+        if(emitSignal)
+            emit listOfBlueBoxesChanged();
         return true;
     }catch (const std::exception & e){
         DEBUG_MSG_PRINT << " exception: " << e.what();
@@ -373,12 +374,14 @@ bool CBluePrintPage::loadBluePrintInfo(const QString &pathToFile)
     for (const QJsonValue& bpBoxValue : bpBoxesArray)
     {
         QJsonObject bpBoxObject = bpBoxValue.toObject();
-        auto res = createNewBoxFromGivenType( bpBoxObject["BoxName"].toString() ,  bpBoxObject["xPos"].toString().toInt(),bpBoxObject["yPos"].toString().toInt() );
+        auto res = createNewBoxFromGivenType( bpBoxObject["BoxName"].toString() ,  bpBoxObject["xPos"].toString().toInt(),bpBoxObject["yPos"].toString().toInt() , false  );
         if(!res)
             continue;
         auto pBox = m_listOfBlueBoxes.last();
         pBox->deserializeBoxInfoFromJson(bpBoxObject);
     }
+
+    emit listOfBlueBoxesChanged();
 
     // Access BPFlowLinesInfo array
     QJsonArray flowLinesArray = mainObject["BPFlowLinesInfo"].toArray();
