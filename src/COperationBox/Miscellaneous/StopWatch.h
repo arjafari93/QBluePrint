@@ -2,6 +2,7 @@
 #define CSTOPWATCH_H
 
 #include <QObject>
+#include <chrono>
 #include "../OperationBox.h"
 class QTimer ;
 
@@ -32,7 +33,7 @@ private:
     bool    m_stopWatchRunning = false ;
     QTimer * mp_internalTimer = nullptr;
     int m_elapsedTime = 0;
-    qint64 m_startTime = 0;
+    std::chrono::high_resolution_clock::time_point  m_startTime  {};
 
 signals:
     void stopWatchRunningChanged();

@@ -11,6 +11,8 @@
 inline const static int blueBoxWidth  =  250 ;
 inline const static int blueBoxHeight =  90 ;
 
+using namespace std::literals ;
+using namespace std::chrono;
 
 CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
     : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
@@ -23,7 +25,7 @@ CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     m_listOfInputTerminals.push_back(inputNode1 );
 
     auto outPutNode = new COutputTerminal(0, this);
-    outPutNode->setTerminalName("ms");
+    outPutNode->setTerminalName("us");
     m_listOfOutputTerminals.push_back( outPutNode );
 
     m_blueBox_keyWords = "stop watch stopwatch timer";
@@ -31,7 +33,9 @@ CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
 
     mp_internalTimer = new QTimer(this);
     connect(mp_internalTimer, &QTimer::timeout , this , [this](){
-        setElapsedTime(QDateTime::currentMSecsSinceEpoch() - m_startTime );
+        // Compute duration in microseconds
+        microseconds duration = duration_cast<microseconds>( high_resolution_clock::now() - m_startTime);
+        setElapsedTime(duration.count() );
         sendValueOnAllOutputTerminals( std::make_shared<CValue_int>( m_elapsedTime) );
     });
 }
@@ -53,12 +57,13 @@ void CStopWatch::evaluateOperation()
     // if we are here it means the Running value has changed by user
     setStopWatchRunning(!m_stopWatchRunning);
     if(m_stopWatchRunning){
-        m_startTime = QDateTime::currentMSecsSinceEpoch();
+        m_startTime = std::chrono::high_resolution_clock::now();
         mp_internalTimer->start(100);
     }
     else{
         mp_internalTimer->stop();
-        setElapsedTime(QDateTime::currentMSecsSinceEpoch() - m_startTime );
+        microseconds duration = duration_cast<microseconds>( high_resolution_clock::now() - m_startTime);
+        setElapsedTime(duration.count() );
         sendValueOnAllOutputTerminals( std::make_shared<CValue_int>( m_elapsedTime) );
     }
 }

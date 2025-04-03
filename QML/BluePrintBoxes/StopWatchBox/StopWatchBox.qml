@@ -10,18 +10,20 @@ SingleBoxInstance{
     boxHeaderRectID.visible: false
     property var elapsedTimeObj: formatTime(modelData.elapsedTime)
 
-    function formatTime(msVal) {
-            let totalSeconds = Math.floor(msVal / 1000);
-            let minutes = Math.floor(totalSeconds / 60);
-            let seconds = totalSeconds % 60;
-            let milliseconds = Math.floor((msVal % 1000) / 10); // Display 2-digit ms
+    function formatTime(usVal) {
+        let totalSeconds = Math.floor(usVal / 1000000);
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        let milliseconds = Math.floor((usVal % 1000000) / 1000);
+        let microseconds = usVal % 1000; // Remaining microseconds
 
-            return {
-                minutes: minutes.toString().padStart(2, '0'),
-                seconds: seconds.toString().padStart(2, '0'),
-                milliseconds: milliseconds.toString().padStart(3, '0')
-            };
-        }
+        return {
+            minutes: minutes.toString().padStart(2, '0'),
+            seconds: seconds.toString().padStart(2, '0'),
+            milliseconds: milliseconds.toString().padStart(3, '0'),
+            microseconds: microseconds.toString().padStart(3, '0')
+        };
+    }
 
     Label{
         id: elapsedMinutesID
@@ -55,7 +57,16 @@ SingleBoxInstance{
         anchors.bottom:  elapsedSecondsID.bottom
         color: "white"
         text:  stopWatchManBoxID.elapsedTimeObj.milliseconds
-        font.pointSize:  elapsedMinutesID.font.pointSize - 6
+        font.pointSize:  elapsedMinutesID.font.pointSize - 4
+    }
+    Label{
+        id: elapsedUSecondsID
+        anchors.left: elapsedMSecondsID.right
+        anchors.leftMargin: fontMetricsID.height * 0.25
+        anchors.bottom:  elapsedSecondsID.bottom
+        color: "white"
+        text:  stopWatchManBoxID.elapsedTimeObj.microseconds
+        font.pointSize:  elapsedMinutesID.font.pointSize - 7
     }
     Rectangle{
         anchors.fill: parent
