@@ -61,3 +61,9 @@ QString CBPStatic::getNameOfTypeAsString(CIOTerminal *pNode){
     DEBUG_MSG_PRINT << " failed to find the name for Terminal ";
     return "INVALID";
 }
+
+QString CBPStatic::getFileNameFromPath(const QString &filePath)
+{
+  QFileInfo fileInfo(filePath);
+  return fileInfo.fileName();
+}

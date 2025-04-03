@@ -24,7 +24,7 @@ public:
     virtual void deserializeBoxInfoFromJson( const QJsonObject & jsonObj ) override ;
 
 private:
-    inline const static QString    m_uniqueBoxName  = "Delay" ;
+    inline const static QString    m_uniqueBoxName  = "Delay/Queue" ;
     QTimer * mp_sendValueTimer = nullptr ;
     int m_msDelay = 10 ;
     std::deque< std::shared_ptr< CRawValueBase>> m_valuesToBeSent ;

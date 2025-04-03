@@ -74,13 +74,39 @@ ShadowedRectangle {
             var newScale = scaleSpinBpxID.value / 100 ;
             if(newScale < 0.2)
                 newScale = 0.2
-            BPBoxManager.applicationScaleFactor = newScale ;
+            var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
+            if(!currentPageInstance)
+                return ; // its not loaded yet
+            currentPageInstance.pBluePrintPage.applicationScaleFactor = newScale ;
         }
+        function adjustScale(){
+            var targetObj = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex).pBluePrintPage;
+            if (targetObj) {
+                // set it for the first time and connect releated signal to it
+                var newValue = scaleSpinBpxID.decimalToInt(targetObj.applicationScaleFactor);
+                if (scaleSpinBpxID.value != newValue) {
+                    scaleSpinBpxID.value = newValue;
+                }
+
+                targetObj.applicationScaleFactorChanged.connect(function() {
+                    var newValue = scaleSpinBpxID.decimalToInt(targetObj.applicationScaleFactor);
+                    if (scaleSpinBpxID.value != newValue) {
+                        scaleSpinBpxID.value = newValue;
+                    }
+                });
+            }
+        }
+
+        Component.onCompleted: {
+            Qt.callLater(function() { // make it async to make sure repeater has loaded all the items
+                scaleSpinBpxID.adjustScale();
+            });
+        }
+
         Connections{
-            target: BPBoxManager
-            function onApplicationScaleFactorChanged(){
-                if( scaleSpinBpxID.value != scaleSpinBpxID.decimalToInt(BPBoxManager.applicationScaleFactor))
-                    scaleSpinBpxID.value = scaleSpinBpxID.decimalToInt(BPBoxManager.applicationScaleFactor) ;
+            target:  BPBoxManager
+            function onActivePageIndexChanged(){
+                scaleSpinBpxID.adjustScale();
             }
         }
 
@@ -118,7 +144,8 @@ ShadowedRectangle {
                 onClicked: {
                     scrollViewInappMainWindowID.flickableItem.contentY = 0 ;
                     scrollViewInappMainWindowID.flickableItem.contentX = 0 ;
-                    BPBoxManager.applicationScaleFactor = 1.0 ;
+                    var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
+                    currentPageInstance.pBluePrintPage.applicationScaleFactor = 1.0 ;
                 }
             }
         }

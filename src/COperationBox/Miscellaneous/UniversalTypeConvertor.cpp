@@ -24,7 +24,7 @@ CUniversalTypeConvertor::CUniversalTypeConvertor ( int newBlueBox_xPos, int newB
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "convertor, type";
+    m_blueBox_keyWords = "convertor type cast universal";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_DataComparison ;
 }
 

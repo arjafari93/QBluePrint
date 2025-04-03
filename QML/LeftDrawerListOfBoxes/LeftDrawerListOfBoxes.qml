@@ -202,16 +202,22 @@ Drawer {
                         leftSideDrawerID.dragImageObject.destroy()
                         console.log("component wasnt destroyed properly");
                     }
-                    var posInParentCoord = bpBoxBrowserDelegateMainRectID.mapToItem(mainWindowWrapperItemID, mouse.x , mouse.y );
-                    var pathToComp = bluePrintBoxesInMainPageID.defineGUIDeleage(blueBox_GUIType);
+                    var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
+                    if(!currentPageInstance){
+                        console.log("onPressed: empty item at repeater detected " , currentPageInstance);
+                        return ;
+                    }
+
+                    var posInParentCoord = bpBoxBrowserDelegateMainRectID.mapToItem(currentPageInstance.mainWindowWrapperItemID, mouse.x , mouse.y );
+                    var pathToComp = appMainWindowID.defineGUIDeleage(blueBox_GUIType);
                     var dragBoxComp = Qt.createComponent(pathToComp);
                     leftSideDrawerID.dragImageObject =
-                            dragBoxComp.createObject(appMainWindowID ,
+                            dragBoxComp.createObject(currentPageInstance ,
                                                      {
-                                                         "x":(posInParentCoord.x - mouse.x*0.5)* appMainWindowID.scaleFactorOfApp  - scrollViewInappMainWindowID.flickableItem.contentX ,
-                                                         "y":(posInParentCoord.y - mouse.y*0.5 )*appMainWindowID.scaleFactorOfApp - scrollViewInappMainWindowID.flickableItem.contentY ,
+                                                         "x":(posInParentCoord.x - mouse.x*0.5) *  currentPageInstance.scaleFactorOfApp  - currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentX ,
+                                                         "y":(posInParentCoord.y - mouse.y*0.5 )*  currentPageInstance.scaleFactorOfApp  - currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentY ,
                                                          "opacity":0.4,
-                                                         "scale":  appMainWindowID.scaleFactorOfApp
+                                                         "scale":  currentPageInstance.scaleFactorOfApp
                                                      });
                     pbBoxDelagateMouseAreaID.drag.target =  leftSideDrawerID.dragImageObject ;
                 }
@@ -231,9 +237,14 @@ Drawer {
                     }
 
 
-                    var posInParentCoord = leftSideDrawerID.dragImageObject.mapToItem(mainWindowWrapperItemID, 0 , 0 );
+                    var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
+                    if(!currentPageInstance){
+                        console.log("onReleased : empty item at repeater detected " , currentPageInstance);
+                        return ;
+                    }
+                    var posInParentCoord = leftSideDrawerID.dragImageObject.mapToItem(currentPageInstance.mainWindowWrapperItemID, 0 , 0 );
                     // console.log("posInParentCoord is " , posInParentCoord.x , posInParentCoord.y )
-                    var res = BPBoxManager.createNewBoxFromGivenType( blueBox_name , posInParentCoord.x , posInParentCoord.y  );
+                    var res = currentPageInstance.pBluePrintPage.createNewBoxFromGivenType( blueBox_name , posInParentCoord.x , posInParentCoord.y  );
                     leftSideDrawerID.dragImageObject.destroy();
                     leftSideDrawerID.dragImageObject = undefined;
                 }
