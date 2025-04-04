@@ -101,7 +101,7 @@ void CFileSink::flushStringsIntoFile()
 
     QTextStream outStrm(&fileInstance);
     for ( auto& currentText : m_bufferOfStrings) {
-        currentText.replace("\\r\\n", "\r\n"); // Replace literal "\n" with actual newlines
+        currentText.replace("\\n", "\n"); // Replace literal "\n" with actual newlines
         outStrm << currentText ;
     }
     fileInstance.close();  // Explicitly close after each writing
