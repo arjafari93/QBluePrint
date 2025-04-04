@@ -52,7 +52,29 @@ void CStopWatch::evaluateOperation()
     if(!m_listOfInputTerminals.at(0)->terminalCurrentData().get() )
         return ;
 
-    if( m_stopWatchRunning == static_cast<CValue_bool*>(m_listOfInputTerminals.at(0)->terminalCurrentData().get())->value() )
+    bool newRunningVal = false ;
+    auto pRunVal = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
+    if (auto* pVal = dynamic_cast<CValue_int*>(pRunVal)) {
+        newRunningVal =  (bool)pVal->value()   ;
+    } else if (auto* pVal = dynamic_cast<CValue_double*>(pRunVal)) {
+        newRunningVal = (bool)pVal->value();
+    }else if (auto* pVal = dynamic_cast<CValue_bool*>(pRunVal)) {
+        newRunningVal = pVal->value();
+    } else if (auto* pVal = dynamic_cast<CValue_string*>(pRunVal)) {
+        bool ok = false ;
+        pVal->value().toLongLong(&ok);
+        if(ok)
+            newRunningVal =  pVal->value().toLongLong();
+        else
+            newRunningVal = pVal->value().length() ;
+    } else if (auto* pVal = dynamic_cast<CValue_string*>(pRunVal)) {
+        newRunningVal = pVal->value().length();
+    }else{
+        DEBUG_MSG_PRINT << "inavlid daata type " ;
+        return ;
+    }
+
+    if( m_stopWatchRunning == newRunningVal )
         return ;
     // if we are here it means the Running value has changed by user
     setStopWatchRunning(!m_stopWatchRunning);
