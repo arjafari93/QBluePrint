@@ -101,7 +101,7 @@ CBitWiseAND::CBitWiseAND ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *p
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "BitWise AND";
+    m_blueBox_keyWords = "BitWise AND &";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

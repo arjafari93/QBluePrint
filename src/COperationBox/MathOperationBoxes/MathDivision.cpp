@@ -92,7 +92,7 @@ CMathDivision::CMathDivision ( int newBlueBox_xPos, int newBlueBox_yPos , QObjec
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Math devision, devide";
+    m_blueBox_keyWords = "Math devision, devide /";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_MathOperation ;
 }
 

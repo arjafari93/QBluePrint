@@ -28,7 +28,7 @@ CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     outPutNode->setTerminalName("us");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "stop watch stopwatch timer";
+    m_blueBox_keyWords = "stop watch stopwatch timer measure elapse";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_Miscellaneous;
 
     mp_internalTimer = new QTimer(this);

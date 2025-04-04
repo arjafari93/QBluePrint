@@ -96,7 +96,7 @@ CLogicalOR::CLogicalOR ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "logical OR";
+    m_blueBox_keyWords = "logical OR ||";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

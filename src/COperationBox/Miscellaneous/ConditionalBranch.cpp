@@ -29,7 +29,7 @@ CConditionalBranch::CConditionalBranch ( int newBlueBox_xPos, int newBlueBox_yPo
     outPutNodeFalse->setTerminalName("False");
     m_listOfOutputTerminals.push_back( outPutNodeFalse );
 
-    m_blueBox_keyWords = "Conditional Branch";
+    m_blueBox_keyWords = "Conditional Branch if";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_Miscellaneous ;
 }
 

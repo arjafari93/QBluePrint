@@ -23,7 +23,7 @@ CBitWiseComplement::CBitWiseComplement ( int newBlueBox_xPos, int newBlueBox_yPo
     m_listOfOutputTerminals.push_back( outPutNode );
 
 
-    m_blueBox_keyWords = "BitWise Complement";
+    m_blueBox_keyWords = "BitWise Complement ~";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

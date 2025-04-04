@@ -117,7 +117,7 @@ CBitWiseRightShift::CBitWiseRightShift ( int newBlueBox_xPos, int newBlueBox_yPo
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "BitWise Right Shift";
+    m_blueBox_keyWords = "BitWise Right Shift >>";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

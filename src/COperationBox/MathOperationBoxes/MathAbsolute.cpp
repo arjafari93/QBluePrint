@@ -24,11 +24,9 @@ CMathAbsolute::CMathAbsolute ( int newBlueBox_xPos, int newBlueBox_yPos , QObjec
     outPutNode->setTerminalName("out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Math Abstract";
+    m_blueBox_keyWords = "Math Abstract | |";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_MathOperation ;
 }
-
-
 
 
 

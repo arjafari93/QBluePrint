@@ -119,7 +119,7 @@ CBitWiseLeftShift::CBitWiseLeftShift ( int newBlueBox_xPos, int newBlueBox_yPos 
     m_listOfOutputTerminals.push_back( outPutNode );
 
 
-    m_blueBox_keyWords = "BitWise Left Shift";
+    m_blueBox_keyWords = "BitWise Left Shift <<";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

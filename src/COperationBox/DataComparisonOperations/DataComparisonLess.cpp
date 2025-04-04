@@ -94,7 +94,7 @@ CDataComparisonLess::CDataComparisonLess ( int newBlueBox_xPos, int newBlueBox_y
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Comparator compare comparison less than compare little ";
+    m_blueBox_keyWords = "Comparator compare comparison less than compare little <";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_DataComparison ;
 }
 

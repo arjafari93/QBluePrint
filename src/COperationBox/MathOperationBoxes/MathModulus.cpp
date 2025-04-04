@@ -91,7 +91,7 @@ CMathModulus::CMathModulus ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Math modulus remaining";
+    m_blueBox_keyWords = "Math modulus remaining %";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_MathOperation ;
 }
 

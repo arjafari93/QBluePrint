@@ -23,7 +23,7 @@ CLogicalNOT::CLogicalNOT ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *p
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "logical NOT";
+    m_blueBox_keyWords = "logical NOT !";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

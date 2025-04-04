@@ -99,7 +99,7 @@ CBitWiseOR::CBitWiseOR ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     m_listOfOutputTerminals.push_back( outPutNode );
 
 
-    m_blueBox_keyWords = "BitWise OR";
+    m_blueBox_keyWords = "BitWise OR |";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 
