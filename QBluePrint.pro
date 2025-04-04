@@ -28,6 +28,7 @@ SOURCES += \
         src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.cpp \
         src/COperationBox/DataComparisonOperations/JsonParser.cpp \
+        src/COperationBox/LoopsArrays/GetByIndex.cpp \
         src/COperationBox/Miscellaneous/BlueScriptBox.cpp \
         src/COperationBox/Miscellaneous/ConditionalBranch.cpp \
         src/COperationBox/Miscellaneous/DataCounter.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h \
     src/COperationBox/DataComparisonOperations/JsonParser.h \
+    src/COperationBox/LoopsArrays/GetByIndex.h \
     src/COperationBox/Miscellaneous/BlueScriptBox.h \
     src/COperationBox/Miscellaneous/ConditionalBranch.h \
     src/COperationBox/Miscellaneous/DataCounter.h \
