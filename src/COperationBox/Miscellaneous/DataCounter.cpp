@@ -7,7 +7,7 @@
 #include <memory>
 
 inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 150 ;
+inline const static int blueBoxHeight = 140 ;
 
 
 CDataCounter::CDataCounter ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
@@ -21,7 +21,7 @@ CDataCounter::CDataCounter ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     auto inputNode2 = new CInputTerminal(1, this);
     inputNode2->setTerminalName("Init");
     inputNode2->setTerminalCurrentData(std::make_shared<CValue_int>(0));
-    auto inputNode3 = new CInputTerminal(1, this);
+    auto inputNode3 = new CInputTerminal(2, this);
     inputNode3->setTerminalName("Step");
     inputNode3->setTerminalCurrentData(std::make_shared<CValue_int>(1));
 
