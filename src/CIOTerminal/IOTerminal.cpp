@@ -76,7 +76,7 @@ void CIOTerminal::changeTerminalCurrentDataArray(const QVariant &newValue)
                 for (const auto& currentInnerVal : listOfInnerVals) {
                     recursiveInsertor(innerListOfRawVals, currentInnerVal);
                 }
-                listOfRawVals.push_back( std::make_shared<CValue_list>( innerListOfRawVals ) );
+                listOfRawVals.push_back( std::make_shared<CValue_array>( innerListOfRawVals ) );
             } else {
                 DEBUG_MSG_PRINT << " type doesn't exist " << recVal.type();
             }
@@ -91,7 +91,7 @@ void CIOTerminal::changeTerminalCurrentDataArray(const QVariant &newValue)
     for( auto const & currentVal :  listOfVals ){
         recursiveInsertor( listOfRawVals , currentVal);
     }
-    setTerminalCurrentData( std::make_shared<CValue_list>( listOfRawVals ));
+    setTerminalCurrentData( std::make_shared<CValue_array>( listOfRawVals ));
     emit nodeIsPassingNewValue();
 }
 

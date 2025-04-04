@@ -18,7 +18,7 @@ CForEachLoop::CForEachLoop ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     m_blueBox_HeaderIcon = "qrc:/Images/forLoop.png";
     auto inputNode1 = new CInputTerminal(0, this);
     inputNode1->setTerminalName("Array");
-    inputNode1->setTerminalCurrentData( std::make_shared<CValue_list>() );
+    inputNode1->setTerminalCurrentData( std::make_shared<CValue_array>() );
     m_listOfInputTerminals.push_back(inputNode1 );
 
     auto outPutNode = new COutputTerminal(0, this);
@@ -45,7 +45,7 @@ void CForEachLoop::evaluateOperation()
     auto pArray = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
     if( !pArray )
         return ;
-    CValue_list*  sourceArray=  nullptr;
+    CValue_array*  sourceArray=  nullptr;
     if (auto* pVal = dynamic_cast<CValue_int*>(pArray)) {
         m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>(pVal->value()) );
         m_listOfOutputTerminals.at(1)->sendValueToFlowLine( std::make_shared<CValue_int>(0) );
@@ -62,7 +62,7 @@ void CForEachLoop::evaluateOperation()
         m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_bool>(pVal->value()) );
         m_listOfOutputTerminals.at(1)->sendValueToFlowLine( std::make_shared<CValue_int>(0) );
         return ;
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pArray)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pArray)) {
         sourceArray =  pVal ;
     }
     ASSERTWITHINFO(sourceArray);

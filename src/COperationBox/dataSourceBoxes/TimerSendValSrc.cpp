@@ -112,7 +112,7 @@ void CTimerSendValSrc::sendValueTimerTimeOut()
      m_listOfOutputTerminals.at(1)->sendValueToFlowLine(  std::make_shared<CValue_double>  (m_valueToBeSentDouble ));
      m_listOfOutputTerminals.at(2)->sendValueToFlowLine(  std::make_shared<CValue_string>  (m_valueToBeSentString ));
      m_listOfOutputTerminals.at(3)->sendValueToFlowLine(  std::make_shared<CValue_bool>    (m_valueToBeSentBool   ));
-     m_listOfOutputTerminals.at(4)->sendValueToFlowLine(  std::make_shared<CValue_list>    (m_valueToBeSentlist   ));
+     m_listOfOutputTerminals.at(4)->sendValueToFlowLine(  std::make_shared<CValue_array>    (m_valueToBeSentlist   ));
 }
 
 

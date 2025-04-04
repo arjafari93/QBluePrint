@@ -86,22 +86,22 @@ private:
     const bool m_value;
 };
 
-class CValue_list : public CRawValueBase {
-    Q_DISABLE_COPY_MOVE(CValue_list);
+class CValue_array : public CRawValueBase {
+    Q_DISABLE_COPY_MOVE(CValue_array);
 public:
     QList<std::shared_ptr<CRawValueBase>> value() const {return m_value; }
     // default constructor
-    explicit CValue_list(){};
+    explicit CValue_array(){};
     // Constructor accepting QList
-    explicit CValue_list(const QList<std::shared_ptr<CRawValueBase>>& initVal)   : m_value(initVal) {}
+    explicit CValue_array(const QList<std::shared_ptr<CRawValueBase>>& initVal)   : m_value(initVal) {}
     // accept list of strings
-    explicit CValue_list(const QStringList & initVal)  {
+    explicit CValue_array(const QStringList & initVal)  {
         for(const auto & str : initVal){
             m_value.push_back(std::make_shared<CValue_string>(str));
         }
     }
     // Constructor accepting initializer list
-    explicit CValue_list(std::initializer_list<std::shared_ptr<CRawValueBase>> initList)  : m_value(initList) {}
+    explicit CValue_array(std::initializer_list<std::shared_ptr<CRawValueBase>> initList)  : m_value(initList) {}
     void accept(CValueVisitor& visitor) override;
     virtual QString convertToString() const override  ;
     virtual QVariant convertToVariant() const override ;
@@ -110,8 +110,8 @@ public:
     std::shared_ptr<CRawValueBase> operator+(const long double &  rhs) const;
     std::shared_ptr<CRawValueBase> operator+(const bool &  rhs) const;
     std::shared_ptr<CRawValueBase> operator+(const QString &  rhs) const;
-    std::shared_ptr<CRawValueBase> operator+(const CValue_list &  rhs) const;
-    friend std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_list& rhs);
+    std::shared_ptr<CRawValueBase> operator+(const CValue_array &  rhs) const;
+    friend std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_array& rhs);
 
 private:
     /*const*/ QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
@@ -137,7 +137,7 @@ public:
     virtual void visit(const CValue_double& value) = 0;
     virtual void visit(const CValue_string& value) = 0;
     virtual void visit(const CValue_bool& value) = 0;
-    virtual void visit(const CValue_list& value) = 0;
+    virtual void visit(const CValue_array& value) = 0;
     virtual void visit(const CValue_map & value) = 0;
 };
 

@@ -17,7 +17,7 @@ CGetByIndex::CGetByIndex ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *p
     m_blueBox_HeaderIcon = "qrc:/Images/getIndex.png";
     auto inputNode1 = new CInputTerminal(0, this);
     inputNode1->setTerminalName("Input");
-    inputNode1->setTerminalCurrentData( std::make_shared<CValue_list>() );
+    inputNode1->setTerminalCurrentData( std::make_shared<CValue_array>() );
     m_listOfInputTerminals.push_back(inputNode1 );
 
 
@@ -57,14 +57,14 @@ void CGetByIndex::evaluateOperation()
         indexInArr = pVal->value().toLongLong() ;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pIndex)) {
         indexInArr = (long long)pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pIndex)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pIndex)) {
         indexInArr =  pVal->convertToString().toLongLong() ;
     }
     if(indexInArr < 0 )
         return ;
 
 
-    CValue_list*  sourceArray=  nullptr;
+    CValue_array*  sourceArray=  nullptr;
     if (auto* pVal = dynamic_cast<CValue_int*>(pArray)) {
         if(indexInArr == 0 )
             m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>(pVal->value()) );
@@ -81,7 +81,7 @@ void CGetByIndex::evaluateOperation()
         if(indexInArr == 0 )
             m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_bool>(pVal->value()) );
         return ;
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pArray)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pArray)) {
         sourceArray =  pVal ;
     }
     ASSERTWITHINFO(sourceArray);

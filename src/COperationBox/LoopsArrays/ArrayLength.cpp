@@ -17,7 +17,7 @@ CArrayLength::CArrayLength ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     m_blueBox_HeaderIcon = "qrc:/Images/arrayLen.png";
     auto inputNode1 = new CInputTerminal(0, this);
     inputNode1->setTerminalName("Input");
-    inputNode1->setTerminalCurrentData( std::make_shared<CValue_list>() );
+    inputNode1->setTerminalCurrentData( std::make_shared<CValue_array>() );
     m_listOfInputTerminals.push_back(inputNode1 );
 
     auto outPutNode = new COutputTerminal(0, this);
@@ -49,7 +49,7 @@ void CArrayLength::evaluateOperation()
         m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>(pVal->value().length()) );
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pArray)) {
         m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>( 1 ) );
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pArray)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pArray)) {
         m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>( pVal->value().length() ) );
     }
 }

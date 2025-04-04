@@ -16,7 +16,7 @@ QColor CBPStatic::getColorOfNodeByType(  CIOTerminal * pNode ){
          return QColor(255,255,0);
     }else if (auto* pBox = dynamic_cast<CValue_string*>(pTerminalData)) {
          return QColor(100,255,100);
-    }else if (auto* pBox = dynamic_cast<CValue_list*>(pTerminalData)) {
+    }else if (auto* pBox = dynamic_cast<CValue_array*>(pTerminalData)) {
         return QColor(200,150,250);
    }
 
@@ -37,7 +37,7 @@ QColor CBPStatic::getColorByType(  CRawValueBase * pValue ){
          return QColor(255,255,0);
     }else if (auto* pBox = dynamic_cast<CValue_string*>(pValue)) {
          return QColor(100,255,100);
-    }else if (auto* pBox = dynamic_cast<CValue_list*>(pValue)) {
+    }else if (auto* pBox = dynamic_cast<CValue_array*>(pValue)) {
         return QColor(200,150,250);
    }
 
@@ -60,7 +60,7 @@ QString CBPStatic::getNameOfTypeAsString(CIOTerminal *pNode){
          return "bool";
     }else if (auto* pBox = dynamic_cast<CValue_string*>(pTerminalData)) {
          return "string";
-    }else if (auto* pBox = dynamic_cast<CValue_list*>(pTerminalData)) {
+    }else if (auto* pBox = dynamic_cast<CValue_array*>(pTerminalData)) {
         return "array";
    }
 

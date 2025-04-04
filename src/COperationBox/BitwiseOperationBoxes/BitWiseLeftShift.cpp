@@ -86,7 +86,7 @@ public:
         }
     }
 
-    void visit(const CValue_list& lhs) override {
+    void visit(const CValue_array& lhs) override {
         Q_UNUSED(lhs)
     }
 

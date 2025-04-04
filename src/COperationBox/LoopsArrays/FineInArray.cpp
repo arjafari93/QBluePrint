@@ -17,7 +17,7 @@ CFineInArray::CFineInArray ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     m_blueBox_HeaderIcon = "qrc:/Images/arrayFind.png";
     auto inputNode1 = new CInputTerminal(0, this);
     inputNode1->setTerminalName("Input");
-    inputNode1->setTerminalCurrentData( std::make_shared<CValue_list>() );
+    inputNode1->setTerminalCurrentData( std::make_shared<CValue_array>() );
     m_listOfInputTerminals.push_back(inputNode1 );
 
     auto inputNode2 = new CInputTerminal(1, this);
@@ -55,14 +55,12 @@ void CFineInArray::evaluateOperation()
         indexInArr = pElmntVal->value().toLongLong() ;
     }else if (auto* pElmntVal = dynamic_cast<CValue_bool*>(pElmnt)) {
         indexInArr = (long long)pElmntVal->value();
-    }else if (auto* pElmntVal = dynamic_cast<CValue_list*>(pElmnt)) {
+    }else if (auto* pElmntVal = dynamic_cast<CValue_array*>(pElmnt)) {
         indexInArr =  pElmntVal->convertToString().toLongLong() ;
     }
     if(indexInArr < 0 )
         return ;
 
-
-    CValue_list*  sourceArray=  nullptr;
     if (auto* pVal = dynamic_cast<CValue_int*>(pArray)) {
         if (auto* pElmntVal = dynamic_cast<CValue_int*>(pElmnt)){
             if(pElmntVal->value() == pVal->value())
@@ -92,7 +90,7 @@ void CFineInArray::evaluateOperation()
                 m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>(-1) );
             return ;
         }
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pArray)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pArray)) {
         int index =  pVal->findIndexOfElementInArray(m_listOfInputTerminals.at(1)->terminalCurrentData());
         ASSERTWITHINFO( index < pVal->value().length() );
         m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_int>(index) );

@@ -10,9 +10,9 @@ void CValue_int::accept         (CValueVisitor& visitor) { visitor.visit(*this);
 void CValue_double::accept      (CValueVisitor& visitor) { visitor.visit(*this); }
 void CValue_string::accept      (CValueVisitor& visitor) { visitor.visit(*this); }
 void CValue_bool::accept        (CValueVisitor& visitor) { visitor.visit(*this); }
-void CValue_list::accept        (CValueVisitor& visitor) { visitor.visit(*this); }
+void CValue_array::accept        (CValueVisitor& visitor) { visitor.visit(*this); }
 
-QString CValue_list::convertToString() const
+QString CValue_array::convertToString() const
 {
     QString result = "";
     for(auto pVal : m_value){
@@ -21,7 +21,7 @@ QString CValue_list::convertToString() const
     return result ;
 }
 
-QVariant CValue_list::convertToVariant() const
+QVariant CValue_array::convertToVariant() const
 {
     QVariantList varList ;
     for(auto pCurrentRawVal : m_value){
@@ -33,7 +33,7 @@ QVariant CValue_list::convertToVariant() const
             varList.push_back(pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             varList.push_back(pVal->value());
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             QVariantList innerList ;
             for(auto innerVal: pVal->value()){
                 innerList << innerVal->convertToVariant();
@@ -44,7 +44,7 @@ QVariant CValue_list::convertToVariant() const
     return QVariant(varList); ;
 }
 
-int CValue_list::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> &elmnt) const
+int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> &elmnt) const
 {
     if (auto* pVal = dynamic_cast<CValue_int*>(elmnt.get())) {
         int iter =0;
@@ -90,10 +90,10 @@ int CValue_list::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> 
             iter++;
         }
         return -1;
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(elmnt.get())) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(elmnt.get())) {
         int iter =0;
         for(auto pCurrentVal : m_value){
-            if (auto* pInVal = dynamic_cast<CValue_list*>(pCurrentVal.get())){
+            if (auto* pInVal = dynamic_cast<CValue_array*>(pCurrentVal.get())){
                 if(pInVal->value().length() != pVal->value().length() )
                     return -1 ;
                 for(auto pInInVal : pInVal->value()){
@@ -111,7 +111,7 @@ int CValue_list::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> 
     return -1 ;
 }
 
-std::shared_ptr<CRawValueBase> CValue_list::operator+(const long long &rhs) const
+std::shared_ptr<CRawValueBase> CValue_array::operator+(const long long &rhs) const
 {
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(auto pCurrentRawVal : m_value){
@@ -123,14 +123,14 @@ std::shared_ptr<CRawValueBase> CValue_list::operator+(const long long &rhs) cons
             result.push_back( std::make_shared<CValue_int>(pVal->value() + rhs ));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_string>( pVal->value() + QString::number(rhs ) ));
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_list>(result) ;
+    return std::make_shared<CValue_array>(result) ;
 }
 
-std::shared_ptr<CRawValueBase> CValue_list::operator+(const long double &rhs) const
+std::shared_ptr<CRawValueBase> CValue_array::operator+(const long double &rhs) const
 {
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(auto pCurrentRawVal : m_value){
@@ -142,14 +142,14 @@ std::shared_ptr<CRawValueBase> CValue_list::operator+(const long double &rhs) co
             result.push_back( std::make_shared<CValue_double>(pVal->value() + rhs ));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_string>( pVal->value() + QString::number( rhs , 'f' , MAX_DOUBLE_PRECISION) ));
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_list>(result) ;
+    return std::make_shared<CValue_array>(result) ;
 }
 
-std::shared_ptr<CRawValueBase> CValue_list::operator+(const bool &  rhs) const{
+std::shared_ptr<CRawValueBase> CValue_array::operator+(const bool &  rhs) const{
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(auto pCurrentRawVal : m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
@@ -160,15 +160,15 @@ std::shared_ptr<CRawValueBase> CValue_list::operator+(const bool &  rhs) const{
             result.push_back( std::make_shared<CValue_int>(pVal->value() + rhs ));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_string>( pVal->value() + QString::number(rhs ) ));
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_list>(result) ;
+    return std::make_shared<CValue_array>(result) ;
 }
 
 
-std::shared_ptr<CRawValueBase> CValue_list::operator+(const QString &  rhs) const{
+std::shared_ptr<CRawValueBase> CValue_array::operator+(const QString &  rhs) const{
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(auto pCurrentRawVal : m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
@@ -179,15 +179,15 @@ std::shared_ptr<CRawValueBase> CValue_list::operator+(const QString &  rhs) cons
             result.push_back( std::make_shared<CValue_string>(QString::number(pVal->value()) + rhs ));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_string>( pVal->value() +  rhs  ));
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_list>(result) ;
+    return std::make_shared<CValue_array>(result) ;
 }
 
 
-std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_list& rhs) {
+std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_array& rhs) {
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(auto pCurrentRawVal : rhs.m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
@@ -198,16 +198,16 @@ std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_list& 
             result.push_back( std::make_shared<CValue_string>( lhs + QString::number(pVal->value())  ));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_string>( lhs +  pVal->value()   ));
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( lhs +  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_list>(result) ;
+    return std::make_shared<CValue_array>(result) ;
 }
 
 
 
-std::shared_ptr<CRawValueBase> CValue_list::operator+(const CValue_list &rhs) const
+std::shared_ptr<CRawValueBase> CValue_array::operator+(const CValue_array &rhs) const
 {
     int minSize = std::min( rhs.m_value.length() , m_value.length() );
     const auto & biggerList = rhs.m_value.length() > m_value.length() ? rhs.m_value : m_value ;
@@ -222,7 +222,7 @@ std::shared_ptr<CRawValueBase> CValue_list::operator+(const CValue_list &rhs) co
             result.push_back(  rhs + pVal->value()   );
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
             result.push_back(  pVal->value() + rhs  );
-        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+        }if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( *pVal + rhs ) ;
         }
     }
@@ -230,7 +230,7 @@ std::shared_ptr<CRawValueBase> CValue_list::operator+(const CValue_list &rhs) co
     for(int iter = minSize ; iter < biggerList.length() ; iter++ ){
         result.push_back( biggerList.at(iter));
     }
-    return std::make_shared<CValue_list>(result) ;
+    return std::make_shared<CValue_array>(result) ;
 }
 
 

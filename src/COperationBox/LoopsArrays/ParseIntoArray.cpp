@@ -65,7 +65,7 @@ void CParseIntoArray::evaluateOperation()
         sourceVal = pVal->value() ;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pSrc)) {
         sourceVal =  QString::number(pVal->value()) ;
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pSrc)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pSrc)) {
         sourceVal =  pVal->convertToString() ;
     }
 
@@ -81,7 +81,7 @@ void CParseIntoArray::evaluateOperation()
         delimiterStr = pVal->value() ;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pDelmtr)) {
         delimiterStr =  QString::number(pVal->value()) ;
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pDelmtr)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pDelmtr)) {
         delimiterStr =  pVal->convertToString() ;
     }
 
@@ -94,12 +94,12 @@ void CParseIntoArray::evaluateOperation()
         skipTheEmpty = pVal->value().toLongLong() ;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCullEmpty)) {
         skipTheEmpty = pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_list*>(pCullEmpty)) {
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pCullEmpty)) {
         skipTheEmpty =  pVal->convertToString().toLongLong() ;
     }
 
     auto strArray = sourceVal.split( delimiterStr ,  ( skipTheEmpty ? Qt::SkipEmptyParts : Qt::KeepEmptyParts ) );
-    m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_list>(strArray) );
+    m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_array>(strArray) );
     m_listOfOutputTerminals.at(1)->sendValueToFlowLine( std::make_shared<CValue_int>(strArray.length()) );
 
 }
