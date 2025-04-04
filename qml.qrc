@@ -78,6 +78,7 @@
         <file>QML/BluePrintPagesSelector/BluePrintPagesSelector.qml</file>
         <file>QML/BluePrintPagesSelector/PageSelectorDelegate.qml</file>
         <file>QML/BluePrintPagesSelector/ExitConfirmationPopup.qml</file>
+        <file>Images/parseToArray.png</file>
         <file>Images/forLoop.png</file>
         <file>Images/getIndex.png</file>
         <file>Images/arrayLen.png</file>

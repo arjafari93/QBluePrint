@@ -37,6 +37,7 @@
 #include "src/COperationBox/DataComparisonOperations/JsonParser.h"
 #include "src/COperationBox/dataSinkBoxes/FileSink.h"
 #include "src/COperationBox/dataSourceBoxes/FileSource.h"
+#include "src/COperationBox/LoopsArrays/ParseIntoArray.h"
 #include "src/COperationBox/LoopsArrays/ForEachLoop.h"
 #include "src/COperationBox/LoopsArrays/GetByIndex.h"
 #include "src/COperationBox/LoopsArrays/ArrayLength.h"
@@ -68,6 +69,7 @@ class CDataComparisonEqualFactory         : public CBPBoxFactoryInterface { publ
 class CDataComparisonGreaterFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonGreater  ( posX , posY   )                      ;} ; };
 class CDataComparisonLessFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonLess     ( posX , posY   )                      ;} ; };
 class CJsonParserFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CJsonParser             ( posX , posY   )                      ;} ; };
+class CParseIntoArrayFactory              : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CParseIntoArray         ( posX , posY   )                      ;} ; };
 class CConditionalBranchFactory           : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CConditionalBranch      ( posX , posY   )                      ;} ; };
 class CStopWatchFactory                   : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CStopWatch              ( posX , posY   )                      ;} ; };
 class CBlueScriptBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CBlueScriptBox          ( posX , posY   )                      ;} ; };
@@ -133,6 +135,7 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CDataComparisonGreater  ::getUniqueName()          ] = new CDataComparisonGreaterFactory  () ;
     m_mapOfBPBoxToFactory[ CDataComparisonLess     ::getUniqueName()          ] = new CDataComparisonLessFactory     () ;
     m_mapOfBPBoxToFactory[ CJsonParser             ::getUniqueName()          ] = new CJsonParserFactory             () ;
+    m_mapOfBPBoxToFactory[ CParseIntoArray         ::getUniqueName()          ] = new CParseIntoArrayFactory         () ;
     m_mapOfBPBoxToFactory[ CMathMultiplication     ::getUniqueName()          ] = new CMathMultiplicationFactory     () ;
     m_mapOfBPBoxToFactory[ CMathAddition           ::getUniqueName()          ] = new CMathAdditionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathDivision           ::getUniqueName()          ] = new CMathDivisionFactory           () ;
@@ -203,6 +206,7 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonGreater  ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonLess     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CJsonParser             ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CParseIntoArray         ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CForEachLoop            ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CGetByIndex             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CArrayLength            ::getUniqueName() , 600 , 100 )) ;

@@ -31,6 +31,7 @@ SOURCES += \
         src/COperationBox/LoopsArrays/ArrayLength.cpp \
         src/COperationBox/LoopsArrays/FineInArray.cpp \
         src/COperationBox/LoopsArrays/GetByIndex.cpp \
+        src/COperationBox/LoopsArrays/ParseIntoArray.cpp \
         src/COperationBox/LoopsArrays/ForEachLoop.cpp \
         src/COperationBox/Miscellaneous/BlueScriptBox.cpp \
         src/COperationBox/Miscellaneous/ConditionalBranch.cpp \
@@ -99,6 +100,7 @@ HEADERS += \
     src/COperationBox/LoopsArrays/ArrayLength.h \
     src/COperationBox/LoopsArrays/FineInArray.h \
     src/COperationBox/LoopsArrays/GetByIndex.h \
+    src/COperationBox/LoopsArrays/ParseIntoArray.h \
     src/COperationBox/LoopsArrays/ForEachLoop.h \
     src/COperationBox/Miscellaneous/BlueScriptBox.h \
     src/COperationBox/Miscellaneous/ConditionalBranch.h \
