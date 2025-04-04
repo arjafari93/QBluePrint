@@ -13,7 +13,7 @@ SingleBoxInstance{
         id: bigPictureOperatorImageID
         source: blueBox_HeaderIcon
         anchors.centerIn: parent
-        height: fontMetricsID.height * 5
+        height: fontMetricsID.height * 4
         width: height
         visible: false
         antialiasing: true
