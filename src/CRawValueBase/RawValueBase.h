@@ -16,6 +16,7 @@
 #include <QString>
 #include <QObject>
 #include <QMap>
+#include <QVariant>
 
 #ifndef MAX_DOUBLE_PRECISION
 #define MAX_DOUBLE_PRECISION  2
@@ -29,6 +30,7 @@ class CRawValueBase
 public:
     virtual ~CRawValueBase() = default;
     virtual QString convertToString() const = 0 ;
+    virtual QVariant convertToVariant() const  = 0 ;
     virtual void accept(CValueVisitor& opBox ) = 0;
 };
 
@@ -43,6 +45,7 @@ public:
     explicit CValue_int(const long long & initVal) : m_value(initVal) {}
     void accept(CValueVisitor& visitor) override;
     virtual QString convertToString() const override {return QString::number(m_value); } ;
+    virtual QVariant convertToVariant() const override{ return  m_value ; }
 private:
     const long long m_value;
 };
@@ -54,6 +57,7 @@ public:
     explicit CValue_double(const long double & initVal) : m_value(initVal) {}
     void accept(CValueVisitor& visitor) override;
     virtual QString convertToString() const override {return QString::number( m_value , 'f' , MAX_DOUBLE_PRECISION  ); } ;
+    virtual QVariant convertToVariant() const override{ return  (float)m_value ; }
 private:
     const long double m_value;
 };
@@ -65,6 +69,7 @@ public:
     explicit CValue_string(const QString & initVal) : m_value(std::move(initVal)) {}
     void accept(CValueVisitor& visitor) override;
     virtual QString convertToString() const override {return m_value; } ;
+    virtual QVariant convertToVariant() const override{ return  m_value ; }
 private:
     const QString m_value;
 };
@@ -76,6 +81,7 @@ public:
     explicit CValue_bool(const bool & initVal) : m_value(initVal) {}
     void accept(CValueVisitor& visitor) override;
     virtual QString convertToString() const override {return QString::number((int)m_value); } ;
+    virtual QVariant convertToVariant() const override{ return  m_value ; }
 private:
     const bool m_value;
 };
@@ -84,26 +90,22 @@ class CValue_list : public CRawValueBase {
     Q_DISABLE_COPY_MOVE(CValue_list);
 public:
     QList<std::shared_ptr<CRawValueBase>> value() const {return m_value; }
+    // default constructor
+    explicit CValue_list(){};
     // Constructor accepting QList
     explicit CValue_list(const QList<std::shared_ptr<CRawValueBase>>& initVal)   : m_value(initVal) {}
+    // accept list of strings
+    explicit CValue_list(const QStringList & initVal)  {
+        for(const auto & str : initVal){
+            m_value.push_back(std::make_shared<CValue_string>(str));
+        }
+    }
     // Constructor accepting initializer list
     explicit CValue_list(std::initializer_list<std::shared_ptr<CRawValueBase>> initList)  : m_value(initList) {}
-//    // Move constructor
-//    CValue_list(CValue_list&& other) noexcept
-//        : m_value(std::move(other.m_value)) {}
-
-//    // Move assignment operator
-//    CValue_list& operator=(CValue_list&& other) noexcept {
-//        if (this != &other) {
-//            const_cast<QList<std::shared_ptr<CRawValueBase>>&>(m_value) = std::move(other.m_value);
-//        }
-//        return *this;
-//    }
-
-
     void accept(CValueVisitor& visitor) override;
-    virtual QString convertToString() const override {return QString(); } ;  // TODO: to be completed
-
+    virtual QString convertToString() const override  ;
+    virtual QVariant convertToVariant() const override ;
+    int findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> & elmnt ) const ;
     std::shared_ptr<CRawValueBase> operator+(const long long &  rhs) const;
     std::shared_ptr<CRawValueBase> operator+(const long double &  rhs) const;
     std::shared_ptr<CRawValueBase> operator+(const bool &  rhs) const;
@@ -112,7 +114,7 @@ public:
     friend std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_list& rhs);
 
 private:
-    const QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
+    /*const*/ QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
 };
 
 class CValue_map : public CRawValueBase {

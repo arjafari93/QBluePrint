@@ -18,6 +18,10 @@ CTimerSendValSrc::CTimerSendValSrc ( int newBlueBox_xPos, int newBlueBox_yPos, Q
     m_valueToBeSentDouble = 15;
     m_valueToBeSentString = "test string";
     m_valueToBeSentBool   = false;
+    m_valueToBeSentlist.push_back(std::make_shared<CValue_int>(12));
+    m_valueToBeSentlist.push_back(std::make_shared<CValue_double>(12.5));
+    m_valueToBeSentlist.push_back(std::make_shared<CValue_string>("test string in list"));
+    m_valueToBeSentlist.push_back(std::make_shared<CValue_bool>(false));
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_InputSpinBoxWithTimer ;
     m_blueBox_HeaderIcon = "qrc:/Images/clock.png" ;
     m_blueBox_HeadColor = QColor(0, 169, 255);
@@ -37,6 +41,10 @@ CTimerSendValSrc::CTimerSendValSrc ( int newBlueBox_xPos, int newBlueBox_yPos, Q
     auto outPutNodeBool = new COutputTerminal(3, this);
     outPutNodeBool->setTerminalName("Bool");
     m_listOfOutputTerminals.push_back( outPutNodeBool );
+
+    auto outPutNodeList = new COutputTerminal(4, this);
+    outPutNodeList->setTerminalName("Array");
+    m_listOfOutputTerminals.push_back( outPutNodeList );
 
     mp_sendValueTimer = new QTimer(this);
     connect(mp_sendValueTimer , SIGNAL(timeout()) , this ,  SLOT(sendValueTimerTimeOut())) ;
@@ -74,6 +82,7 @@ void CTimerSendValSrc::deserializeBoxInfoFromJson(const QJsonObject &jsonObj)
     m_valueToBeSentDouble = jsonObj["doubleVal"].toString().toDouble()  ;
     m_valueToBeSentBool = (bool)jsonObj["boolVal"].toString().toInt()   ;
     m_valueToBeSentString = jsonObj["stringVal"].toString() ;
+    mp_sendValueTimer->setInterval( m_sendValueInterval );
 }
 
 
@@ -103,6 +112,7 @@ void CTimerSendValSrc::sendValueTimerTimeOut()
      m_listOfOutputTerminals.at(1)->sendValueToFlowLine(  std::make_shared<CValue_double>  (m_valueToBeSentDouble ));
      m_listOfOutputTerminals.at(2)->sendValueToFlowLine(  std::make_shared<CValue_string>  (m_valueToBeSentString ));
      m_listOfOutputTerminals.at(3)->sendValueToFlowLine(  std::make_shared<CValue_bool>    (m_valueToBeSentBool   ));
+     m_listOfOutputTerminals.at(4)->sendValueToFlowLine(  std::make_shared<CValue_list>    (m_valueToBeSentlist   ));
 }
 
 

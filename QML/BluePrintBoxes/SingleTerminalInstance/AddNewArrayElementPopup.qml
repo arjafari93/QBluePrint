@@ -8,14 +8,13 @@ import QtGraphicalEffects 1.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
 
-import org.bluePrintType.IOTerminal 1.0
 
 import "../../Style"
 
 Popup {
-    id: terminalModifyPupUpCompID
-    required property CIOTerminal pTerminalInstance
-
+    id: addNewArrayElmntPopupID
+    property var newVarToBeAdded: 0
+    required property var parentPopUP
     anchors.centerIn: parent
     width: fontMetricsID.height * 40
     height: fontMetricsID.height * 20
@@ -26,17 +25,17 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     Component.onCompleted: {
         leftDrawerInappMainWindowID.close();
-        var dataType = cBPStatic.getNameOfTypeAsString(pTerminalInstance);
-        terminalModifyPupUpCompID.open()
+        addNewArrayElmntPopupID.open()
     }
 
     onClosed: {
-        terminalModifyPupUpCompID.destroy();
+        addNewArrayElmntPopupID.parentPopUP.addNewElementToList(addNewArrayElmntPopupID.newVarToBeAdded)
+        addNewArrayElmntPopupID.destroy();
     }
 
 
     TempQuick.Overlay.modal:  Rectangle{
-        color: "#E0000000"
+        color: "#90000000"
     }
 
 
@@ -52,10 +51,6 @@ Popup {
         }
     }
 
-    function saveChildInfoOnChildClose(childInfo , dataIndexInParent){ // called by child popup in array modify popup
-        // here dataIndexInParent desont matter, but we keep it to comply the saveChildInfoOnChildClose syntax in other popups
-        pTerminalInstance.changeTerminalCurrentDataArray(childInfo);
-    }
 
 
 
@@ -71,21 +66,12 @@ Popup {
     ComboBox{
         id: targetTypeComboID
         model: cBPStatic.getListOfSupportedTypes()
-        currentIndex: -1
+        currentIndex: 0
         anchors.left: parent.left
         anchors.leftMargin: fontMetricsID.height * 12
         width: parent.width * 0.35
         anchors.verticalCenter: dataTypeLableID.verticalCenter
-        //onCurrentIndexChanged: selectedOutputType = cBPStatic.getListOfSupportedTypes()[currentIndex]
-        Component.onCompleted: {
-            var currentDataType = cBPStatic.getNameOfTypeAsString(pTerminalInstance);
-            for(var iter=0 ; iter < cBPStatic.getListOfSupportedTypes().length ; iter++){
-                if(cBPStatic.getListOfSupportedTypes()[iter] == currentDataType ){
-                    targetTypeComboID.currentIndex = iter ;
-                    return ;
-                }
-            }
-        }
+
     }
 
 
@@ -122,12 +108,12 @@ Popup {
         SpinBox {
             from: -99999999
             to: 99999999
-            value:  pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : 0
+            value: 0
             onValueChanged: {
-                pTerminalInstance.changeTerminalCurrentData(value);
+                addNewArrayElmntPopupID.newVarToBeAdded = value ;
             }
             Component.onCompleted: {
-                pTerminalInstance.changeTerminalCurrentData(value);
+                addNewArrayElmntPopupID.newVarToBeAdded = value ;
             }
             editable: true
         }
@@ -139,7 +125,7 @@ Popup {
             id: doubleSpinBoxID
             //Material.theme : Material.Dark
             from: -10000000
-            value: decimalToInt(pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : 0)
+            value: decimalToInt(0)
             to: decimalToInt(10000000)
             stepSize: decimalFactor
             editable: true
@@ -167,10 +153,10 @@ Popup {
                 return Math.round(Number.fromLocaleString(locale, text) * decimalFactor);
             }
             onValueChanged: {
-                pTerminalInstance.changeTerminalCurrentData(  doubleSpinBoxID.value/ parseFloat( decimalFactor) );
+                addNewArrayElmntPopupID.newVarToBeAdded =   doubleSpinBoxID.value/ parseFloat( decimalFactor) ;
             }
             Component.onCompleted: {
-                pTerminalInstance.changeTerminalCurrentData(  doubleSpinBoxID.value/ parseFloat( decimalFactor) );
+                addNewArrayElmntPopupID.newVarToBeAdded =  doubleSpinBoxID.value/ parseFloat( decimalFactor) ;
             }
         }
     }
@@ -179,12 +165,12 @@ Popup {
         id: boolComponent
         ComboBox {
             model: [ "false" ,"true" ]
-            currentIndex: pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : 0
+            currentIndex:  0
             onCurrentIndexChanged:  {
-                pTerminalInstance.changeTerminalCurrentData( (currentIndex ? true : false) )
+                addNewArrayElmntPopupID.newVarToBeAdded = (currentIndex ? true : false) ;
             }
             Component.onCompleted: {
-                pTerminalInstance.changeTerminalCurrentData( (currentIndex ? true : false) )
+                addNewArrayElmntPopupID.newVarToBeAdded = (currentIndex ? true : false) ;
             }
         }
     }
@@ -201,12 +187,12 @@ Popup {
             }
             placeholderText: "Enter text"
             selectByMouse: true
-            text: pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : ""
+            text:  ""
             onTextChanged:  {
-                pTerminalInstance.changeTerminalCurrentData( text )
+                addNewArrayElmntPopupID.newVarToBeAdded = text ;
             }
             Component.onCompleted: {
-                pTerminalInstance.changeTerminalCurrentData( text )
+                addNewArrayElmntPopupID.newVarToBeAdded = text ;
             }
         }
     }
@@ -219,29 +205,21 @@ Popup {
             anchors.centerIn: parent
             color: arrayMouseID.containsMouse ?  "#592f65" :  "#4F1C51"
             border.color: arrayMouseID.containsMouse ?  "#40ffffff" :  "transparent"
-            Component.onCompleted: {
-                if( Array.isArray(pTerminalInstance.getTerminalCurrentData()) == false)
-                    pTerminalInstance.changeTerminalCurrentDataArray( [] )
-            }
+            enabled: false
             Label{
                 anchors.centerIn: parent
-                text: "Edit"
+                text: "Array ( Edit In page " + addNewArrayElmntPopupID.parentPopUP.depthOfPopup + " )"
                 color: "white"
             }
             MouseArea{
                 id: arrayMouseID
+                enabled: false
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: {
-                    var tempComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml");
-                    var tempObj = tempComp.createObject(appMainWindowID ,  {
-                                                            "currentListOfInfo" : pTerminalInstance.getTerminalCurrentData() ,
-                                                            "depthOfPopup": 1 ,
-                                                            "parentPopUP": terminalModifyPupUpCompID ,
-                                                            "indexOfArrayObjInParentInfo": 0
-                                                        } );
-                }
+            }
+            Component.onCompleted: {
+                addNewArrayElmntPopupID.newVarToBeAdded = [] ;
             }
         }
     }

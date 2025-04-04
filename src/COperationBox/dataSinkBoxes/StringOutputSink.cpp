@@ -35,6 +35,8 @@ void CStringOutputSink::evaluateOperation()
         m_stringToBeDisplayed = pVal->value() ;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(rhs)) {
         m_stringToBeDisplayed =  QString::number(pVal->value()) ;
+    }else if (auto* pVal = dynamic_cast<CValue_list*>(rhs)) {
+        m_stringToBeDisplayed =  pVal->convertToString() ;
     }
     emit stringToBeDisplayedChanged() ;
 }

@@ -14,19 +14,6 @@ Item{
     anchors.rightMargin:  pTerminalInstance.emissionEnabled ? 0 : 3
 
 
-
-
-    Component.onCompleted: {
-        // Schedule a function to be called in the next iteration of the event loop
-        // we are doing this bcz  boxHeaderRectID.height doesnt have value at this moment and its zero
-        //        Qt.callLater(function() {
-        //            // Perform actions in the next iteration of the main loop
-        //            terminalXPos = 0 ;
-        //            terminalYPos = (terminalMainItemID.height * index ) +  boxHeaderRectID.height + listViewOfInputTerminalsID.anchors.topMargin ;
-        //            terminalSize = terminalImageWrapperItemID.height ;
-        //        });
-    }
-
     Item {
         id: terminalImageWrapperItemID
         anchors.left: isInputTerminal ?  parent.left : undefined
@@ -118,14 +105,14 @@ Item{
         anchors.rightMargin: isInputTerminal ?  0 : height * 0.5
         text: terminalName
         font.bold:  littleMouseAreaID.containsMouse == true || isTerminalHovered == true
-        font.pointSize: fontMetricsID.font.pointSize
+        font.pointSize: fontMetricsID.font.pointSize - 1
         color: "white"
     }
 
     ToolTip{
         id:terminalToolTipID
         onVisibleChanged: {
-            terminalToolTipID.text =  cBPStatic.getNameOfTypeAsString(pTerminalInstance) + " " + pTerminalInstance.getTerminalCurrentData()
+            terminalToolTipID.text = "<font color='blue'>" + cBPStatic.getNameOfTypeAsString(pTerminalInstance) + "</font><br>"  + pTerminalInstance.getTerminalCurrentData()
         }
         width: Math.min((terminalToolTipID.text.length + 2) * fontMetricsID.height , fontMetricsID.height * 35 )
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
@@ -196,18 +183,18 @@ Item{
 
                 // Add items for category 2
                 var menuObject = changeDataMenuCompID.createObject(terminalMainItemID, {
-                                                           "text": "Change Data"
-                                                       });
+                                                                       "text": "Change Data"
+                                                                   });
                 // change emission menu
 
                 var emissionCntrlComp = Qt.createQmlObject(`
-                                                        import QtQuick 2.15
-                                                        import QtQuick.Controls 2.15
-                                                        MenuItem {
-                                                        text: (pTerminalInstance.emissionEnabled ?  "Disable" : "Enable" ) + " Emission"
-                                                        onTriggered: pTerminalInstance.emissionEnabled = ! pTerminalInstance.emissionEnabled ;
-                                                        }
-                                                        `, terminalConnectedLinesMenusID);
+                                                           import QtQuick 2.15
+                                                           import QtQuick.Controls 2.15
+                                                           MenuItem {
+                                                           text: (pTerminalInstance.emissionEnabled ?  "Disable" : "Enable" ) + " Emission"
+                                                           onTriggered: pTerminalInstance.emissionEnabled = ! pTerminalInstance.emissionEnabled ;
+                                                           }
+                                                           `, terminalConnectedLinesMenusID);
                 terminalConnectedLinesMenusID.addItem(emissionCntrlComp);
                 terminalConnectedLinesMenusID.addItem(menuObject);
 
@@ -250,22 +237,22 @@ Item{
     }
 
 
-       Component {
-           id: changeDataMenuCompID
-           MenuItem {
-               id: changeDataMenuID
-               MouseArea{
-                   anchors.fill: parent
-                   hoverEnabled: true
-                   propagateComposedEvents: true
-                   onClicked: {
-                       var menuComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/ChangeTerminalDataPopUp.qml");
-                       var menuObject = menuComp.createObject(appMainWindowID , {"pTerminalInstance": pTerminalInstance });
-                       terminalConnectedLinesMenusID.close()
-                   }
-               }
-           }
-       }
+    Component {
+        id: changeDataMenuCompID
+        MenuItem {
+            id: changeDataMenuID
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+                propagateComposedEvents: true
+                onClicked: {
+                    var menuComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/ChangeTerminalDataPopUp.qml");
+                    var menuObject = menuComp.createObject(appMainWindowID , {"pTerminalInstance": pTerminalInstance });
+                    terminalConnectedLinesMenusID.close()
+                }
+            }
+        }
+    }
 
 
 

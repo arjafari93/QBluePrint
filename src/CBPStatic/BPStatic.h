@@ -35,7 +35,6 @@ public:
         E_StopWatch               ,
         E_ScriptRunner            ,
         E_ChartBoxLineSeries
-
     };
     Q_ENUM(EBPDelegateGUIType)
 
@@ -47,6 +46,7 @@ public:
         E_BP_LogicalOperation     ,
         E_BP_OutPutSink           ,
         E_BP_InputSource          ,
+        E_BP_LoopsAndArrays       ,
         E_BP_Miscellaneous        ,
         E_BP_BigPictureOperator
     };
@@ -60,10 +60,11 @@ public:
         { EBPBoxCategoryType::E_BP_OutPutSink             , "Data Sink"                      },
         { EBPBoxCategoryType::E_BP_InputSource            , "Data Source"                    },
         { EBPBoxCategoryType::E_BP_Miscellaneous          , "Miscellaneous"                  },
+        { EBPBoxCategoryType::E_BP_LoopsAndArrays         , "Loops/Arrays"                   },
         { EBPBoxCategoryType::E_BP_BigPictureOperator     , "Conditional Branch"             }
     };
 
-    inline static const QStringList  listOfSupportedTypes {"int" , "double" , "bool" , "string"};
+    inline static const QStringList  listOfSupportedTypes {"int" , "double" , "bool" , "string" , "array"};
 
 public slots:
     static QColor getColorOfNodeByType( CIOTerminal * pNode );

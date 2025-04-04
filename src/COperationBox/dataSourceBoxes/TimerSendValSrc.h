@@ -43,6 +43,7 @@ private:
     double          m_valueToBeSentDouble      ;
     QString         m_valueToBeSentString      ;
     bool            m_valueToBeSentBool        ;
+    QList<std::shared_ptr<CRawValueBase>> m_valueToBeSentlist ;
     inline const static QString    m_uniqueBoxName = "Send Source Timer" ;
 
 signals:

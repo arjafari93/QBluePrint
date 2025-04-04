@@ -1,7 +1,8 @@
 #include "RawValueBase.h"
 
 
-
+#include "src/CommonHeader.h"
+#include <QVariantList>
 
 void CValue_int::accept         (CValueVisitor& visitor) { visitor.visit(*this); }
 
@@ -10,6 +11,105 @@ void CValue_double::accept      (CValueVisitor& visitor) { visitor.visit(*this);
 void CValue_string::accept      (CValueVisitor& visitor) { visitor.visit(*this); }
 void CValue_bool::accept        (CValueVisitor& visitor) { visitor.visit(*this); }
 void CValue_list::accept        (CValueVisitor& visitor) { visitor.visit(*this); }
+
+QString CValue_list::convertToString() const
+{
+    QString result = "";
+    for(auto pVal : m_value){
+        result += (pVal->convertToString() + "\n");
+    }
+    return result ;
+}
+
+QVariant CValue_list::convertToVariant() const
+{
+    QVariantList varList ;
+    for(auto pCurrentRawVal : m_value){
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
+            varList.push_back(pVal->value());
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
+            varList.push_back((float)pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
+            varList.push_back(pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
+            varList.push_back(pVal->value());
+        }if (auto* pVal = dynamic_cast<CValue_list*>(pCurrentRawVal.get())) {
+            QVariantList innerList ;
+            for(auto innerVal: pVal->value()){
+                innerList << innerVal->convertToVariant();
+            }
+            varList <<  QVariant(innerList) ;
+        }
+    }
+    return QVariant(varList); ;
+}
+
+int CValue_list::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> &elmnt) const
+{
+    if (auto* pVal = dynamic_cast<CValue_int*>(elmnt.get())) {
+        int iter =0;
+        for(auto pCurrentVal : m_value){
+            if (auto* pInVal = dynamic_cast<CValue_int*>(pCurrentVal.get())){
+                if( pInVal->value() == pVal->value() ){
+                    return iter;
+                }
+            }
+            iter++;
+        }
+        return -1;
+    } else if (auto* pVal = dynamic_cast<CValue_double*>(elmnt.get())) {
+        int iter =0;
+        for(auto pCurrentVal : m_value){
+            if (auto* pInVal = dynamic_cast<CValue_double*>(pCurrentVal.get())){
+                if( qFuzzyCompare( (double)pInVal->value() , (double)pVal->value() )){
+                    return iter;
+                }
+            }
+            iter++;
+        }
+        return -1;
+    }else if (auto* pVal = dynamic_cast<CValue_bool*>(elmnt.get())) {
+        int iter =0;
+        for(auto pCurrentVal : m_value){
+            if (auto* pInVal = dynamic_cast<CValue_bool*>(pCurrentVal.get())){
+                if( pInVal->value() == pVal->value() ){
+                    return iter;
+                }
+            }
+            iter++;
+        }
+        return -1;
+    }else if (auto* pVal = dynamic_cast<CValue_string*>(elmnt.get())) {
+        int iter =0;
+        for(auto pCurrentVal : m_value){
+            if (auto* pInVal = dynamic_cast<CValue_string*>(pCurrentVal.get())){
+                if( pInVal->value() == pVal->value() ){
+                    return iter;
+                }
+            }
+            iter++;
+        }
+        return -1;
+    }else if (auto* pVal = dynamic_cast<CValue_list*>(elmnt.get())) {
+        int iter =0;
+        for(auto pCurrentVal : m_value){
+            if (auto* pInVal = dynamic_cast<CValue_list*>(pCurrentVal.get())){
+                if(pInVal->value().length() != pVal->value().length() )
+                    return -1 ;
+                for(auto pInInVal : pInVal->value()){
+                    if( pVal->findIndexOfElementInArray(pInInVal) < 0  ){
+                        return -1;
+                    }
+                }
+                return iter;
+            }
+            iter++;
+        }
+        return -1;
+    }
+    DEBUG_MSG_PRINT << "invalid type ";
+    return -1 ;
+}
 
 std::shared_ptr<CRawValueBase> CValue_list::operator+(const long long &rhs) const
 {
