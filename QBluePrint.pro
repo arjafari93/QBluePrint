@@ -28,6 +28,7 @@ SOURCES += \
         src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.cpp \
         src/COperationBox/DataComparisonOperations/JsonParser.cpp \
+        src/COperationBox/LoopsArrays/ArrayLength.cpp \
         src/COperationBox/LoopsArrays/FineInArray.cpp \
         src/COperationBox/LoopsArrays/GetByIndex.cpp \
         src/COperationBox/LoopsArrays/ForEachLoop.cpp \
@@ -95,6 +96,7 @@ HEADERS += \
     src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h \
     src/COperationBox/DataComparisonOperations/JsonParser.h \
+    src/COperationBox/LoopsArrays/ArrayLength.h \
     src/COperationBox/LoopsArrays/FineInArray.h \
     src/COperationBox/LoopsArrays/GetByIndex.h \
     src/COperationBox/LoopsArrays/ForEachLoop.h \

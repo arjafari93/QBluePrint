@@ -80,6 +80,7 @@
         <file>QML/BluePrintPagesSelector/ExitConfirmationPopup.qml</file>
         <file>Images/forLoop.png</file>
         <file>Images/getIndex.png</file>
+        <file>Images/arrayLen.png</file>
         <file>Images/arrayFind.png</file>
     </qresource>
 </RCC>
