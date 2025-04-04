@@ -86,9 +86,9 @@ SingleBoxInstance{
                 anchors.leftMargin: intervalSpingBoxID.anchors.leftMargin
                 anchors.verticalCenter: valueToBeSentDoubleLabelID.verticalCenter
                 width: intervalSpingBoxID.width
-                from: -1000000
+                from: -10000000
                 value: decimalToInt(0)
-                to: decimalToInt(1000000)
+                to: decimalToInt(10000000)
                 stepSize: decimalFactor
                 editable: true
                 Component.onCompleted: {
