@@ -83,5 +83,7 @@
         <file>Images/getIndex.png</file>
         <file>Images/arrayLen.png</file>
         <file>Images/arrayFind.png</file>
+        <file>QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml</file>
+        <file>QML/BluePrintBoxes/SingleTerminalInstance/AddNewArrayElementPopup.qml</file>
     </qresource>
 </RCC>
