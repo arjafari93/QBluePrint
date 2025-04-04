@@ -110,7 +110,6 @@ void CBPBoxManager::addNewBluePrintPage()
 
 void CBPBoxManager::removeBluePrintPage(const int &pageIndex)
 {
-    qDebug() << "removing index " << pageIndex ;
     ASSERTWITHINFO(pageIndex < m_listOfBluePrintPages.length());
     int  newIndex = pageIndex - 1 >= 0 ?  pageIndex - 1 : 0 ;
     setActivePageIndex(newIndex);

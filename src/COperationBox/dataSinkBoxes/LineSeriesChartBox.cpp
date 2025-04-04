@@ -75,7 +75,7 @@ void CLineSeriesChartBox::evaluateOperation()
     }
 
     auto pCurrentData = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
-    float result = 0 ;;
+    float result = 0 ;
     if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentData)) {
         result = pVal->value() ;
     } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentData)) {
