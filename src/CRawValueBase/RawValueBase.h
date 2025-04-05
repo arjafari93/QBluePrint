@@ -120,6 +120,16 @@ public:
     std::shared_ptr<CRawValueBase> operator*(const CValue_array &  rhs) const;
     friend std::shared_ptr<CRawValueBase> operator*(const QString& lhs, const CValue_array& rhs);
 
+    std::shared_ptr<CRawValueBase> operator/(const long long &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator/(const long double &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator/(const bool &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator/(const QString &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator/(const CValue_array &  rhs) const;
+    friend std::shared_ptr<CRawValueBase> operator/(const long long   & lhs, const CValue_array& rhs);
+    friend std::shared_ptr<CRawValueBase> operator/(const long double & lhs, const CValue_array& rhs);
+    friend std::shared_ptr<CRawValueBase> operator/(const bool &  lhs, const CValue_array& rhs);
+    friend std::shared_ptr<CRawValueBase> operator/(const QString& lhs, const CValue_array& rhs);
+
 
 
 private:
