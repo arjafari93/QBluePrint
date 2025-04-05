@@ -114,7 +114,7 @@ Item{
         onVisibleChanged: {
             terminalToolTipID.text = "<font color='blue'>" + cBPStatic.getNameOfTypeAsString(pTerminalInstance) + "</font><br>"  + pTerminalInstance.getTerminalCurrentData()
         }
-        width: Math.min((terminalToolTipID.text.length + 2) * fontMetricsID.height , fontMetricsID.height * 35 )
+        width: Math.min((terminalToolTipID.text.length - 30 ) * fontMetricsID.height , fontMetricsID.height * 35 )
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
         timeout: 30000
     }
