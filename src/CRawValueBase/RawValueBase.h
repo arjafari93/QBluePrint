@@ -113,6 +113,15 @@ public:
     std::shared_ptr<CRawValueBase> operator+(const CValue_array &  rhs) const;
     friend std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_array& rhs);
 
+    std::shared_ptr<CRawValueBase> operator*(const long long &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator*(const long double &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator*(const bool &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator*(const QString &  rhs) const;
+    std::shared_ptr<CRawValueBase> operator*(const CValue_array &  rhs) const;
+    friend std::shared_ptr<CRawValueBase> operator*(const QString& lhs, const CValue_array& rhs);
+
+
+
 private:
     /*const*/ QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
 };
