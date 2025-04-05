@@ -3,7 +3,7 @@
 #include "src/COperationBox/MathOperationBoxes/MathMultiplication.h"
 #include "src/COperationBox/MathOperationBoxes/MathAddition.h"
 #include "src/COperationBox/MathOperationBoxes/MathDivision.h"
-#include "src/COperationBox/MathOperationBoxes/MathModulus.h"
+#include "src/COperationBox/MathOperationBoxes/MathModulo.h"
 #include "src/COperationBox/MathOperationBoxes/MathSubtraction.h"
 #include "src/COperationBox/MathOperationBoxes/MathPower.h"
 #include "src/COperationBox/MathOperationBoxes/MathAbsolute.h"
@@ -82,7 +82,7 @@ class CMathMultiplicationFactory          : public CBPBoxFactoryInterface { publ
 class CMathAdditionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathAddition           ( posX , posY   )                      ;} ; };
 class CMathDivisionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathDivision           ( posX , posY   )                      ;} ; };
 class CMathSubtractionFactory             : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathSubtraction        ( posX , posY   )                      ;} ; };
-class CMathModulusFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathModulus            ( posX , posY   )                      ;} ; };
+class CMathModuloFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathModulo            ( posX , posY   )                      ;} ; };
 class CMathAbsoluteFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathAbsolute           ( posX , posY   )                      ;} ; };
 class CMathPowerFactory                   : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathPower              ( posX , posY   )                      ;} ; };
 class CTCPSocketServerSourceFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CTCPSocketServerSource  ( posX , posY   )                      ;} ; };
@@ -140,7 +140,7 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CMathAddition           ::getUniqueName()          ] = new CMathAdditionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathDivision           ::getUniqueName()          ] = new CMathDivisionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathSubtraction        ::getUniqueName()          ] = new CMathSubtractionFactory        () ;
-    m_mapOfBPBoxToFactory[ CMathModulus            ::getUniqueName()          ] = new CMathModulusFactory            () ;
+    m_mapOfBPBoxToFactory[ CMathModulo            ::getUniqueName()          ] = new CMathModuloFactory            () ;
     m_mapOfBPBoxToFactory[ CMathAbsolute           ::getUniqueName()          ] = new CMathAbsoluteFactory           () ;
     m_mapOfBPBoxToFactory[ CMathPower              ::getUniqueName()          ] = new CMathPowerFactory              () ;
 
@@ -216,7 +216,7 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAddition           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathDivision           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathSubtraction        ::getUniqueName() , 600 , 100 )) ;
-    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathModulus            ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathModulo            ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAbsolute           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathPower              ::getUniqueName() , 600 , 100 )) ;
 

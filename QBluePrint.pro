@@ -50,7 +50,7 @@ SOURCES += \
         src/COperationBox/MathOperationBoxes/MathAbsolute.cpp \
         src/COperationBox/MathOperationBoxes/MathAddition.cpp \
         src/COperationBox/MathOperationBoxes/MathDivision.cpp \
-        src/COperationBox/MathOperationBoxes/MathModulus.cpp \
+        src/COperationBox/MathOperationBoxes/MathModulo.cpp \
         src/COperationBox/MathOperationBoxes/MathMultiplication.cpp \
         src/COperationBox/MathOperationBoxes/MathPower.cpp \
         src/COperationBox/MathOperationBoxes/MathSubtraction.cpp \
@@ -120,7 +120,7 @@ HEADERS += \
     src/COperationBox/MathOperationBoxes/MathAbsolute.h \
     src/COperationBox/MathOperationBoxes/MathAddition.h \
     src/COperationBox/MathOperationBoxes/MathDivision.h \
-    src/COperationBox/MathOperationBoxes/MathModulus.h \
+    src/COperationBox/MathOperationBoxes/MathModulo.h \
     src/COperationBox/MathOperationBoxes/MathMultiplication.h \
     src/COperationBox/MathOperationBoxes/MathPower.h \
     src/COperationBox/MathOperationBoxes/MathSubtraction.h \
