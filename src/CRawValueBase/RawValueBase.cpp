@@ -91,6 +91,7 @@ int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>
         }
         return -1;
     }else if (auto* pVal = dynamic_cast<CValue_array*>(elmnt.get())) {
+        DEBUG_MSG_PRINT << " incomplete funciton called"; // TODO: this method still needs modifications
         int iter =0;
         for(auto pCurrentVal : m_value){
             if (auto* pInVal = dynamic_cast<CValue_array*>(pCurrentVal.get())){
