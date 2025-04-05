@@ -66,7 +66,8 @@ SOURCES += \
         src/COperationBox/dataSourceBoxes/UDPSocketServerSource.cpp \
         src/COperationBox/Miscellaneous/UniversalTypeConvertor.cpp \
         src/COperationBox/OperationBox.cpp \
-        src/CRawValueBase/RawValueBase.cpp
+        src/CRawValueBase/RawValueBase.cpp \
+        src/CRawValueBase/Value_array.cpp
 
 RESOURCES += qml.qrc
 
