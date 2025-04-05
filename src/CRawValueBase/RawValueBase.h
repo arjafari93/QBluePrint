@@ -31,7 +31,7 @@ public:
     virtual ~CRawValueBase() = default;
     virtual QString convertToString() const = 0 ;
     virtual QVariant convertToVariant() const  = 0 ;
-    virtual void accept(CValueVisitor& opBox ) = 0;
+    virtual void accept(CValueVisitor& opBox ) const  = 0;
 };
 
 
@@ -43,7 +43,7 @@ class CValue_int : public CRawValueBase {
 public:
     long long value() const {return m_value; }
     explicit CValue_int(const long long & initVal) : m_value(initVal) {}
-    void accept(CValueVisitor& visitor) override;
+    void accept(CValueVisitor& visitor) const  override;
     virtual QString convertToString() const override {return QString::number(m_value); } ;
     virtual QVariant convertToVariant() const override{ return  m_value ; }
 private:
@@ -55,7 +55,7 @@ class CValue_double : public CRawValueBase {
 public:
     long double value() const {return m_value; }
     explicit CValue_double(const long double & initVal) : m_value(initVal) {}
-    void accept(CValueVisitor& visitor) override;
+    void accept(CValueVisitor& visitor) const  override;
     virtual QString convertToString() const override {return QString::number( m_value , 'f' , MAX_DOUBLE_PRECISION  ); } ;
     virtual QVariant convertToVariant() const override{ return  (float)m_value ; }
 private:
@@ -67,7 +67,7 @@ class CValue_string : public CRawValueBase {
 public:
     QString value() const {return m_value; }
     explicit CValue_string(const QString & initVal) : m_value(std::move(initVal)) {}
-    void accept(CValueVisitor& visitor) override;
+    void accept(CValueVisitor& visitor)  const override;
     virtual QString convertToString() const override {return m_value; } ;
     virtual QVariant convertToVariant() const override{ return  m_value ; }
 private:
@@ -79,7 +79,7 @@ class CValue_bool : public CRawValueBase {
 public:
     bool value() const {return m_value; }
     explicit CValue_bool(const bool & initVal) : m_value(initVal) {}
-    void accept(CValueVisitor& visitor) override;
+    void accept(CValueVisitor& visitor)  const override;
     virtual QString convertToString() const override {return QString::number((int)m_value); } ;
     virtual QVariant convertToVariant() const override{ return  m_value ; }
 private:
@@ -102,7 +102,7 @@ public:
     }
     // Constructor accepting initializer list
     explicit CValue_array(std::initializer_list<std::shared_ptr<CRawValueBase>> initList)  : m_value(initList) {}
-    void accept(CValueVisitor& visitor) override;
+    void accept(CValueVisitor& visitor)  const override;
     virtual QString convertToString() const override  ;
     virtual QVariant convertToVariant() const override ;
     int findIndexOfElementInArray(const std::shared_ptr<CRawValueBase> & elmnt ) const ;
@@ -132,7 +132,7 @@ public:
     QMap<std::shared_ptr<CRawValueBase> , std::shared_ptr<CRawValueBase>>  value() const {return m_value; }
     // Constructor accepting QList
     explicit CValue_map(const QMap<std::shared_ptr<CRawValueBase> , std::shared_ptr<CRawValueBase>> & initVal)   : m_value(initVal) {}
-    void accept(CValueVisitor& visitor) override;
+    void accept(CValueVisitor& visitor) const  override;
 private:
     const QMap<std::shared_ptr<CRawValueBase> , std::shared_ptr<CRawValueBase>>  m_value;
 };

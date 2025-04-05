@@ -2,7 +2,7 @@
 #include "src/CommonHeader.h"
 #include <QVariantList>
 
-void CValue_array::accept        (CValueVisitor& visitor) { visitor.visit(*this); }
+void CValue_array::accept        (CValueVisitor& visitor) const { visitor.visit(*this); }
 
 QString CValue_array::convertToString() const
 {
