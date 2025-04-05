@@ -26,7 +26,7 @@ public:
             m_result = std::make_shared<CValue_int>(lhs.value() * pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
-        } if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result = *pVal * lhs.value() ;
         }
     }
@@ -40,7 +40,7 @@ public:
             m_result = std::make_shared<CValue_double>(lhs.value() * pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
-        } if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result = *pVal * lhs.value() ;
         }
     }
@@ -55,7 +55,7 @@ public:
             m_result = std::make_shared<CValue_bool>(false);
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
-        } if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result = *pVal * lhs.value() ;
         }
     }
@@ -69,7 +69,7 @@ public:
             m_result = std::make_shared<CValue_int>(lhs.value() * pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
-        } if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result = *pVal * lhs.value() ;
         }
     }
@@ -83,7 +83,7 @@ public:
             m_result =lhs * pVal->value();
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = lhs  * pVal->value() ;
-        }if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result = lhs *  *pVal  ;
         }
     }

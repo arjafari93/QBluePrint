@@ -26,7 +26,7 @@ public:
             m_result = std::make_shared<CValue_int>(lhs.value() % (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>( "");
-        }if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result =  lhs.value() %  *pVal  ;
         }
     }
@@ -40,7 +40,7 @@ public:
             m_result = std::make_shared<CValue_int>((long long)lhs.value() % (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>( "" );
-        }if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result =  lhs.value() %  *pVal  ;
         }
     }
@@ -59,7 +59,7 @@ public:
             m_result = std::make_shared<CValue_int>( (long long)lhs.value() % (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
-        }if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result =  lhs.value() %  *pVal  ;
         }
     }
@@ -73,7 +73,7 @@ public:
             m_result =lhs % pVal->value();
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = lhs  % pVal->value() ;
-        }if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
             m_result = lhs %  *pVal  ;
         }
     }
