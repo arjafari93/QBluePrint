@@ -47,6 +47,8 @@ void CMathAbsolute::evaluateOperation()
             result = std::make_shared<CValue_int>(abs(pVal->value().toLongLong()));
         else
             result = std::make_shared<CValue_int>(pVal->value().length());
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentData)) {
+        result = std::make_shared<CValue_int>(pVal->value().length());
     }
 
     sendValueOnAllOutputTerminals( result );
