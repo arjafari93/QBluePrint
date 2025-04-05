@@ -33,25 +33,48 @@ CMathAbsolute::CMathAbsolute ( int newBlueBox_xPos, int newBlueBox_yPos , QObjec
 void CMathAbsolute::evaluateOperation()
 {
     auto pCurrentData = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
-    std::shared_ptr<CRawValueBase> result{nullptr};
-    if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentData)) {
-        result = std::make_shared<CValue_int>( abs(pVal->value()) );
-    } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentData)) {
-        result = std::make_shared<CValue_double>(abs( pVal->value()));
-    }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentData)) {
-        result = std::make_shared<CValue_bool>(pVal->value());
-    }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentData)) {
-        bool ok = false ;
-        pVal->value().toLongLong(&ok);
-        if(ok)
-            result = std::make_shared<CValue_int>(abs(pVal->value().toLongLong()));
-        else
-            result = std::make_shared<CValue_int>(pVal->value().length());
-    }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentData)) {
-        result = std::make_shared<CValue_int>(pVal->value().length());
+    if(!pCurrentData)
+        return ;
+
+    using recFuncType = std::function<void ( QList<std::shared_ptr<CRawValueBase>> &, CRawValueBase * )> ;
+    recFuncType recursiveInsertor;
+    recursiveInsertor = [&]( QList<std::shared_ptr<CRawValueBase>> & listOfVals ,  CRawValueBase * valToFindAbs){
+        if(!valToFindAbs)
+            return ;
+        if (auto* pVal = dynamic_cast<CValue_int*>(valToFindAbs)) {
+           listOfVals.push_back( std::make_shared<CValue_int>( abs(pVal->value()) ));
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(valToFindAbs)) {
+            listOfVals.push_back(  std::make_shared<CValue_double>(abs( pVal->value())));
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(valToFindAbs)) {
+            listOfVals.push_back(  std::make_shared<CValue_bool>(pVal->value()));
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(valToFindAbs)) {
+            bool ok = false ;
+            pVal->value().toLongLong(&ok);
+            if(ok)
+                listOfVals.push_back(  std::make_shared<CValue_int>(abs(pVal->value().toLongLong())));
+            else
+                listOfVals.push_back(  std::make_shared<CValue_int>(pVal->value().length()));
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(valToFindAbs)) {
+            QList<std::shared_ptr<CRawValueBase>> innerListOfRawVals ;
+            for(const auto & inIter : pVal->value()){
+                recursiveInsertor(innerListOfRawVals , inIter.get());
+            }
+            listOfVals.push_back( std::make_shared<CValue_array>( innerListOfRawVals ) );
+        }
+    };
+
+
+
+    QList<std::shared_ptr<CRawValueBase>> listOfRawVals ;
+    if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentData)) {
+        for(const auto & iter : pVal->value()){
+            recursiveInsertor( listOfRawVals , iter.get());
+        }
+        sendValueOnAllOutputTerminals( std::make_shared<CValue_array>( listOfRawVals ) );
+    }else{
+        recursiveInsertor( listOfRawVals , pCurrentData );
+        ASSERTWITHINFO(listOfRawVals.length() == 1 );
+        sendValueOnAllOutputTerminals( listOfRawVals.at(0) );
     }
-
-    sendValueOnAllOutputTerminals( result );
-
 
 }
