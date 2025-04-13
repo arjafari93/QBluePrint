@@ -10,13 +10,8 @@
 #include "src/CRawValueBase/RawValueBase.h"
 
 
-inline const static int blueBoxWidth  = 300 ;
-inline const static int blueBoxHeight = 230 ;
-
-
-
 CSocketClientSink::CSocketClientSink (int newBlueBox_xPos, int newBlueBox_yPos, QAbstractSocket::SocketType sockType,  QObject *parent)
-    : COperationBox{ sockType == QAbstractSocket::TcpSocket ? "TCP Client" : "UDP Client"  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ sockType == QAbstractSocket::TcpSocket ? "TCP Client" : "UDP Client"  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 80 , blueBoxHeight + 110 , parent }
 {
     m_socketType = sockType ;
     if(m_socketType == QAbstractSocket::TcpSocket ){

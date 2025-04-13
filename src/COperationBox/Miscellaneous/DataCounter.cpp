@@ -6,12 +6,9 @@
 #include "../../CRawValueBase/RawValueBase.h"
 #include <memory>
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 140 ;
-
 
 CDataCounter::CDataCounter ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight + 20 , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigTextOperator ;
     m_blueBox_HeadColor = QColor(200, 120, 160);

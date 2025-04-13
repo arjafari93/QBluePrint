@@ -8,12 +8,10 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 100 ;
 
 
 CJsonParser::CJsonParser ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight - 20 , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigPictureOperator ;
     m_blueBox_HeaderIcon = "qrc:/Images/jsonIcon.png";

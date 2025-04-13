@@ -5,14 +5,9 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "src/CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 350 ;
-inline const static int blueBoxHeight = 285 ;
-
-
-
 
 CTimerSendValSrc::CTimerSendValSrc ( int newBlueBox_xPos, int newBlueBox_yPos, QObject *parent)
-    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 130  , blueBoxHeight + 165 , parent }
 {
     m_valueToBeSentInt    = 15;
     m_valueToBeSentDouble = 15;

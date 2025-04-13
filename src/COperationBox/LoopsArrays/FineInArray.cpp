@@ -5,12 +5,10 @@
 #include "../../CRawValueBase/RawValueBase.h"
 #include <memory>
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 110 ;
 
 
 CFineInArray::CFineInArray ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight - 10 , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigPictureOperator ;
     m_blueBox_HeadColor = QColor(170, 220, 150);

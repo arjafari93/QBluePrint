@@ -14,11 +14,10 @@
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
 #include "src/CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 100 ;
+
 
 CHTTPBase::CHTTPBase ( int newBlueBox_xPos, int newBlueBox_yPos,  const QString & uniqueBoxName , QObject *parent)
-    : COperationBox{ uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight - 20 , parent }
 {
     m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/NetworkBoxes/HTTPHeaderSettingsPopup.qml";
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigPictureOperator ;

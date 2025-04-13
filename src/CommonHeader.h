@@ -39,4 +39,15 @@
 #endif
 
 
+#ifndef blueBoxWidth
+#define blueBoxWidth 220
+#endif
+
+#ifndef blueBoxHeight
+#define blueBoxHeight 120
+#endif
+
+
+
+
 #endif // COMMONHEADER_H

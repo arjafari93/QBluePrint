@@ -8,14 +8,12 @@
 #include <QTimer>
 #include <QDateTime>
 
-inline const static int blueBoxWidth  =  250 ;
-inline const static int blueBoxHeight =  90 ;
 
 using namespace std::literals ;
 using namespace std::chrono;
 
 CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 30  , blueBoxHeight - 30  , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_StopWatch ;
     m_blueBox_HeadColor = QColor(70, 110, 160);

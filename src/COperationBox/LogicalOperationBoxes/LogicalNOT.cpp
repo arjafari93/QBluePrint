@@ -5,12 +5,10 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 100 ;
 
 
 CLogicalNOT::CLogicalNOT ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight - 20 , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigTextOperator ;
     m_blueBox_HeadColor = QColor(155, 176, 128);

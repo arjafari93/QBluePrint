@@ -10,10 +10,6 @@
 #include "src/CRawValueBase/RawValueBase.h"
 
 
-inline const static int blueBoxWidth  =  220  ;
-inline const static int blueBoxHeight =  120  ;
-
-
 CFileSink::CFileSink ( int newBlueBox_xPos, int newBlueBox_yPos,  QObject *parent)
     : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
 {
