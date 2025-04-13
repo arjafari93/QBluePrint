@@ -69,6 +69,7 @@ void CLineSeriesChartBox::evaluateOperation()
     if(resetChart == true ){
         mp_dataListModelInstace->resetRequestReceived();
         m_listOfInputTerminals.at(1)->setTerminalCurrentData( std::make_shared<CValue_bool>(false ) );
+        m_listOfOutputTerminals.at(0)->setTerminalCurrentData( std::make_shared<CValue_int>(0 ) );
         return ;
     }
 
