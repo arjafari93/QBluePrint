@@ -7,7 +7,7 @@ void CValue_array::accept        (CValueVisitor& visitor) const { visitor.visit(
 QString CValue_array::convertToString() const
 {
     QString result = "";
-    for(auto pVal : m_value){
+    for(const auto &  pVal : m_value){
         result += (pVal->convertToString() + "\n");
     }
     return result ;
@@ -27,7 +27,7 @@ QVariant CValue_array::convertToVariant() const
             varList.push_back(pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             QVariantList innerList ;
-            for(auto innerVal: pVal->value()){
+            for(const auto & innerVal: pVal->value()){
                 innerList << innerVal->convertToVariant();
             }
             varList <<  QVariant(innerList) ;
@@ -40,7 +40,7 @@ int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>
 {
     if (auto* pVal = dynamic_cast<CValue_int*>(elmnt.get())) {
         int iter =0;
-        for(auto pCurrentVal : m_value){
+        for(const auto & pCurrentVal : m_value){
             if (auto* pInVal = dynamic_cast<CValue_int*>(pCurrentVal.get())){
                 if( pInVal->value() == pVal->value() ){
                     return iter;
@@ -51,7 +51,7 @@ int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>
         return -1;
     } else if (auto* pVal = dynamic_cast<CValue_double*>(elmnt.get())) {
         int iter =0;
-        for(auto pCurrentVal : m_value){
+        for(const auto &  pCurrentVal : m_value){
             if (auto* pInVal = dynamic_cast<CValue_double*>(pCurrentVal.get())){
                 if( qFuzzyCompare( (double)pInVal->value() , (double)pVal->value() )){
                     return iter;
@@ -62,7 +62,7 @@ int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>
         return -1;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(elmnt.get())) {
         int iter =0;
-        for(auto pCurrentVal : m_value){
+        for(const auto &  pCurrentVal : m_value){
             if (auto* pInVal = dynamic_cast<CValue_bool*>(pCurrentVal.get())){
                 if( pInVal->value() == pVal->value() ){
                     return iter;
@@ -73,7 +73,7 @@ int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>
         return -1;
     }else if (auto* pVal = dynamic_cast<CValue_string*>(elmnt.get())) {
         int iter =0;
-        for(auto pCurrentVal : m_value){
+        for(const auto &  pCurrentVal : m_value){
             if (auto* pInVal = dynamic_cast<CValue_string*>(pCurrentVal.get())){
                 if( pInVal->value() == pVal->value() ){
                     return iter;
@@ -85,11 +85,11 @@ int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>
     }else if (auto* pVal = dynamic_cast<CValue_array*>(elmnt.get())) {
         DEBUG_MSG_PRINT << " incomplete funciton called"; // TODO: this method still needs modifications
         int iter =0;
-        for(auto pCurrentVal : m_value){
+        for(const auto &  pCurrentVal : m_value){
             if (auto* pInVal = dynamic_cast<CValue_array*>(pCurrentVal.get())){
                 if(pInVal->value().length() != pVal->value().length() )
                     return -1 ;
-                for(auto pInInVal : pInVal->value()){
+                for(const auto &  pInInVal : pInVal->value()){
                     if( pVal->findIndexOfElementInArray(pInInVal) < 0  ){
                         return -1;
                     }
