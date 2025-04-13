@@ -911,3 +911,74 @@ std::shared_ptr<CRawValueBase> operator - (const QString& lhs, const CValue_arra
     }
     return std::make_shared<CValue_array>(result) ;
 }
+
+
+std::shared_ptr<CRawValueBase> CValue_array::powerTo(const long long &  rhs) const{
+    QList<std::shared_ptr<CRawValueBase>> result ;
+    for(const auto & pCurrentRawVal : m_value){
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>( std::pow( pVal->value() , rhs ) ));
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_double>( std::pow(pVal->value() , rhs )));
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>( std::pow(pVal->value() , rhs )));
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>( QString::number( std::pow(pVal->value().toLongLong() , rhs)) ));
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
+            DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
+        }
+    }
+    return std::make_shared<CValue_array>(result) ;
+}
+
+std::shared_ptr<CRawValueBase> CValue_array::powerTo(const long double &  rhs) const{
+    QList<std::shared_ptr<CRawValueBase>> result ;
+    for(const auto & pCurrentRawVal : m_value){
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_double>( std::pow(pVal->value() , rhs )));
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_double>(std::pow(pVal->value() , rhs )));
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>(std::pow(pVal->value() , rhs )));
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>( QString::number( std::pow( pVal->value().toDouble() , rhs ) , 'f' , MAX_DOUBLE_PRECISION)  ));
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
+            DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
+        }
+    }
+    return std::make_shared<CValue_array>(result) ;
+}
+std::shared_ptr<CRawValueBase> CValue_array::powerTo(const bool &  rhs) const{
+    QList<std::shared_ptr<CRawValueBase>> result ;
+    for(const auto & pCurrentRawVal : m_value){
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>(std::pow(pVal->value() , rhs )));
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_double>(std::pow(pVal->value() , rhs )));
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>(std::pow(pVal->value() , rhs) ));
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>(  QString::number(std::pow( pVal->value().toLongLong() ,  rhs ))   ));
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
+            DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
+        }
+    }
+    return std::make_shared<CValue_array>(result) ;
+}
+std::shared_ptr<CRawValueBase> CValue_array::powerTo(const QString &  rhs) const{
+    QList<std::shared_ptr<CRawValueBase>> result ;
+    for(const auto & pCurrentRawVal : m_value){
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>(  QString::number(std::pow(pVal->value() , rhs.toLongLong() ))  ));
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>( QString::number(std::pow(pVal->value() , rhs.toDouble()), 'f' , MAX_DOUBLE_PRECISION)  ));
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>(QString::number(std::pow(pVal->value() , rhs.toLongLong()) )  ));
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>( QString::number( std::pow(pVal->value().toLongLong() ,  rhs.toLongLong())  )));
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
+            DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
+        }
+    }
+    return std::make_shared<CValue_array>(result) ;
+}

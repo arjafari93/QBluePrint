@@ -150,6 +150,13 @@ public:
     friend std::shared_ptr<CRawValueBase> operator%(const bool &  lhs, const CValue_array& rhs);
     friend std::shared_ptr<CRawValueBase> operator%(const QString& lhs, const CValue_array& rhs);
 
+    std::shared_ptr<CRawValueBase> powerTo(const long long &  rhs) const;
+    std::shared_ptr<CRawValueBase> powerTo(const long double &  rhs) const;
+    std::shared_ptr<CRawValueBase> powerTo(const bool &  rhs) const;
+    std::shared_ptr<CRawValueBase> powerTo(const QString &  rhs) const;
+    // std::shared_ptr<CRawValueBase> powerTo(const CValue_array &  rhs) const; not supported yet
+
+
 private:
     /*const*/ QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
 };
