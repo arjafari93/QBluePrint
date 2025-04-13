@@ -357,6 +357,10 @@ std::shared_ptr<CRawValueBase> CValue_array::operator*(const CValue_array &rhs) 
 std::shared_ptr<CRawValueBase> CValue_array::operator/(const long long &rhs) const
 {
     QList<std::shared_ptr<CRawValueBase>> result ;
+    if(rhs == 0 ){
+        result.push_back( std::make_shared<CValue_double>(std::numeric_limits<long double>::infinity()));
+        goto returnResultLabel;
+    }
     for(const auto & pCurrentRawVal : m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_double>((long double)pVal->value() / rhs ));
@@ -370,12 +374,17 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const long long &rhs) con
             result.push_back( *pVal / rhs ) ;
         }
     }
+returnResultLabel:
     return std::make_shared<CValue_array>(result) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator/(const long double &rhs) const
 {
     QList<std::shared_ptr<CRawValueBase>> result ;
+    if( qFuzzyIsNull((double)rhs) ){
+        result.push_back( std::make_shared<CValue_double>(std::numeric_limits<long double>::infinity()));
+        goto returnResultLabel;
+    }
     for(const auto & pCurrentRawVal : m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_double>(pVal->value() / rhs ));
@@ -389,11 +398,16 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const long double &rhs) c
             result.push_back( *pVal / rhs ) ;
         }
     }
+returnResultLabel:
     return std::make_shared<CValue_array>(result) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator/(const bool &  rhs) const{
     QList<std::shared_ptr<CRawValueBase>> result ;
+    if(rhs == false ){
+        result.push_back( std::make_shared<CValue_double>(std::numeric_limits<long double>::infinity()));
+        goto returnResultLabel;
+    }
     for(const auto & pCurrentRawVal : m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_double>(pVal->value() / rhs ));
@@ -407,12 +421,17 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const bool &  rhs) const{
             result.push_back( *pVal / rhs ) ;
         }
     }
+returnResultLabel:
     return std::make_shared<CValue_array>(result) ;
 }
 
 
 std::shared_ptr<CRawValueBase> CValue_array::operator/(const QString &  rhs) const{
     QList<std::shared_ptr<CRawValueBase>> result ;
+    if( qFuzzyIsNull( rhs.toDouble()) && rhs.toLongLong() == 0   ){
+        result.push_back( std::make_shared<CValue_double>(std::numeric_limits<long double>::infinity()));
+        goto returnResultLabel;
+    }
     for(const auto & pCurrentRawVal : m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
             result.push_back( std::make_shared<CValue_string>(  QString::number(pVal->value() / rhs.toLongLong() )  ));
@@ -426,6 +445,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const QString &  rhs) con
             result.push_back( *pVal / rhs ) ;
         }
     }
+returnResultLabel:
     return std::make_shared<CValue_array>(result) ;
 }
 
@@ -463,13 +483,13 @@ std::shared_ptr<CRawValueBase> operator/(const long long   & lhs, const CValue_a
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(const auto & pCurrentRawVal : rhs.m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(  (long double)lhs/ pVal->value())  );
+            result.push_back( std::make_shared<CValue_double>(  (long double)lhs/ (pVal->value() + epsln ) )  );
         } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>( (long double)lhs / pVal->value()  ));
+            result.push_back( std::make_shared<CValue_double>( (long double)lhs /(pVal->value() + epsln )  ));
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(  (long double)lhs / pVal->value())  );
+            result.push_back( std::make_shared<CValue_double>(  (long double)lhs / (pVal->value() + epsln ))  );
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>( (long double)lhs /  pVal->value().toLongLong()  ) );
+            result.push_back( std::make_shared<CValue_double>( (long double)lhs /  (pVal->value().toLongLong() + epsln )  ) );
         }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( lhs /  *pVal  ) ;
         }
@@ -481,13 +501,13 @@ std::shared_ptr<CRawValueBase> operator/(const long double & lhs, const CValue_a
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(const auto & pCurrentRawVal : rhs.m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(  lhs / pVal->value())  );
+            result.push_back( std::make_shared<CValue_double>(  lhs / (pVal->value() + epsln ))  );
         } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(  lhs / pVal->value()  ) );
+            result.push_back( std::make_shared<CValue_double>(  lhs / (pVal->value() + epsln )  ) );
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>( lhs / pVal->value())  );
+            result.push_back( std::make_shared<CValue_double>( lhs / (pVal->value() + epsln ))  );
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_string>( QString::number( (double)(lhs /  pVal->value().toDouble())  ) ));
+            result.push_back( std::make_shared<CValue_string>( QString::number( (double)(lhs /  (pVal->value().toDouble() + epsln ))  ) ));
         }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( lhs /  *pVal  ) ;
         }
@@ -499,13 +519,13 @@ std::shared_ptr<CRawValueBase> operator/(const bool &  lhs, const CValue_array& 
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(const auto & pCurrentRawVal : rhs.m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(  lhs / pVal->value())  );
+            result.push_back( std::make_shared<CValue_double>(  lhs / (pVal->value() + epsln ))  );
         } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(   lhs / pVal->value() ));
+            result.push_back( std::make_shared<CValue_double>(   lhs / (pVal->value() + epsln ) ));
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_double>(  lhs / pVal->value())  );
+            result.push_back( std::make_shared<CValue_double>(  lhs / (pVal->value() + epsln ))  );
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_string>( QString::number( lhs /  pVal->value().toLongLong()  ) ));
+            result.push_back( std::make_shared<CValue_string>( QString::number( lhs / (pVal->value().toLongLong() + epsln ), 'f' , MAX_DOUBLE_PRECISION)  ));
         }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( lhs /  *pVal  ) ;
         }
@@ -518,13 +538,13 @@ std::shared_ptr<CRawValueBase> operator/(const QString& lhs, const CValue_array&
     QList<std::shared_ptr<CRawValueBase>> result ;
     for(const auto & pCurrentRawVal : rhs.m_value){
         if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_string>( QString::number( lhs.toLongLong() / pVal->value())  ));
+            result.push_back( std::make_shared<CValue_string>( QString::number( lhs.toLongLong() / (pVal->value() + epsln ) , 'f' , MAX_DOUBLE_PRECISION)  ));
         } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_string>(  QString::number( lhs.toDouble() / pVal->value(), 'f' , MAX_DOUBLE_PRECISION)  ));
+            result.push_back( std::make_shared<CValue_string>(  QString::number( lhs.toDouble() /(pVal->value() + epsln ), 'f' , MAX_DOUBLE_PRECISION)  ));
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_string>( QString::number( lhs.toLongLong() / pVal->value())  ));
+            result.push_back( std::make_shared<CValue_string>( QString::number( lhs.toLongLong() / (pVal->value() + epsln ), 'f' , MAX_DOUBLE_PRECISION)  ));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
-            result.push_back( std::make_shared<CValue_string>( QString::number( lhs.toLong() /  pVal->value().toLongLong()  ) ));
+            result.push_back( std::make_shared<CValue_string>( QString::number( lhs.toLong() / (pVal->value().toLongLong() + epsln ), 'f' , MAX_DOUBLE_PRECISION)  ));
         }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
             result.push_back( lhs /  *pVal  ) ;
         }

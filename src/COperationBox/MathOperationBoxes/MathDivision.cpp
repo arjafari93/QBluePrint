@@ -10,9 +10,6 @@
 inline const static int blueBoxWidth  = 220 ;
 inline const static int blueBoxHeight = 120 ;
 
-#ifndef epsln
-#define epsln std::numeric_limits<long double>::epsilon()
-#endif
 
 class CMathDivisionVisitor : public CValueVisitor {
 public:

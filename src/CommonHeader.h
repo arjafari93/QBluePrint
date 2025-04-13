@@ -34,7 +34,9 @@
 #define GETUNIQUENAMEFUNC  public : static QString getUniqueName() {return m_uniqueBoxName; }
 #endif
 
-
+#ifndef epsln
+#define epsln std::numeric_limits<long double>::epsilon()
+#endif
 
 
 #endif // COMMONHEADER_H
