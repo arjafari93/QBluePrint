@@ -85,5 +85,6 @@
         <file>Images/arrayFind.png</file>
         <file>QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml</file>
         <file>QML/BluePrintBoxes/SingleTerminalInstance/AddNewArrayElementPopup.qml</file>
+        <file>Images/hideIcon.png</file>
     </qresource>
 </RCC>

@@ -20,6 +20,7 @@ class CBluePrintPage : public QObject
     Q_PROPERTY(float applicationScaleFactor READ applicationScaleFactor WRITE setApplicationScaleFactor NOTIFY applicationScaleFactorChanged)
     Q_PROPERTY(int maxBPBoxXpos MEMBER m_maxBPBoxXpos NOTIFY maxBPBoxXposChanged)
     Q_PROPERTY(int maxBPBoxYpos MEMBER m_maxBPBoxYpos NOTIFY maxBPBoxYposChanged)
+    Q_PROPERTY(bool showPageContentEnable READ showPageContentEnable WRITE setShowPageContentEnable NOTIFY showPageContentEnableChanged)
 
     friend class CBPBoxManager;
 private:
@@ -51,6 +52,9 @@ public:
 
     COperationBox * getBPBoxFromUniqueID(const int &BPBoxID);
 
+    bool showPageContentEnable() const;
+    void setShowPageContentEnable(const bool & newValue);
+
 private:  // variables
     QList<COperationBox*>          m_listOfBlueBoxes; // user has created these
     QList<CFlowConnectionLine*>    m_listOfFlowConnectionLines;
@@ -60,6 +64,7 @@ private:  // variables
     QString                        m_currentBluePrintFilePath = "" ;
     int                            m_maxBPBoxXpos = 0 ;
     int                            m_maxBPBoxYpos = 0 ;
+    bool                           m_showPageContentEnable = true ;
 
 
 
@@ -70,6 +75,7 @@ signals:
     void   maxBPBoxXposChanged () ;
     void   listOfBlueBoxesChanged();
     void   isLineFlowDrawActiveChanged();
+    void   showPageContentEnableChanged();
     void   applicationScaleFactorChanged();
     void   listOfFlowConnectionLinesChanged() ;
     void   currentBluePrintFilePathChanged();

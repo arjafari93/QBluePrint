@@ -54,12 +54,23 @@ Rectangle {
         }
     }
 
+    Image {
+        id: hideIconID
+        source: "qrc:/Images/hideIcon.png"
+        width: parent.width * 0.5
+        height: width
+        anchors.top: parent.top
+        x: (selectorDlgtRectID.width - hideIconID.width + leftMarkerRectID.width) * 0.5
+        z:100
+        visible: !selectorDlgtRectID.pBluePrintPage.showPageContentEnable
+    }
     Rectangle{
+        id: leftMarkerRectID
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         width: 5
-        color: Material.accent
+        color: selectorDlgtRectID.pBluePrintPage.showPageContentEnable ?  Material.accent : "#bb0000"
         visible: BPBoxManager.activePageIndex == index
     }
 
@@ -67,10 +78,15 @@ Rectangle {
         id: slctrBtnMenuID
         font.pointSize: 8
         MenuItem{
+            text: selectorDlgtRectID.pBluePrintPage.showPageContentEnable ? "Hide Content" : "show Content"
+            onTriggered: {
+                selectorDlgtRectID.pBluePrintPage.showPageContentEnable = !selectorDlgtRectID.pBluePrintPage.showPageContentEnable;
+            }
+        }
+        MenuItem{
             text: "Close Page"
             onTriggered: {
-                var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
-                if( currentPageInstance.pBluePrintPage.listOfBlueBoxes.length > 0 || currentPageInstance.pBluePrintPage.currentBluePrintFilePath != ""  ){
+                if( selectorDlgtRectID.pBluePrintPage.listOfBlueBoxes.length > 0 || selectorDlgtRectID.pBluePrintPage.currentBluePrintFilePath != ""  ){
                     // there are some boxes in the main page, make sure user wants to exit
                     var exitConfirmComp = Qt.createComponent("qrc:/QML/BluePrintPagesSelector/ExitConfirmationPopup.qml");
                     var removeObj = exitConfirmComp.createObject(appMainWindowID , {"indexOfPage":index} );

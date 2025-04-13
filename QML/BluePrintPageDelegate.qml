@@ -54,12 +54,14 @@ Item {
 
             LineFlowFullScreenRepeater{
                 id: bluePrintLineFlowsInMainPageID
+                model: pBluePrintPage.showPageContentEnable ?  pBluePrintPage.listOfFlowConnectionLines : 0
                 z: 5
             }
 
 
             BoxesFullScreenRepeater{
                 id: bluePrintBoxesInMainPageID
+                model:  pBluePrintPage.showPageContentEnable ? pBluePrintPage.listOfBlueBoxes : 0
                 z:4
             }
             MouseArea{

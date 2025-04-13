@@ -9,7 +9,6 @@ import org.bluePrintType.BPStatic 1.0
 Repeater{
     id:boxesMainRepeaterID
     anchors.fill: parent
-    model: pBluePrintPage.listOfBlueBoxes
 
     delegate: Loader{
         source: appMainWindowID.defineGUIDeleage (blueBox_GUIType)
