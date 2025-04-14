@@ -12,7 +12,7 @@ import "../../Style"
 
 Popup {
     id: arrayModifyPupUpID
-    property bool timerSourceButtonAsParent: false
+    property bool timerSourceButtonAsParent: false // whether this popup is coming from the edit button for the array in timer source
     required property var currentListOfInfo // this is a qvariantlist
     required property int depthOfPopup
     required property var parentPopUp
