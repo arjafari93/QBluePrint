@@ -7,8 +7,12 @@ CONFIG += c++17
 
 win32:RC_ICONS += AppLogo.ico
 
+# Used for Windows RC version (must be numeric)
 VERSION = 0.9.3
-DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+
+# Used for showing in About dialog, etc.
+APP_VERSION_STRING = "0.9.3-alpha"
+DEFINES += APP_VERSION=\\\"$$APP_VERSION_STRING\\\"
 #QMAKE_LFLAGS += /STACK:250000000
 
 SOURCES += \
