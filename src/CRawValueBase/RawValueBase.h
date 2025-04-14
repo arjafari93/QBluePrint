@@ -94,6 +94,8 @@ public:
     explicit CValue_array(){};
     // Constructor accepting QList
     explicit CValue_array(const QList<std::shared_ptr<CRawValueBase>>& initVal)   : m_value(initVal) {}
+    // constructor with rvalue of the Qlist
+    explicit CValue_array(QList<std::shared_ptr<CRawValueBase>>&& initVal) : m_value(std::move(initVal)) {}
     // accept list of strings
     explicit CValue_array(const QStringList & initVal)  {
         for(const auto & str : initVal){

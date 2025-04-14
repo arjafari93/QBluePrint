@@ -57,7 +57,7 @@ void CMathAbsolute::evaluateOperation()
             for(const auto & inIter : pVal->value()){
                 recursiveInsertor(innerListOfRawVals , inIter.get());
             }
-            listOfVals.push_back( std::make_shared<CValue_array>( innerListOfRawVals ) );
+            listOfVals.push_back( std::make_shared<CValue_array>( std::move( innerListOfRawVals ) ));
         }
     };
 
@@ -68,7 +68,7 @@ void CMathAbsolute::evaluateOperation()
         for(const auto & iter : pVal->value()){
             recursiveInsertor( listOfRawVals , iter.get());
         }
-        sendValueOnAllOutputTerminals( std::make_shared<CValue_array>( listOfRawVals ) );
+        sendValueOnAllOutputTerminals( std::make_shared<CValue_array>( std::move( listOfRawVals )) );
     }else{
         recursiveInsertor( listOfRawVals , pCurrentData );
         ASSERTWITHINFO(listOfRawVals.length() == 1 );

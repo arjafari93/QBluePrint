@@ -120,7 +120,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator+(const long long &rhs) con
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator+(const long double &rhs) const
@@ -139,7 +139,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator+(const long double &rhs) c
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator+(const bool &  rhs) const{
@@ -157,7 +157,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator+(const bool &  rhs) const{
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -176,7 +176,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator+(const QString &  rhs) con
             result.push_back( *pVal + rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -195,7 +195,7 @@ std::shared_ptr<CRawValueBase> operator+(const QString& lhs, const CValue_array&
             result.push_back( lhs +  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -222,7 +222,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator+(const CValue_array &rhs) 
     for(int iter = minSize ; iter < biggerList.length() ; iter++ ){
         result.push_back( biggerList.at(iter));
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -243,7 +243,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator*(const long long &rhs) con
             result.push_back( *pVal * rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator*(const long double &rhs) const
@@ -262,7 +262,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator*(const long double &rhs) c
             result.push_back( *pVal * rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator*(const bool &  rhs) const{
@@ -280,7 +280,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator*(const bool &  rhs) const{
             result.push_back( *pVal * rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -299,7 +299,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator*(const QString &  rhs) con
             result.push_back( *pVal * rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -318,7 +318,7 @@ std::shared_ptr<CRawValueBase> operator*(const QString& lhs, const CValue_array&
             result.push_back( lhs *  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -346,7 +346,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator*(const CValue_array &rhs) 
     for(int iter = minSize ; iter < biggerList.length() ; iter++ ){
         result.push_back( biggerList.at(iter));
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -375,7 +375,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const long long &rhs) con
         }
     }
 returnResultLabel:
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator/(const long double &rhs) const
@@ -399,7 +399,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const long double &rhs) c
         }
     }
 returnResultLabel:
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator/(const bool &  rhs) const{
@@ -422,7 +422,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const bool &  rhs) const{
         }
     }
 returnResultLabel:
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -446,7 +446,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const QString &  rhs) con
         }
     }
 returnResultLabel:
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -475,7 +475,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator/(const CValue_array &rhs) 
     for(int iter = minSize ; iter < biggerList.length() ; iter++ ){
         result.push_back( biggerList.at(iter));
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -494,7 +494,7 @@ std::shared_ptr<CRawValueBase> operator/(const long long   & lhs, const CValue_a
             result.push_back( lhs /  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> operator/(const long double & lhs, const CValue_array& rhs) {
@@ -512,7 +512,7 @@ std::shared_ptr<CRawValueBase> operator/(const long double & lhs, const CValue_a
             result.push_back( lhs /  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> operator/(const bool &  lhs, const CValue_array& rhs) {
@@ -530,7 +530,7 @@ std::shared_ptr<CRawValueBase> operator/(const bool &  lhs, const CValue_array& 
             result.push_back( lhs /  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -549,7 +549,7 @@ std::shared_ptr<CRawValueBase> operator/(const QString& lhs, const CValue_array&
             result.push_back( lhs /  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -569,7 +569,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator%(const long long &rhs) con
             result.push_back( *pVal % rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator%(const long double &rhs) const
@@ -588,7 +588,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator%(const long double &rhs) c
             result.push_back( *pVal % rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator%(const bool &  rhs) const{
@@ -606,7 +606,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator%(const bool &  rhs) const{
             result.push_back( *pVal % rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -625,7 +625,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator%(const QString &  rhs) con
             result.push_back( *pVal % rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -654,7 +654,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator%(const CValue_array &rhs) 
     for(int iter = minSize ; iter < biggerList.length() ; iter++ ){
         result.push_back( biggerList.at(iter));
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -673,7 +673,7 @@ std::shared_ptr<CRawValueBase> operator%(const long long   & lhs, const CValue_a
             result.push_back( lhs %  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> operator%(const long double & lhs, const CValue_array& rhs) {
@@ -691,7 +691,7 @@ std::shared_ptr<CRawValueBase> operator%(const long double & lhs, const CValue_a
             result.push_back( lhs %  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> operator%(const bool &  lhs, const CValue_array& rhs) {
@@ -709,7 +709,7 @@ std::shared_ptr<CRawValueBase> operator%(const bool &  lhs, const CValue_array& 
             result.push_back( lhs %  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -728,7 +728,7 @@ std::shared_ptr<CRawValueBase> operator%(const QString& lhs, const CValue_array&
             result.push_back( lhs %  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -750,7 +750,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator - (const long long &rhs) c
             result.push_back( *pVal - rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator - (const long double &rhs) const
@@ -769,7 +769,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator - (const long double &rhs)
             result.push_back( *pVal - rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::operator - (const bool &  rhs) const{
@@ -787,7 +787,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator - (const bool &  rhs) cons
             result.push_back( *pVal - rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -806,7 +806,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator - (const QString &  rhs) c
             result.push_back( *pVal - rhs ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -835,7 +835,7 @@ std::shared_ptr<CRawValueBase> CValue_array::operator - (const CValue_array &rhs
     for(int iter = minSize ; iter < biggerList.length() ; iter++ ){
         result.push_back( biggerList.at(iter));
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -854,7 +854,7 @@ std::shared_ptr<CRawValueBase> operator - (const long long   & lhs, const CValue
             result.push_back( lhs -  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> operator - (const long double & lhs, const CValue_array& rhs) {
@@ -872,7 +872,7 @@ std::shared_ptr<CRawValueBase> operator - (const long double & lhs, const CValue
             result.push_back( lhs -  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> operator - (const bool &  lhs, const CValue_array& rhs) {
@@ -890,7 +890,7 @@ std::shared_ptr<CRawValueBase> operator - (const bool &  lhs, const CValue_array
             result.push_back( lhs -  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -909,7 +909,7 @@ std::shared_ptr<CRawValueBase> operator - (const QString& lhs, const CValue_arra
             result.push_back( lhs -  *pVal  ) ;
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 
@@ -928,7 +928,7 @@ std::shared_ptr<CRawValueBase> CValue_array::powerTo(const long long &  rhs) con
             DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
 std::shared_ptr<CRawValueBase> CValue_array::powerTo(const long double &  rhs) const{
@@ -946,7 +946,7 @@ std::shared_ptr<CRawValueBase> CValue_array::powerTo(const long double &  rhs) c
             DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 std::shared_ptr<CRawValueBase> CValue_array::powerTo(const bool &  rhs) const{
     QList<std::shared_ptr<CRawValueBase>> result ;
@@ -963,7 +963,7 @@ std::shared_ptr<CRawValueBase> CValue_array::powerTo(const bool &  rhs) const{
             DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 std::shared_ptr<CRawValueBase> CValue_array::powerTo(const QString &  rhs) const{
     QList<std::shared_ptr<CRawValueBase>> result ;
@@ -980,5 +980,5 @@ std::shared_ptr<CRawValueBase> CValue_array::powerTo(const QString &  rhs) const
             DEBUG_MSG_PRINT << " NOT SUPPORTED YET";
         }
     }
-    return std::make_shared<CValue_array>(result) ;
+    return std::make_shared<CValue_array>( std::move( result) ) ;
 }
