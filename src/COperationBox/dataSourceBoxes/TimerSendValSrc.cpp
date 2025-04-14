@@ -7,7 +7,7 @@
 
 
 CTimerSendValSrc::CTimerSendValSrc ( int newBlueBox_xPos, int newBlueBox_yPos, QObject *parent)
-    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 130  , blueBoxHeight + 165 , parent }
+    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 130  , blueBoxHeight + 200 , parent }
 {
     m_valueToBeSentInt    = 15;
     m_valueToBeSentDouble = 15;
@@ -15,7 +15,7 @@ CTimerSendValSrc::CTimerSendValSrc ( int newBlueBox_xPos, int newBlueBox_yPos, Q
     m_valueToBeSentBool   = false;
     m_valueToBeSentlist.push_back(std::make_shared<CValue_int>(12));
     m_valueToBeSentlist.push_back(std::make_shared<CValue_double>(12.5));
-    m_valueToBeSentlist.push_back(std::make_shared<CValue_string>("test string in list"));
+    m_valueToBeSentlist.push_back(std::make_shared<CValue_string>("test string in array"));
     m_valueToBeSentlist.push_back(std::make_shared<CValue_bool>(false));
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_InputSpinBoxWithTimer ;
     m_blueBox_HeaderIcon = "qrc:/Images/clock.png" ;
@@ -103,11 +103,61 @@ void CTimerSendValSrc::setSendValueInterval(const int &newValue)
 
 void CTimerSendValSrc::sendValueTimerTimeOut()
 {
-     m_listOfOutputTerminals.at(0)->sendValueToFlowLine(  std::make_shared<CValue_int>     (m_valueToBeSentInt    ));
-     m_listOfOutputTerminals.at(1)->sendValueToFlowLine(  std::make_shared<CValue_double>  (m_valueToBeSentDouble ));
-     m_listOfOutputTerminals.at(2)->sendValueToFlowLine(  std::make_shared<CValue_string>  (m_valueToBeSentString ));
-     m_listOfOutputTerminals.at(3)->sendValueToFlowLine(  std::make_shared<CValue_bool>    (m_valueToBeSentBool   ));
-     m_listOfOutputTerminals.at(4)->sendValueToFlowLine(  std::make_shared<CValue_array>    (m_valueToBeSentlist   ));
+    m_listOfOutputTerminals.at(0)->sendValueToFlowLine(  std::make_shared<CValue_int>     (m_valueToBeSentInt    ));
+    m_listOfOutputTerminals.at(1)->sendValueToFlowLine(  std::make_shared<CValue_double>  (m_valueToBeSentDouble ));
+    m_listOfOutputTerminals.at(2)->sendValueToFlowLine(  std::make_shared<CValue_string>  (m_valueToBeSentString ));
+    m_listOfOutputTerminals.at(3)->sendValueToFlowLine(  std::make_shared<CValue_bool>    (m_valueToBeSentBool   ));
+    m_listOfOutputTerminals.at(4)->sendValueToFlowLine(  std::make_shared<CValue_array>    (m_valueToBeSentlist   ));
+}
+
+QVariant CTimerSendValSrc::getArrayValueData() const
+{
+    CValue_array tempArr (m_valueToBeSentlist);
+    return tempArr.convertToVariant();
+}
+
+void CTimerSendValSrc::changeArrayValueData(const QVariant &newValue)
+{
+    using recFuncType = std::function<void(QList<std::shared_ptr<CRawValueBase>>&, const QVariant&)> ;
+    recFuncType recursiveInsertor;
+    recursiveInsertor = [&](QList<std::shared_ptr<CRawValueBase>> & listOfRawVals, const QVariant &recVal){
+        switch (recVal.type()) {
+        case QVariant::Int:
+            listOfRawVals.push_back(std::make_shared<CValue_int>(recVal.toInt()));
+            break;
+        case QVariant::Double:
+            listOfRawVals.push_back(std::make_shared<CValue_double>(recVal.toDouble()));
+            break;
+        case QVariant::Bool:
+            listOfRawVals.push_back(std::make_shared<CValue_bool>(recVal.toBool()));
+            break;
+        case QVariant::String:
+            listOfRawVals.push_back(std::make_shared<CValue_string>(recVal.toString()));
+            break;
+        default:
+            if(recVal.canConvert<QVariantList>()){
+                auto listOfInnerVals = recVal.toList();
+                QList<std::shared_ptr<CRawValueBase>> innerListOfRawVals ;
+                for (const auto& currentInnerVal : listOfInnerVals) {
+                    recursiveInsertor(innerListOfRawVals, currentInnerVal);
+                }
+                listOfRawVals.push_back( std::make_shared<CValue_array>( std::move( innerListOfRawVals )) );
+            } else {
+                DEBUG_MSG_PRINT << " type doesn't exist " << recVal.type();
+            }
+            break;
+        }
+    };
+
+    // newValue is in fact an array
+    ASSERTWITHINFO(newValue.canConvert<QVariantList>());
+    auto listOfVals = newValue.toList();
+    QList<std::shared_ptr<CRawValueBase>> listOfRawVals ;
+    for( auto const & currentVal :  listOfVals ){
+        recursiveInsertor( listOfRawVals , currentVal);
+    }
+    m_valueToBeSentlist = listOfRawVals;
+
 }
 
 

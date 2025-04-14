@@ -238,7 +238,7 @@ Popup {
                     var tempObj = tempComp.createObject(appMainWindowID ,  {
                                                             "currentListOfInfo" : pTerminalInstance.getTerminalCurrentData() ,
                                                             "depthOfPopup": 1 ,
-                                                            "parentPopUP": terminalModifyPupUpCompID ,
+                                                            "parentPopUp": terminalModifyPupUpCompID ,
                                                             "indexOfArrayObjInParentInfo": 0
                                                         } );
                 }

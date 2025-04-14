@@ -29,12 +29,13 @@ public:
     virtual void deserializeBoxInfoFromJson( const QJsonObject & jsonObj ) override ;
     int     sendValueInterval() const {return m_sendValueInterval;}
     void    setSendValueInterval(const int & newValue ) ;
+    Q_INVOKABLE QVariant   getArrayValueData() const ;
+    Q_INVOKABLE void changeArrayValueData(const QVariant & newValue );
 
     GETUNIQUENAMEFUNC;
 
 public slots:
     void              sendValueTimerTimeOut();
-
 
 private:
     QTimer *        mp_sendValueTimer     = nullptr ;

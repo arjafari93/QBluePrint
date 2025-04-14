@@ -14,7 +14,7 @@ import "../../Style"
 Popup {
     id: addNewArrayElmntPopupID
     property var newVarToBeAdded: 0
-    required property var parentPopUP
+    required property var parentPopUp
     anchors.centerIn: parent
     width: fontMetricsID.height * 40
     height: fontMetricsID.height * 20
@@ -29,7 +29,7 @@ Popup {
     }
 
     onClosed: {
-        addNewArrayElmntPopupID.parentPopUP.addNewElementToList(addNewArrayElmntPopupID.newVarToBeAdded)
+        addNewArrayElmntPopupID.parentPopUp.addNewElementToList(addNewArrayElmntPopupID.newVarToBeAdded)
         addNewArrayElmntPopupID.destroy();
     }
 
@@ -208,7 +208,7 @@ Popup {
             enabled: false
             Label{
                 anchors.centerIn: parent
-                text: "Array ( Edit In page " + addNewArrayElmntPopupID.parentPopUP.depthOfPopup + " )"
+                text: "Array ( Edit In page " + addNewArrayElmntPopupID.parentPopUp.depthOfPopup + " )"
                 color: "white"
             }
             MouseArea{

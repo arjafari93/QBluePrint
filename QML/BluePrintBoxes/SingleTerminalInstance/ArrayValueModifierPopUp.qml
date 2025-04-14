@@ -12,9 +12,10 @@ import "../../Style"
 
 Popup {
     id: arrayModifyPupUpID
+    property bool timerSourceButtonAsParent: false
     required property var currentListOfInfo // this is a qvariantlist
     required property int depthOfPopup
-    required property var parentPopUP
+    required property var parentPopUp
     required property int indexOfArrayObjInParentInfo
     function removeFromList(targetIndex){
         if (targetIndex >= 0 && targetIndex < currentListOfInfo.length) {
@@ -64,7 +65,13 @@ Popup {
     }
 
     onClosed: {
-        arrayModifyPupUpID.parentPopUP.saveChildInfoOnChildClose( currentListOfInfo , indexOfArrayObjInParentInfo );
+        if(arrayModifyPupUpID.timerSourceButtonAsParent == false )
+            arrayModifyPupUpID.parentPopUp.saveChildInfoOnChildClose( currentListOfInfo , indexOfArrayObjInParentInfo );
+        else{
+            // this popup is coming from timer source edit button for the array
+            arrayModifyPupUpID.parentPopUp.changeArrayValueData( currentListOfInfo  );
+        }
+
         arrayModifyPupUpID.destroy();
     }
 
@@ -201,7 +208,7 @@ Popup {
             cursorShape: Qt.PointingHandCursor
             onClicked: {
                 var tempComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/AddNewArrayElementPopup.qml");
-                var tempObj = tempComp.createObject(appMainWindowID , {"parentPopUP": arrayModifyPupUpID , "depthOfPopup": depthOfPopup+1} );
+                var tempObj = tempComp.createObject(appMainWindowID , {"parentPopUp": arrayModifyPupUpID , "depthOfPopup": depthOfPopup+1} );
             }
         }
 
@@ -229,11 +236,17 @@ Popup {
             x: (  listOfHeaderkeyValuesID.width - listOfHeaderkeyValuesID.compWidth ) * 0.5
             Label{
                 id: indexLableID
-                text: rootItemID.parent.loaderModelIndex + ": "
+                text: rootItemID.parent.loaderModelIndex + ":"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
             }
-
+            Label{
+                id: dataTypeLabelID
+                text: "(int)"
+                anchors.left: indexLableID.right
+                anchors.leftMargin: fontMetricsID.height
+                anchors.verticalCenter: parent.verticalCenter
+            }
             SpinBox{
                 width: listOfHeaderkeyValuesID.leftEditorWidth
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -322,8 +335,15 @@ Popup {
             }
             Label{
                 id: indexLableID
-                text: rootItemID.parent.loaderModelIndex + ": "
+                text: rootItemID.parent.loaderModelIndex + ":"
                 anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Label{
+                id: dataTypeLabelID
+                text: "(double)"
+                anchors.left: indexLableID.right
+                anchors.leftMargin: fontMetricsID.height
                 anchors.verticalCenter: parent.verticalCenter
             }
             SpinBox {
@@ -375,11 +395,17 @@ Popup {
             x: (  listOfHeaderkeyValuesID.width - listOfHeaderkeyValuesID.compWidth ) * 0.5
             Label{
                 id: indexLableID
-                text: rootItemID.parent.loaderModelIndex + ": "
+                text: rootItemID.parent.loaderModelIndex + ":"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
             }
-
+            Label{
+                id: dataTypeLabelID
+                text: "(bool)"
+                anchors.left: indexLableID.right
+                anchors.leftMargin: fontMetricsID.height
+                anchors.verticalCenter: parent.verticalCenter
+            }
             Rectangle{
                 id: removeRectID
                 anchors.right: parent.right
@@ -434,8 +460,15 @@ Popup {
             x: (  listOfHeaderkeyValuesID.width - listOfHeaderkeyValuesID.compWidth ) * 0.5
             Label{
                 id: indexLableID
-                text: rootItemID.parent.loaderModelIndex + ": "
+                text: rootItemID.parent.loaderModelIndex + ":"
                 anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Label{
+                id: dataTypeLabelID
+                text: "(string)"
+                anchors.left: indexLableID.right
+                anchors.leftMargin: fontMetricsID.height
                 anchors.verticalCenter: parent.verticalCenter
             }
             Rectangle{
@@ -500,8 +533,15 @@ Popup {
             x: (  listOfHeaderkeyValuesID.width - listOfHeaderkeyValuesID.compWidth ) * 0.5
             Label{
                 id: indexLableID
-                text: rootItemID.parent.loaderModelIndex + ": "
+                text: rootItemID.parent.loaderModelIndex + ":"
                 anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Label{
+                id: dataTypeLabelID
+                text: "(array)"
+                anchors.left: indexLableID.right
+                anchors.leftMargin: fontMetricsID.height
                 anchors.verticalCenter: parent.verticalCenter
             }
             Rectangle{
@@ -559,7 +599,7 @@ Popup {
                         var tempObj = tempComp.createObject(appMainWindowID , {
                                                                 "currentListOfInfo" : rootItemID.parent.loaderModelData,
                                                                 "depthOfPopup": depthOfPopup+1,
-                                                                "parentPopUP": arrayModifyPupUpID,
+                                                                "parentPopUp": arrayModifyPupUpID,
                                                                 "indexOfArrayObjInParentInfo" : rootItemID.parent.loaderModelIndex
                                                             } );
                     }
