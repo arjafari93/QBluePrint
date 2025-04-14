@@ -2,6 +2,7 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
@@ -65,12 +66,12 @@ void CJsonParser::evaluateOperation()
     QJsonDocument jsonDoc = QJsonDocument::fromJson(pJsonData->value().toUtf8() , &parseError );
 
     if (parseError.error != QJsonParseError::NoError) {
-        qDebug() << "JSON Parse Error:" << pJsonData->value() <<  parseError.errorString();
+        setBlueBox_warningMsg("JSON Parse Error:" + pJsonData->value() + " -> " +  parseError.errorString()) ;
         return;
     }
 
     if (!jsonDoc.isObject()) {
-        qDebug() << "Invalid JSON format";
+        setBlueBox_warningMsg("Invalid JSON format") ;
         return;
     }
 
@@ -79,19 +80,37 @@ void CJsonParser::evaluateOperation()
     if (jsonObj.contains(userKey)) {
         QJsonValue jsonVal = jsonObj.value(userKey);
         // Convert the value to a QString
-        QString dataString;
-        if (jsonVal.isObject()) {
+        std::shared_ptr<CRawValueBase> dataAsStringVal{nullptr};
+        if (jsonVal.isObject()) { // if its an object -> make a string from it
             QJsonDocument tempDoc(jsonVal.toObject());
-            dataString = QString(tempDoc.toJson(QJsonDocument::Compact));  // Convert JSON object to string
+            dataAsStringVal = std::make_shared<CValue_string>( QString(tempDoc.toJson(QJsonDocument::Compact)));  // Convert JSON object to string
+        } else if (jsonVal.isArray()) {
+            // Case 2: It's a JSON array
+            QJsonArray array = jsonVal.toArray();
+            QStringList objectStrings;
+            QList<std::shared_ptr<CRawValueBase>> tempList ;
+            for (const QJsonValue &val : array) {
+                if (val.isObject()) {
+                    QJsonDocument itemDoc(val.toObject());
+                    tempList.push_back( std::make_shared<CValue_string>( QString(itemDoc.toJson(QJsonDocument::Compact))));
+                } else if (val.isArray()) {
+                    QJsonDocument itemDoc(val.toArray());
+                    tempList.push_back(std::make_shared<CValue_string>( QString(itemDoc.toJson(QJsonDocument::Compact))));
+                } else {
+                    // It's a primitive inside array, just to be safe
+                    tempList.push_back( std::make_shared<CValue_string>( val.toVariant().toString()));
+                }
+            }
+            dataAsStringVal = std::make_shared<CValue_array>( std::move (tempList));
+
         } else {
-            dataString = jsonVal.toString();  // If "data" is a primitive type
+            dataAsStringVal = std::make_shared<CValue_string>(jsonVal.toString() );  // If "data" is a primitive type
         }
 
-        m_listOfOutputTerminals.at(0)->sendValueToFlowLine( std::make_shared<CValue_string>(dataString) );
+        m_listOfOutputTerminals.at(0)->sendValueToFlowLine( dataAsStringVal );
+        setBlueBox_warningMsg( "") ;
     } else {
-        qDebug() << "userKey not found";
+        setBlueBox_warningMsg( "userKey not found") ;
     }
-
-    //sendValueOnAllOutputTerminals( result );
 }
 
