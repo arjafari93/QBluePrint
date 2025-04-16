@@ -9,7 +9,16 @@ win32:RC_ICONS += AppLogo.ico
 
 VERSION = 0.9.2
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
-#QMAKE_LFLAGS += /STACK:250000000
+win32 {
+    contains(QMAKE_CXX, "cl") {
+        # MSVC
+        QMAKE_LFLAGS += /STACK:250000000
+    } else {
+        # MinGW/GCC
+        QMAKE_LFLAGS += -Wl,--stack,250000000
+    }
+}
+
 
 SOURCES += \
         main.cpp \
