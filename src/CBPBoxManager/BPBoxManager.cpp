@@ -3,6 +3,7 @@
 #include "src/CBPBoxFactory/BPBoxFactory.h"
 
 
+
 CBPBoxManager::CBPBoxManager(QObject *parent)
     : QObject{parent}
 {
