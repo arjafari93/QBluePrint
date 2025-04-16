@@ -1,9 +1,6 @@
 #include "BPBoxManager.h"
 
 #include "src/CBPBoxFactory/BPBoxFactory.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
-#include <QTimer>
 
 CBPBoxManager::CBPBoxManager(QObject *parent)
     : QObject{parent}
