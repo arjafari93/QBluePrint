@@ -142,9 +142,13 @@ ShadowedRectangle {
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    scrollViewInappMainWindowID.flickableItem.contentY = 0 ;
-                    scrollViewInappMainWindowID.flickableItem.contentX = 0 ;
                     var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
+                    if(!currentPageInstance){ // page is not loaded for any reason
+                        console.log("page not loaded yet")
+                        return ;
+                    }
+                    currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentY = 0 ;
+                    currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentX = 0 ;
                     currentPageInstance.pBluePrintPage.applicationScaleFactor = 1.0 ;
                 }
             }
