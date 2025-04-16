@@ -6,14 +6,19 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 win32:RC_ICONS += AppLogo.ico
-
-# Used for Windows RC version (must be numeric)
-VERSION = 0.9.3
-
 # Used for showing in About dialog, etc.
 APP_VERSION_STRING = "0.9.3-alpha"
 DEFINES += APP_VERSION=\\\"$$APP_VERSION_STRING\\\"
-#QMAKE_LFLAGS += /STACK:250000000
+win32 {
+    contains(QMAKE_CXX, "cl") {
+        # MSVC
+        QMAKE_LFLAGS += /STACK:250000000
+    } else {
+        # MinGW/GCC
+        QMAKE_LFLAGS += -Wl,--stack,250000000
+    }
+}
+
 
 SOURCES += \
         main.cpp \
