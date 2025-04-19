@@ -4,7 +4,7 @@
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
-
+#include <QJsonObject>
 
 CUniversalTypeConvertor::CUniversalTypeConvertor ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
     : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight + 40  , parent }
@@ -102,4 +102,19 @@ void CUniversalTypeConvertor::setSelectedOutputType(const QString &newSelectedOu
     emit selectedOutputTypeChanged();
 }
 
+
+
+void CUniversalTypeConvertor::serializeBoxInfoIntoJson(QJsonObject &jsonObj)
+{
+    COperationBox::serializeBoxInfoIntoJson(jsonObj);
+    jsonObj["selectedOutputType"]  = m_selectedOutputType ;
+}
+
+void CUniversalTypeConvertor::deserializeBoxInfoFromJson(const QJsonObject &jsonObj)
+{
+    COperationBox::deserializeBoxInfoFromJson(jsonObj);
+    auto slctOutput  = jsonObj["selectedOutputType"].toString()   ;
+    if(slctOutput.isEmpty() == false )
+        setSelectedOutputType(slctOutput);
+}
 

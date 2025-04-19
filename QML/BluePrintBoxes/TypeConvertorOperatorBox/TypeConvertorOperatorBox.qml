@@ -56,6 +56,14 @@ SingleBoxInstance{
         anchors.top: bigPictureOperatorImageID.bottom
         anchors.topMargin: fontMetricsID.height * 0.5
         onCurrentIndexChanged: selectedOutputType = cBPStatic.getListOfSupportedTypes()[currentIndex]
+        Component.onCompleted: {
+            for(var iter=0 ; iter < cBPStatic.getListOfSupportedTypes().length ; iter++){
+                if(cBPStatic.getListOfSupportedTypes()[iter] == selectedOutputType ){
+                    targetTypeComboID.currentIndex = iter ;
+                    return ;
+                }
+            }
+        }
     }
 
 

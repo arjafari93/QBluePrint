@@ -24,6 +24,8 @@ public:
     const QString &selectedOutputType() const;
     void setSelectedOutputType(const QString &newSelectedOutputType);
 
+    virtual void serializeBoxInfoIntoJson( QJsonObject & jsonObj ) override ;
+    virtual void deserializeBoxInfoFromJson( const QJsonObject & jsonObj ) override ;
 signals:
     void selectedOutputTypeChanged();
 
