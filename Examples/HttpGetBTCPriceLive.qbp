@@ -1,0 +1,331 @@
+{
+    "BPBoxesInfo": [
+        {
+            "BoxName": "Line Series Chart",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "double",
+                    "Value": "85189.99"
+                }
+            ],
+            "movingWinLen": "300",
+            "outputTrmnls": [
+            ],
+            "uniqueID": "198",
+            "xPos": "1681",
+            "yPos": "88"
+        },
+        {
+            "BoxName": "Send Source Timer",
+            "boolVal": "0",
+            "doubleVal": "15",
+            "inptTrmnls": [
+            ],
+            "intVal": "15",
+            "interval": "1000",
+            "outputTrmnls": [
+            ],
+            "stringVal": "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+            "uniqueID": "199",
+            "xPos": "52",
+            "yPos": "13"
+        },
+        {
+            "BoxName": "HTTP Get",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "https://api.coinbase.com/v2/prices/BTC-USD/spot"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "rawHeaderInfo": [
+                {
+                }
+            ],
+            "uniqueID": "200",
+            "xPos": "429",
+            "yPos": "107"
+        },
+        {
+            "BoxName": "Json Parser",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"data\":{\"amount\":\"85189.995\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "data"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "201",
+            "xPos": "686",
+            "yPos": "70"
+        },
+        {
+            "BoxName": "Json Parser",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"amount\":\"85189.995\",\"base\":\"BTC\",\"currency\":\"USD\"}"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "amount"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "202",
+            "xPos": "949",
+            "yPos": "121"
+        },
+        {
+            "BoxName": "Universal Convertor",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "85189.995"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "selectedOutputType": "double",
+            "uniqueID": "203",
+            "xPos": "1361",
+            "yPos": "187"
+        },
+        {
+            "BoxName": "String Sink OutPut",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "85189.995"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "204",
+            "xPos": "1340",
+            "yPos": "-19"
+        },
+        {
+            "BoxName": "Data Counter",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "85189.995"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "int",
+                    "Value": "0"
+                },
+                {
+                    "TrmnlIndex": "2",
+                    "Type": "int",
+                    "Value": "1"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "206",
+            "xPos": "1441",
+            "yPos": "465"
+        },
+        {
+            "BoxName": "Math Addition",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "int",
+                    "Value": "70"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": " , "
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "207",
+            "xPos": "1715",
+            "yPos": "529"
+        },
+        {
+            "BoxName": "Math Addition",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "70 , "
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "BTC/USDT , "
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "208",
+            "xPos": "2010",
+            "yPos": "567"
+        },
+        {
+            "BoxName": "Math Addition",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "70 , BTC/USDT , 85189.995"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "\\n"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "209",
+            "xPos": "2575",
+            "yPos": "740"
+        },
+        {
+            "BoxName": "Math Addition",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "70 , BTC/USDT , "
+                },
+                {
+                    "Emission": "0",
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "85189.995"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "210",
+            "xPos": "2292",
+            "yPos": "683"
+        },
+        {
+            "BoxName": "File Sink",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "70 , BTC/USDT , 85189.995\\n"
+                },
+                {
+                    "TrmnlIndex": "1",
+                    "Type": "string",
+                    "Value": "E:/projects_folder/Qt5_12_2/build-QBluePrint-Desktop_Qt_5_15_2_MSVC2019_64bit-Release/release/fileSinkOutputs/1744894558535.csv"
+                }
+            ],
+            "outputTrmnls": [
+            ],
+            "uniqueID": "211",
+            "xPos": "2884",
+            "yPos": "809"
+        }
+    ],
+    "BPFlowLinesInfo": [
+        {
+            "endBoxID": "200",
+            "endTerminalIndex": "0",
+            "startBoxID": "199",
+            "startTerminalIndex": "2"
+        },
+        {
+            "endBoxID": "201",
+            "endTerminalIndex": "0",
+            "startBoxID": "200",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "202",
+            "endTerminalIndex": "0",
+            "startBoxID": "201",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "203",
+            "endTerminalIndex": "0",
+            "startBoxID": "202",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "198",
+            "endTerminalIndex": "0",
+            "startBoxID": "203",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "204",
+            "endTerminalIndex": "0",
+            "startBoxID": "202",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "206",
+            "endTerminalIndex": "0",
+            "startBoxID": "202",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "207",
+            "endTerminalIndex": "0",
+            "startBoxID": "206",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "208",
+            "endTerminalIndex": "0",
+            "startBoxID": "207",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "210",
+            "endTerminalIndex": "0",
+            "startBoxID": "208",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "210",
+            "endTerminalIndex": "1",
+            "startBoxID": "202",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "209",
+            "endTerminalIndex": "0",
+            "startBoxID": "210",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "211",
+            "endTerminalIndex": "0",
+            "startBoxID": "209",
+            "startTerminalIndex": "0"
+        }
+    ]
+}
