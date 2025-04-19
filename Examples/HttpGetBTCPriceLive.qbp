@@ -6,7 +6,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "double",
-                    "Value": "85189.99"
+                    "Value": "85219.49"
                 }
             ],
             "movingWinLen": "300",
@@ -56,7 +56,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "{\"data\":{\"amount\":\"85189.995\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+                    "Value": "{\"data\":{\"amount\":\"85219.485\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
                 },
                 {
                     "TrmnlIndex": "1",
@@ -76,7 +76,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "{\"amount\":\"85189.995\",\"base\":\"BTC\",\"currency\":\"USD\"}"
+                    "Value": "{\"amount\":\"85219.485\",\"base\":\"BTC\",\"currency\":\"USD\"}"
                 },
                 {
                     "TrmnlIndex": "1",
@@ -96,7 +96,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "85189.995"
+                    "Value": "85219.485"
                 }
             ],
             "outputTrmnls": [
@@ -112,7 +112,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "85189.995"
+                    "Value": "85219.485"
                 }
             ],
             "outputTrmnls": [
@@ -127,7 +127,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "85189.995"
+                    "Value": "85219.485"
                 },
                 {
                     "TrmnlIndex": "1",
@@ -152,7 +152,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "int",
-                    "Value": "70"
+                    "Value": "14"
                 },
                 {
                     "TrmnlIndex": "1",
@@ -172,7 +172,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "70 , "
+                    "Value": "14 , "
                 },
                 {
                     "TrmnlIndex": "1",
@@ -192,7 +192,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "70 , BTC/USDT , 85189.995"
+                    "Value": "14 , BTC/USDT , 85219.485"
                 },
                 {
                     "TrmnlIndex": "1",
@@ -212,13 +212,13 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "70 , BTC/USDT , "
+                    "Value": "14 , BTC/USDT , "
                 },
                 {
                     "Emission": "0",
                     "TrmnlIndex": "1",
                     "Type": "string",
-                    "Value": "85189.995"
+                    "Value": "85219.485"
                 }
             ],
             "outputTrmnls": [
@@ -233,7 +233,7 @@
                 {
                     "TrmnlIndex": "0",
                     "Type": "string",
-                    "Value": "70 , BTC/USDT , 85189.995\\n"
+                    "Value": "14 , BTC/USDT , 85219.485\\n"
                 },
                 {
                     "TrmnlIndex": "1",
@@ -246,6 +246,40 @@
             "uniqueID": "211",
             "xPos": "2884",
             "yPos": "809"
+        },
+        {
+            "BoxName": "Script Box",
+            "funcBody": "function functionBlock(in0) {\ntry {\n       const jsonObject = JSON.parse(in0);\n        return [jsonObject.data.amount];\n    } catch (error) {\n        return [\"\"];\n    }\n}\n    ",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "{\"data\":{\"amount\":\"85219.485\",\"base\":\"BTC\",\"currency\":\"USD\"}}"
+                }
+            ],
+            "numInputs": "1",
+            "numOutputs": "1",
+            "outputTrmnls": [
+            ],
+            "uniqueID": "224",
+            "xPos": "827",
+            "yPos": "511"
+        },
+        {
+            "BoxName": "Line Series Chart",
+            "inptTrmnls": [
+                {
+                    "TrmnlIndex": "0",
+                    "Type": "string",
+                    "Value": "85219.485"
+                }
+            ],
+            "movingWinLen": "300",
+            "outputTrmnls": [
+            ],
+            "uniqueID": "225",
+            "xPos": "1443",
+            "yPos": "707"
         }
     ],
     "BPFlowLinesInfo": [
@@ -325,6 +359,18 @@
             "endBoxID": "211",
             "endTerminalIndex": "0",
             "startBoxID": "209",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "224",
+            "endTerminalIndex": "0",
+            "startBoxID": "200",
+            "startTerminalIndex": "0"
+        },
+        {
+            "endBoxID": "225",
+            "endTerminalIndex": "0",
+            "startBoxID": "224",
             "startTerminalIndex": "0"
         }
     ]
