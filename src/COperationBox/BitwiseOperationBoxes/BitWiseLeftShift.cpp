@@ -85,7 +85,16 @@ public:
     }
 
     void visit(const CValue_array& lhs) override {
-        Q_UNUSED(lhs)
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result = lhs << pVal->value();
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result =lhs << (long long)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result = lhs << (long long)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            auto numShifts = pVal->value().toLongLong();
+            m_result = lhs<< numShifts;
+        }
     }
 
     void visit(const CValue_map& lhs) override {

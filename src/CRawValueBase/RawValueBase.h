@@ -167,6 +167,9 @@ public:
     // Overload the bitwise NOT operator
     std::shared_ptr<CRawValueBase> operator~() const;
 
+    // Bitwise left shift
+    std::shared_ptr<CRawValueBase> operator<<(const int & shift) const;
+
 
 private:
     /*const*/ QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
