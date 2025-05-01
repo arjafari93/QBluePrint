@@ -38,9 +38,14 @@ void CBitWiseComplement::evaluateOperation()
     }else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentData)) {
         result = std::make_shared<CValue_double>(~((long long)pVal->value()));
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentData)) {
-        result = std::make_shared<CValue_int>(!pVal->value());
+        result = std::make_shared<CValue_bool>(!pVal->value());
     }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentData)) {
         result = std::make_shared<CValue_string>("");
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentData)) {
+        result = ~(*pVal);
+    }else {
+        DEBUG_MSG_PRINT << "invalid type ";
+        return;
     }
 
     sendValueOnAllOutputTerminals( result );

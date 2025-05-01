@@ -1088,3 +1088,21 @@ std::shared_ptr<CRawValueBase> CValue_array::operator&(const CValue_array &rhs) 
     return std::make_shared<CValue_array>( std::move( result) ) ;
 }
 
+std::shared_ptr<CRawValueBase> CValue_array::operator~() const
+{
+    QList<std::shared_ptr<CRawValueBase>> result ;
+    for(const auto & pCurrentRawVal : m_value){
+        if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>(~pVal->value()));
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_int>(~((long long)pVal->value())   ));
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_bool>(!pVal->value() ));
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(pCurrentRawVal.get())) {
+            result.push_back( std::make_shared<CValue_string>(""));
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())) {
+            result.push_back( ~(*pVal)  ) ;
+        }
+    }
+    return std::make_shared<CValue_array>( std::move( result) ) ;
+}
