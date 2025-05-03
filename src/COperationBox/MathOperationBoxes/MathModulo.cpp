@@ -1,4 +1,4 @@
-#include "MathModulus.h"
+#include "MathModulo.h"
 
 
 
@@ -7,14 +7,11 @@
 #include "../../CRawValueBase/RawValueBase.h"
 #include <numeric>
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
 
-
-class CMathModulusVisitor : public CValueVisitor {
+class CMathModuloVisitor : public CValueVisitor {
 public:
 
-    explicit CMathModulusVisitor(CRawValueBase* rhs) : mp_rhs(rhs) {}
+    explicit CMathModuloVisitor(CRawValueBase* rhs) : mp_rhs(rhs) {}
     std::shared_ptr<CRawValueBase>  result()const { return m_result ;}
 
     void visit(const CValue_int& lhs) override {
@@ -26,6 +23,8 @@ public:
             m_result = std::make_shared<CValue_int>(lhs.value() % (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>( "");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result =  lhs.value() %  *pVal  ;
         }
     }
 
@@ -38,6 +37,8 @@ public:
             m_result = std::make_shared<CValue_int>((long long)lhs.value() % (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>( "" );
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result =  lhs.value() %  *pVal  ;
         }
     }
 
@@ -55,11 +56,23 @@ public:
             m_result = std::make_shared<CValue_int>( (long long)lhs.value() % (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result =  lhs.value() %  *pVal  ;
         }
     }
 
-    void visit(const CValue_list& lhs) override {
-        Q_UNUSED(lhs)
+    void visit(const CValue_array& lhs) override {
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result =  lhs % pVal->value() ;
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result = lhs % pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result =lhs % pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            m_result = lhs  % pVal->value() ;
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = lhs %  *pVal  ;
+        }
     }
 
     void visit(const CValue_map& lhs) override {
@@ -74,7 +87,7 @@ private:
 
 
 
-CMathModulus::CMathModulus ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
+CMathModulo::CMathModulo ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
     : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigPictureOperator ;
@@ -91,7 +104,7 @@ CMathModulus::CMathModulus ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Math modulus remaining";
+    m_blueBox_keyWords = "Math modulo remaining %";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_MathOperation ;
 }
 
@@ -99,13 +112,13 @@ CMathModulus::CMathModulus ( int newBlueBox_xPos, int newBlueBox_yPos , QObject 
 
 
 
-void CMathModulus::evaluateOperation()
+void CMathModulo::evaluateOperation()
 {
     auto lhs = m_listOfInputTerminals.at(0)->terminalCurrentData().get();
     auto rhs = m_listOfInputTerminals.at(1)->terminalCurrentData().get();
     if(!lhs || !rhs)
         return ;
-    CMathModulusVisitor visitor(rhs);
+    CMathModuloVisitor visitor(rhs);
     lhs->accept(visitor);
     sendValueOnAllOutputTerminals( visitor.result() );
 }

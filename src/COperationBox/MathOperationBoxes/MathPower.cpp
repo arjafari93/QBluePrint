@@ -6,10 +6,6 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
-
-
 
 class  CMathPowerVisitor : public CValueVisitor {
 public:
@@ -26,6 +22,8 @@ public:
             m_result = std::make_shared<CValue_int>(std::pow(lhs.value() , pVal->value()));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = pVal->powerTo(lhs.value());
         }
     }
 
@@ -38,6 +36,8 @@ public:
             m_result = std::make_shared<CValue_double>(std::pow(lhs.value() , pVal->value()));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = pVal->powerTo(lhs.value());
         }
     }
 
@@ -55,11 +55,23 @@ public:
             m_result = std::make_shared<CValue_int>(std::pow(lhs.value() , pVal->value()));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = pVal->powerTo(lhs.value());
         }
     }
 
-    void visit(const CValue_list& lhs) override {
-        Q_UNUSED(lhs)
+    void visit(const CValue_array& lhs) override {
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result =  lhs.powerTo(pVal->value());
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result =  lhs.powerTo(pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result =  lhs.powerTo(pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            m_result =  lhs.powerTo(pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            DEBUG_MSG_PRINT << "NOT SUPPORTED YET";
+        }
     }
 
     void visit(const CValue_map& lhs) override {
@@ -81,9 +93,9 @@ CMathPower::CMathPower ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     m_blueBox_HeaderIcon = "qrc:/Images/power.png";
     m_blueBox_HeadColor = QColor(120 , 50 , 110 ) ;
     auto inputNode1 = new CInputTerminal(0, this);
-    inputNode1->setTerminalName("n");
+    inputNode1->setTerminalName("X");
     auto inputNode2 = new CInputTerminal(1, this);
-    inputNode2->setTerminalName("X");
+    inputNode2->setTerminalName("n");
     m_listOfInputTerminals.push_back(inputNode1 );
     m_listOfInputTerminals.push_back(inputNode2 );
 
@@ -91,7 +103,7 @@ CMathPower::CMathPower ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Math Power";
+    m_blueBox_keyWords = "Math Power ^";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_MathOperation ;
 }
 

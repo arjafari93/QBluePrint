@@ -34,6 +34,19 @@
 #define GETUNIQUENAMEFUNC  public : static QString getUniqueName() {return m_uniqueBoxName; }
 #endif
 
+#ifndef epsln
+#define epsln std::numeric_limits<long double>::epsilon()
+#endif
+
+
+#ifndef blueBoxWidth
+#define blueBoxWidth 220
+#endif
+
+#ifndef blueBoxHeight
+#define blueBoxHeight 120
+#endif
+
 
 
 

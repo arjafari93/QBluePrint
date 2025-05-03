@@ -45,26 +45,61 @@ void CIOTerminal::changeTerminalCurrentData(const QVariant &newValue)
         setTerminalCurrentData( std::make_shared<CValue_string>(newValue.toString()));
         break;
     default:
-        DEBUG_MSG_PRINT << " type doesnt exist " ;
+        DEBUG_MSG_PRINT << " type doesnt exist " << newValue.type() ;
         break;
     }
     emit nodeIsPassingNewValue(); // this can be helpful for signal/slots and finding the data has changed though GUI popup
 }
 
+void CIOTerminal::changeTerminalCurrentDataArray(const QVariant &newValue)
+{
+    using recFuncType = std::function<void(QList<std::shared_ptr<CRawValueBase>>&, const QVariant&)> ;
+    recFuncType recursiveInsertor;
+    recursiveInsertor = [&](QList<std::shared_ptr<CRawValueBase>> & listOfRawVals, const QVariant &recVal){
+        switch (recVal.type()) {
+        case QVariant::Int:
+            listOfRawVals.push_back(std::make_shared<CValue_int>(recVal.toInt()));
+            break;
+        case QVariant::Double:
+            listOfRawVals.push_back(std::make_shared<CValue_double>(recVal.toDouble()));
+            break;
+        case QVariant::Bool:
+            listOfRawVals.push_back(std::make_shared<CValue_bool>(recVal.toBool()));
+            break;
+        case QVariant::String:
+            listOfRawVals.push_back(std::make_shared<CValue_string>(recVal.toString()));
+            break;
+        default:
+            if(recVal.canConvert<QVariantList>()){
+                auto listOfInnerVals = recVal.toList();
+                QList<std::shared_ptr<CRawValueBase>> innerListOfRawVals ;
+                for (const auto& currentInnerVal : listOfInnerVals) {
+                    recursiveInsertor(innerListOfRawVals, currentInnerVal);
+                }
+                listOfRawVals.push_back( std::make_shared<CValue_array>( std::move( innerListOfRawVals )) );
+            } else {
+                DEBUG_MSG_PRINT << " type doesn't exist " << recVal.type();
+            }
+            break;
+        }
+    };
+
+    // newValue is in fact an array
+    ASSERTWITHINFO(newValue.canConvert<QVariantList>());
+    auto listOfVals = newValue.toList();
+    QList<std::shared_ptr<CRawValueBase>> listOfRawVals ;
+    for( auto const & currentVal :  listOfVals ){
+        recursiveInsertor( listOfRawVals , currentVal);
+    }
+    setTerminalCurrentData( std::make_shared<CValue_array>( std::move( listOfRawVals )));
+    emit nodeIsPassingNewValue();
+}
+
 QVariant CIOTerminal::getTerminalCurrentData()
 {
-
-    if (auto* pVal = dynamic_cast<CValue_int*>(m_terminalCurrentData.get())) {
-        return pVal->value();
-    } else if (auto* pVal = dynamic_cast<CValue_double*>(m_terminalCurrentData.get())) {
-        return (float)pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_bool*>(m_terminalCurrentData.get())) {
-        return pVal->value();
-    }else if (auto* pVal = dynamic_cast<CValue_string*>(m_terminalCurrentData.get())) {
-        return pVal->value();
-    }
-    //DEBUG_MSG_PRINT << " type doesnt exist " ;
-    return QVariant();
+    if(!m_terminalCurrentData)
+        return QVariant();
+    return m_terminalCurrentData->convertToVariant();
 }
 
 QQmlListProperty<CFlowConnectionLine> CIOTerminal::listOfConnectedLines()

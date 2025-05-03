@@ -3,7 +3,7 @@
 #include "src/COperationBox/MathOperationBoxes/MathMultiplication.h"
 #include "src/COperationBox/MathOperationBoxes/MathAddition.h"
 #include "src/COperationBox/MathOperationBoxes/MathDivision.h"
-#include "src/COperationBox/MathOperationBoxes/MathModulus.h"
+#include "src/COperationBox/MathOperationBoxes/MathModulo.h"
 #include "src/COperationBox/MathOperationBoxes/MathSubtraction.h"
 #include "src/COperationBox/MathOperationBoxes/MathPower.h"
 #include "src/COperationBox/MathOperationBoxes/MathAbsolute.h"
@@ -37,6 +37,11 @@
 #include "src/COperationBox/DataComparisonOperations/JsonParser.h"
 #include "src/COperationBox/dataSinkBoxes/FileSink.h"
 #include "src/COperationBox/dataSourceBoxes/FileSource.h"
+#include "src/COperationBox/LoopsArrays/ParseIntoArray.h"
+#include "src/COperationBox/LoopsArrays/ForEachLoop.h"
+#include "src/COperationBox/LoopsArrays/GetByIndex.h"
+#include "src/COperationBox/LoopsArrays/ArrayLength.h"
+#include "src/COperationBox/LoopsArrays/FineInArray.h"
 
 
 class CBPBoxFactoryInterface
@@ -64,15 +69,20 @@ class CDataComparisonEqualFactory         : public CBPBoxFactoryInterface { publ
 class CDataComparisonGreaterFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonGreater  ( posX , posY   )                      ;} ; };
 class CDataComparisonLessFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDataComparisonLess     ( posX , posY   )                      ;} ; };
 class CJsonParserFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CJsonParser             ( posX , posY   )                      ;} ; };
+class CParseIntoArrayFactory              : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CParseIntoArray         ( posX , posY   )                      ;} ; };
 class CConditionalBranchFactory           : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CConditionalBranch      ( posX , posY   )                      ;} ; };
 class CStopWatchFactory                   : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CStopWatch              ( posX , posY   )                      ;} ; };
 class CBlueScriptBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CBlueScriptBox          ( posX , posY   )                      ;} ; };
 class CDelayMakerBoxFactory               : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CDelayMakerBox          ( posX , posY   )                      ;} ; };
+class CForEachLoopFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CForEachLoop            ( posX , posY   )                      ;} ; };
+class CGetByIndexFactory                  : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CGetByIndex             ( posX , posY   )                      ;} ; };
+class CArrayLengthFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CArrayLength            ( posX , posY   )                      ;} ; };
+class CFineInArrayFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CFineInArray            ( posX , posY   )                      ;} ; };
 class CMathMultiplicationFactory          : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathMultiplication     ( posX , posY   )                      ;} ; };
 class CMathAdditionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathAddition           ( posX , posY   )                      ;} ; };
 class CMathDivisionFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathDivision           ( posX , posY   )                      ;} ; };
 class CMathSubtractionFactory             : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathSubtraction        ( posX , posY   )                      ;} ; };
-class CMathModulusFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathModulus            ( posX , posY   )                      ;} ; };
+class CMathModuloFactory                 : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathModulo            ( posX , posY   )                      ;} ; };
 class CMathAbsoluteFactory                : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathAbsolute           ( posX , posY   )                      ;} ; };
 class CMathPowerFactory                   : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CMathPower              ( posX , posY   )                      ;} ; };
 class CTCPSocketServerSourceFactory       : public CBPBoxFactoryInterface { public :  virtual COperationBox *  make( const int & posX , const int & posY ) override { return new CTCPSocketServerSource  ( posX , posY   )                      ;} ; };
@@ -108,6 +118,10 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CStopWatch              ::getUniqueName()          ] = new CStopWatchFactory              () ;
     m_mapOfBPBoxToFactory[ CBlueScriptBox          ::getUniqueName()          ] = new CBlueScriptBoxFactory          () ;
     m_mapOfBPBoxToFactory[ CDelayMakerBox          ::getUniqueName()          ] = new CDelayMakerBoxFactory          () ;
+    m_mapOfBPBoxToFactory[ CForEachLoop            ::getUniqueName()          ] = new CForEachLoopFactory            () ;
+    m_mapOfBPBoxToFactory[ CGetByIndex             ::getUniqueName()          ] = new CGetByIndexFactory             () ;
+    m_mapOfBPBoxToFactory[ CArrayLength            ::getUniqueName()          ] = new CArrayLengthFactory            () ;
+    m_mapOfBPBoxToFactory[ CFineInArray            ::getUniqueName()          ] = new CFineInArrayFactory            () ;
     m_mapOfBPBoxToFactory[ CLogicalAND             ::getUniqueName()          ] = new CLogicalANDFactory             () ;
     m_mapOfBPBoxToFactory[ CLogicalOR              ::getUniqueName()          ] = new CLogicalORFactory              () ;
     m_mapOfBPBoxToFactory[ CLogicalNOT             ::getUniqueName()          ] = new CLogicalNOTFactory             () ;
@@ -121,11 +135,12 @@ CBPBoxFactory::CBPBoxFactory()
     m_mapOfBPBoxToFactory[ CDataComparisonGreater  ::getUniqueName()          ] = new CDataComparisonGreaterFactory  () ;
     m_mapOfBPBoxToFactory[ CDataComparisonLess     ::getUniqueName()          ] = new CDataComparisonLessFactory     () ;
     m_mapOfBPBoxToFactory[ CJsonParser             ::getUniqueName()          ] = new CJsonParserFactory             () ;
+    m_mapOfBPBoxToFactory[ CParseIntoArray         ::getUniqueName()          ] = new CParseIntoArrayFactory         () ;
     m_mapOfBPBoxToFactory[ CMathMultiplication     ::getUniqueName()          ] = new CMathMultiplicationFactory     () ;
     m_mapOfBPBoxToFactory[ CMathAddition           ::getUniqueName()          ] = new CMathAdditionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathDivision           ::getUniqueName()          ] = new CMathDivisionFactory           () ;
     m_mapOfBPBoxToFactory[ CMathSubtraction        ::getUniqueName()          ] = new CMathSubtractionFactory        () ;
-    m_mapOfBPBoxToFactory[ CMathModulus            ::getUniqueName()          ] = new CMathModulusFactory            () ;
+    m_mapOfBPBoxToFactory[ CMathModulo            ::getUniqueName()          ] = new CMathModuloFactory            () ;
     m_mapOfBPBoxToFactory[ CMathAbsolute           ::getUniqueName()          ] = new CMathAbsoluteFactory           () ;
     m_mapOfBPBoxToFactory[ CMathPower              ::getUniqueName()          ] = new CMathPowerFactory              () ;
 
@@ -192,11 +207,16 @@ QList<COperationBox *> CBPBoxFactory::getListOfAllBPBoxes()
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CDataComparisonLess     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CJsonParser             ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CUniversalTypeConvertor ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CParseIntoArray         ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CForEachLoop            ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CGetByIndex             ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CArrayLength            ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CFineInArray            ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathMultiplication     ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAddition           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathDivision           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathSubtraction        ::getUniqueName() , 600 , 100 )) ;
-    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathModulus            ::getUniqueName() , 600 , 100 )) ;
+    sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathModulo            ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathAbsolute           ::getUniqueName() , 600 , 100 )) ;
     sListOfAllBPBoxes.push_back( pFactory->createBPBoxInstance(  CMathPower              ::getUniqueName() , 600 , 100 )) ;
 

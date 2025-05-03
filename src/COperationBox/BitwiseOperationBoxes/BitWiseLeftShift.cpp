@@ -6,8 +6,6 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
 
 class CBitWiseLeftShiftVisitor : public CValueVisitor {
 public:
@@ -86,8 +84,17 @@ public:
         }
     }
 
-    void visit(const CValue_list& lhs) override {
-        Q_UNUSED(lhs)
+    void visit(const CValue_array& lhs) override {
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result = lhs << pVal->value();
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result =lhs << (long long)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result = lhs << (long long)pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            auto numShifts = pVal->value().toLongLong();
+            m_result = lhs<< numShifts;
+        }
     }
 
     void visit(const CValue_map& lhs) override {
@@ -119,7 +126,7 @@ CBitWiseLeftShift::CBitWiseLeftShift ( int newBlueBox_xPos, int newBlueBox_yPos 
     m_listOfOutputTerminals.push_back( outPutNode );
 
 
-    m_blueBox_keyWords = "BitWise Left Shift";
+    m_blueBox_keyWords = "BitWise Left Shift <<";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

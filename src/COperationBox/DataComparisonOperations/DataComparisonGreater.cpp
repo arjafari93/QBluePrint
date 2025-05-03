@@ -4,9 +4,6 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
-
 class CDataComparisonGreaterVisitor : public CValueVisitor {
 public:
 
@@ -62,7 +59,7 @@ public:
         }
     }
 
-    void visit(const CValue_list& lhs) override {
+    void visit(const CValue_array& lhs) override {
         Q_UNUSED(lhs)
     }
 
@@ -93,7 +90,7 @@ CDataComparisonGreater::CDataComparisonGreater ( int newBlueBox_xPos, int newBlu
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Comparator compare comparison greater than bigger ";
+    m_blueBox_keyWords = "Comparator compare comparison greater than bigger >";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_DataComparison ;
 }
 

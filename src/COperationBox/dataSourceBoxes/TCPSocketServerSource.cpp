@@ -9,14 +9,9 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "src/CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 300 ;
-inline const static int blueBoxHeight = 150 ;
-
-
-
 
 CTCPSocketServerSource::CTCPSocketServerSource ( int newBlueBox_xPos, int newBlueBox_yPos, QObject *parent)
-    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent } , mp_tcpServer{nullptr}
+    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 80 , blueBoxHeight + 30 , parent } , mp_tcpServer{nullptr}
 {
     mp_tcpServer = std::make_unique<QTcpServer>();
     if (!mp_tcpServer->listen(QHostAddress::Any, 0)) {  // Pass 0 to get a random available port

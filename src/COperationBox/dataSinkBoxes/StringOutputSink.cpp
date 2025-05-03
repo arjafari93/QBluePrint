@@ -4,12 +4,8 @@
 #include "src/CRawValueBase/RawValueBase.h"
 
 
-inline const static int blueBoxWidth  = 300 ;
-inline const static int blueBoxHeight = 150 ;
-
-
 CStringOutputSink::CStringOutputSink ( int newBlueBox_xPos, int newBlueBox_yPos,  QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 80 , blueBoxHeight + 30 , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_OutputSinkWithString ;
     m_blueBox_HeadColor = QColor(116, 142, 99);
@@ -35,6 +31,8 @@ void CStringOutputSink::evaluateOperation()
         m_stringToBeDisplayed = pVal->value() ;
     }else if (auto* pVal = dynamic_cast<CValue_bool*>(rhs)) {
         m_stringToBeDisplayed =  QString::number(pVal->value()) ;
+    }else if (auto* pVal = dynamic_cast<CValue_array*>(rhs)) {
+        m_stringToBeDisplayed =  pVal->convertToString() ;
     }
     emit stringToBeDisplayedChanged() ;
 }

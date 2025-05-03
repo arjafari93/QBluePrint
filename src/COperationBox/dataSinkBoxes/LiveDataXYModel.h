@@ -115,7 +115,7 @@ signals:
     void  maxValueLiveDataChanged () ;
     void  minValueLiveDataChanged () ;
     void  movingWindowLengthChanged();
-    void totalPointsCounterChanged();
+    void  totalPointsCounterChanged();
 };
 
 #endif // CLIVEDATAXYMODEL_H

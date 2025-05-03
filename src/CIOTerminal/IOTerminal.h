@@ -36,6 +36,7 @@ public:
     void  setTerminalCurrentData (const std::shared_ptr<CRawValueBase> & newValue );
 
     Q_INVOKABLE void changeTerminalCurrentData(const QVariant & newValue ); // called from QML
+    Q_INVOKABLE void changeTerminalCurrentDataArray(const QVariant & newValue ); // called from QML by array elmnt
     Q_INVOKABLE QVariant getTerminalCurrentData( ); // called from QML
 
     int     terminalXPos () const { return m_terminalXPos; }

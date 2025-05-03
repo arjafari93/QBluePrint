@@ -7,13 +7,8 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "src/CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 300 ;
-inline const static int blueBoxHeight = 150 ;
-
-
-
 CUDPSocketServerSource::CUDPSocketServerSource ( int newBlueBox_xPos, int newBlueBox_yPos, QObject *parent)
-    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }, mp_udpServer{nullptr}
+    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 80  , blueBoxHeight + 30 , parent }, mp_udpServer{nullptr}
 {
     mp_udpServer = std::make_unique<QUdpSocket>(this);
     mp_udpServer->bind(QHostAddress::Any, 0, QAbstractSocket::DefaultForPlatform);

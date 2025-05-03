@@ -16,7 +16,9 @@ QColor CBPStatic::getColorOfNodeByType(  CIOTerminal * pNode ){
          return QColor(255,255,0);
     }else if (auto* pBox = dynamic_cast<CValue_string*>(pTerminalData)) {
          return QColor(100,255,100);
-    }
+    }else if (auto* pBox = dynamic_cast<CValue_array*>(pTerminalData)) {
+        return QColor(200,150,250);
+   }
 
     DEBUG_MSG_PRINT << " failed to find the color for Terminal ";
     return QColor(255,0,0);
@@ -35,7 +37,9 @@ QColor CBPStatic::getColorByType(  CRawValueBase * pValue ){
          return QColor(255,255,0);
     }else if (auto* pBox = dynamic_cast<CValue_string*>(pValue)) {
          return QColor(100,255,100);
-    }
+    }else if (auto* pBox = dynamic_cast<CValue_array*>(pValue)) {
+        return QColor(200,150,250);
+   }
 
     DEBUG_MSG_PRINT << " failed to find the color for Terminal ";
     return QColor(255,0,0);
@@ -56,7 +60,9 @@ QString CBPStatic::getNameOfTypeAsString(CIOTerminal *pNode){
          return "bool";
     }else if (auto* pBox = dynamic_cast<CValue_string*>(pTerminalData)) {
          return "string";
-    }
+    }else if (auto* pBox = dynamic_cast<CValue_array*>(pTerminalData)) {
+        return "array";
+   }
 
     DEBUG_MSG_PRINT << " failed to find the name for Terminal ";
     return "INVALID";

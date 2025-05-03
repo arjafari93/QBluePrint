@@ -5,11 +5,6 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
-
-
-
 
 class CLogicalORVisitor : public CValueVisitor {
 public:
@@ -66,7 +61,7 @@ public:
         }
     }
 
-    void visit(const CValue_list& lhs) override {
+    void visit(const CValue_array& lhs) override {
         Q_UNUSED(lhs)
     }
 
@@ -96,7 +91,7 @@ CLogicalOR::CLogicalOR ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "logical OR";
+    m_blueBox_keyWords = "logical OR ||";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

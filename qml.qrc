@@ -78,5 +78,13 @@
         <file>QML/BluePrintPagesSelector/BluePrintPagesSelector.qml</file>
         <file>QML/BluePrintPagesSelector/PageSelectorDelegate.qml</file>
         <file>QML/BluePrintPagesSelector/ExitConfirmationPopup.qml</file>
+        <file>Images/parseToArray.png</file>
+        <file>Images/forLoop.png</file>
+        <file>Images/getIndex.png</file>
+        <file>Images/arrayLen.png</file>
+        <file>Images/arrayFind.png</file>
+        <file>QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml</file>
+        <file>QML/BluePrintBoxes/SingleTerminalInstance/AddNewArrayElementPopup.qml</file>
+        <file>Images/hideIcon.png</file>
     </qresource>
 </RCC>

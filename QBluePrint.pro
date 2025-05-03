@@ -6,9 +6,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 win32:RC_ICONS += AppLogo.ico
-
-VERSION = 0.9.2
-DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+# Used for showing in About dialog, etc.
+APP_VERSION_STRING = "0.9.3-alpha"
+DEFINES += APP_VERSION=\\\"$$APP_VERSION_STRING\\\"
 win32 {
     contains(QMAKE_CXX, "cl") {
         # MSVC
@@ -37,6 +37,11 @@ SOURCES += \
         src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.cpp \
         src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.cpp \
         src/COperationBox/DataComparisonOperations/JsonParser.cpp \
+        src/COperationBox/LoopsArrays/ArrayLength.cpp \
+        src/COperationBox/LoopsArrays/FineInArray.cpp \
+        src/COperationBox/LoopsArrays/GetByIndex.cpp \
+        src/COperationBox/LoopsArrays/ParseIntoArray.cpp \
+        src/COperationBox/LoopsArrays/ForEachLoop.cpp \
         src/COperationBox/Miscellaneous/BlueScriptBox.cpp \
         src/COperationBox/Miscellaneous/ConditionalBranch.cpp \
         src/COperationBox/Miscellaneous/DataCounter.cpp \
@@ -54,7 +59,7 @@ SOURCES += \
         src/COperationBox/MathOperationBoxes/MathAbsolute.cpp \
         src/COperationBox/MathOperationBoxes/MathAddition.cpp \
         src/COperationBox/MathOperationBoxes/MathDivision.cpp \
-        src/COperationBox/MathOperationBoxes/MathModulus.cpp \
+        src/COperationBox/MathOperationBoxes/MathModulo.cpp \
         src/COperationBox/MathOperationBoxes/MathMultiplication.cpp \
         src/COperationBox/MathOperationBoxes/MathPower.cpp \
         src/COperationBox/MathOperationBoxes/MathSubtraction.cpp \
@@ -70,7 +75,8 @@ SOURCES += \
         src/COperationBox/dataSourceBoxes/UDPSocketServerSource.cpp \
         src/COperationBox/Miscellaneous/UniversalTypeConvertor.cpp \
         src/COperationBox/OperationBox.cpp \
-        src/CRawValueBase/RawValueBase.cpp
+        src/CRawValueBase/RawValueBase.cpp \
+        src/CRawValueBase/Value_array.cpp
 
 RESOURCES += qml.qrc
 
@@ -101,6 +107,11 @@ HEADERS += \
     src/COperationBox/BitwiseOperationBoxes/BitWiseRightShift.h \
     src/COperationBox/BitwiseOperationBoxes/BitWiseXOR.h \
     src/COperationBox/DataComparisonOperations/JsonParser.h \
+    src/COperationBox/LoopsArrays/ArrayLength.h \
+    src/COperationBox/LoopsArrays/FineInArray.h \
+    src/COperationBox/LoopsArrays/GetByIndex.h \
+    src/COperationBox/LoopsArrays/ParseIntoArray.h \
+    src/COperationBox/LoopsArrays/ForEachLoop.h \
     src/COperationBox/Miscellaneous/BlueScriptBox.h \
     src/COperationBox/Miscellaneous/ConditionalBranch.h \
     src/COperationBox/Miscellaneous/DataCounter.h \
@@ -118,7 +129,7 @@ HEADERS += \
     src/COperationBox/MathOperationBoxes/MathAbsolute.h \
     src/COperationBox/MathOperationBoxes/MathAddition.h \
     src/COperationBox/MathOperationBoxes/MathDivision.h \
-    src/COperationBox/MathOperationBoxes/MathModulus.h \
+    src/COperationBox/MathOperationBoxes/MathModulo.h \
     src/COperationBox/MathOperationBoxes/MathMultiplication.h \
     src/COperationBox/MathOperationBoxes/MathPower.h \
     src/COperationBox/MathOperationBoxes/MathSubtraction.h \

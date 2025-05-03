@@ -86,9 +86,9 @@ SingleBoxInstance{
                 anchors.leftMargin: intervalSpingBoxID.anchors.leftMargin
                 anchors.verticalCenter: valueToBeSentDoubleLabelID.verticalCenter
                 width: intervalSpingBoxID.width
-                from: -1000000
+                from: -10000000
                 value: decimalToInt(0)
-                to: decimalToInt(1000000)
+                to: decimalToInt(10000000)
                 stepSize: decimalFactor
                 editable: true
                 Component.onCompleted: {
@@ -180,6 +180,52 @@ SingleBoxInstance{
                 }
             }
         }
+
+        Item{
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: fontMetricsID.height * 3
+            Label{
+                id: valueToBeSentArrayLabelID
+                text: "Value(Array):"
+                font.pointSize: fontMetricsID.font.pointSize
+                color: "white"
+            }
+
+            Rectangle{
+                width: intervalSpingBoxID.width
+                height: valueToBeSentArrayLabelID.height * 2
+                anchors.left: parent.left
+                anchors.leftMargin: intervalSpingBoxID.anchors.leftMargin
+                anchors.verticalCenter: valueToBeSentArrayLabelID.verticalCenter
+                color: arrayMouseID.containsMouse ?  "#592f65" :  "#4F1C51"
+                border.color: arrayMouseID.containsMouse ?  "#40ffffff" :  "transparent"
+                Label{
+                    anchors.centerIn: parent
+                    text: "Edit"
+                    color: "white"
+                }
+                MouseArea{
+                    id: arrayMouseID
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        var tempComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml");
+                        var tempObj = tempComp.createObject(appMainWindowID ,  {
+                                                                "currentListOfInfo" : getArrayValueData() ,
+                                                                "depthOfPopup": 1 ,
+                                                                "parentPopUp": modelData ,
+                                                                "indexOfArrayObjInParentInfo": 0,
+                                                                "timerSourceButtonAsParent": true
+                                                            } );
+                    }
+                }
+            }
+        }
+
+
+
     }
 
 }

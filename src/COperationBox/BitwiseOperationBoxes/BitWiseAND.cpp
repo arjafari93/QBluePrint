@@ -7,9 +7,6 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
-
 
 
 class CBitWiseAndVisitor : public CValueVisitor {
@@ -22,23 +19,27 @@ public:
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>(lhs.value() & pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() & (long long)pVal->value());
-        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>(lhs.value() & (long long)pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result = std::make_shared<CValue_bool>(lhs.value() & (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            m_result = std::make_shared<CValue_int>(-1);
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal & lhs.value() ;
         }
     }
 
     void visit(const CValue_double& lhs) override {
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long long)lhs.value() & pVal->value());
+            m_result = std::make_shared<CValue_int>((long long)lhs.value() & pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long long)lhs.value() & (long long)pVal->value());
+            m_result = std::make_shared<CValue_int>((long long)lhs.value() & (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long long)lhs.value() & (long long)pVal->value());
+            m_result = std::make_shared<CValue_bool>((long long)lhs.value() & (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            m_result = std::make_shared<CValue_int>(-1);
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal & lhs.value() ;
         }
     }
 
@@ -47,11 +48,13 @@ public:
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>(-1);
         }else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(-1);
+            m_result = std::make_shared<CValue_int>(-1);
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(false);
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            m_result = std::make_shared<CValue_int>(-1);
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal & lhs.value() ;
         }
     }
 
@@ -59,16 +62,28 @@ public:
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
             m_result = std::make_shared<CValue_int>((long long)lhs.value() & pVal->value());
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long long)lhs.value() & (long long)pVal->value());
+            m_result = std::make_shared<CValue_int>((long long)lhs.value() & (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_int>(lhs.value() & (long long)pVal->value());
+            m_result = std::make_shared<CValue_bool>(lhs.value() & (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_string>("");
+            m_result = std::make_shared<CValue_int>(-1);
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal & lhs.value() ;
         }
     }
 
-    void visit(const CValue_list& lhs) override {
-        Q_UNUSED(lhs)
+    void visit(const CValue_array& lhs) override {
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result =  lhs & pVal->value() ;
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result = lhs & pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result =lhs & pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            m_result = lhs  & pVal->value() ;
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = lhs &  *pVal  ;
+        }
     }
 
     void visit(const CValue_map& lhs) override {
@@ -101,7 +116,7 @@ CBitWiseAND::CBitWiseAND ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *p
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "BitWise AND";
+    m_blueBox_keyWords = "BitWise AND &";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

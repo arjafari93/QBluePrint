@@ -13,11 +13,9 @@
 #include "LiveDataXYModel.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 500 ;
-inline const static int blueBoxHeight = 350 ;
 
 CLineSeriesChartBox::CLineSeriesChartBox ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent } ,
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 280 , blueBoxHeight + 230 , parent } ,
       mp_modelXYMapperLiveData {nullptr}, mp_dataListModelInstace {nullptr}
 {
     m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/ChartBoxes/ChartBoxSettings.qml";
@@ -71,11 +69,12 @@ void CLineSeriesChartBox::evaluateOperation()
     if(resetChart == true ){
         mp_dataListModelInstace->resetRequestReceived();
         m_listOfInputTerminals.at(1)->setTerminalCurrentData( std::make_shared<CValue_bool>(false ) );
+        m_listOfOutputTerminals.at(0)->setTerminalCurrentData( std::make_shared<CValue_int>(0 ) );
         return ;
     }
 
     auto pCurrentData = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
-    float result = 0 ;;
+    float result = 0 ;
     if (auto* pVal = dynamic_cast<CValue_int*>(pCurrentData)) {
         result = pVal->value() ;
     } else if (auto* pVal = dynamic_cast<CValue_double*>(pCurrentData)) {

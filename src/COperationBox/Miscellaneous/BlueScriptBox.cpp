@@ -8,12 +8,9 @@
 #include <QJSEngine>
 #include <QJsonObject>
 
-inline const static int blueBoxWidth  = 500 ;
-inline const static int blueBoxHeight = 350 ;
-
 
 CBlueScriptBox::CBlueScriptBox ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 280 , blueBoxHeight + 230 , parent }
 {
     m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerSettingsPopup.qml";
     mp_jsEngine = new QJSEngine(this);

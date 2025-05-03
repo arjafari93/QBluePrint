@@ -7,11 +7,10 @@
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
 #include "src/CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 100 ;
+
 
 CButtonSource::CButtonSource ( int newBlueBox_xPos, int newBlueBox_yPos, QObject *parent)
-    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{m_uniqueBoxName , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight - 20  , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_InputButtonSource ;
     m_blueBox_HeaderIcon = "qrc:/Images/buttonClickIcon.png" ;

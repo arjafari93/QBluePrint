@@ -8,14 +8,12 @@
 #include <QTimer>
 #include <QDateTime>
 
-inline const static int blueBoxWidth  =  250 ;
-inline const static int blueBoxHeight =  90 ;
 
 using namespace std::literals ;
 using namespace std::chrono;
 
 CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *parent)
-    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth , blueBoxHeight , parent }
+    : COperationBox{ m_uniqueBoxName  , newBlueBox_xPos  , newBlueBox_yPos  , blueBoxWidth + 30  , blueBoxHeight - 30  , parent }
 {
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_StopWatch ;
     m_blueBox_HeadColor = QColor(70, 110, 160);
@@ -28,7 +26,7 @@ CStopWatch::CStopWatch ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *par
     outPutNode->setTerminalName("us");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "stop watch stopwatch timer";
+    m_blueBox_keyWords = "stop watch stopwatch timer measure elapse";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_Miscellaneous;
 
     mp_internalTimer = new QTimer(this);
@@ -52,7 +50,29 @@ void CStopWatch::evaluateOperation()
     if(!m_listOfInputTerminals.at(0)->terminalCurrentData().get() )
         return ;
 
-    if( m_stopWatchRunning == static_cast<CValue_bool*>(m_listOfInputTerminals.at(0)->terminalCurrentData().get())->value() )
+    bool newRunningVal = false ;
+    auto pRunVal = m_listOfInputTerminals.at(0)->terminalCurrentData().get() ;
+    if (auto* pVal = dynamic_cast<CValue_int*>(pRunVal)) {
+        newRunningVal =  (bool)pVal->value()   ;
+    } else if (auto* pVal = dynamic_cast<CValue_double*>(pRunVal)) {
+        newRunningVal = (bool)pVal->value();
+    }else if (auto* pVal = dynamic_cast<CValue_bool*>(pRunVal)) {
+        newRunningVal = pVal->value();
+    } else if (auto* pVal = dynamic_cast<CValue_string*>(pRunVal)) {
+        bool ok = false ;
+        pVal->value().toLongLong(&ok);
+        if(ok)
+            newRunningVal =  pVal->value().toLongLong();
+        else
+            newRunningVal = pVal->value().length() ;
+    } else if (auto* pVal = dynamic_cast<CValue_string*>(pRunVal)) {
+        newRunningVal = pVal->value().length();
+    }else{
+        DEBUG_MSG_PRINT << "inavlid daata type " ;
+        return ;
+    }
+
+    if( m_stopWatchRunning == newRunningVal )
         return ;
     // if we are here it means the Running value has changed by user
     setStopWatchRunning(!m_stopWatchRunning);

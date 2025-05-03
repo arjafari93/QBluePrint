@@ -52,6 +52,10 @@ Popup {
         }
     }
 
+    function saveChildInfoOnChildClose(childInfo , dataIndexInParent){ // called by child popup in array modify popup
+        // here dataIndexInParent desont matter, but we keep it to comply the saveChildInfoOnChildClose syntax in other popups
+        pTerminalInstance.changeTerminalCurrentDataArray(childInfo);
+    }
 
 
 
@@ -106,6 +110,7 @@ Popup {
             case 1: return doubleComponent;
             case 2: return boolComponent;
             case 3: return stringComponent;
+            case 4: return arrayComponent;
             default: return undefined;
             }
         }
@@ -132,10 +137,10 @@ Popup {
         id: doubleComponent
         SpinBox {
             id: doubleSpinBoxID
-            Material.theme : Material.Dark
-            from: -1000000
+            //Material.theme : Material.Dark
+            from: -10000000
             value: decimalToInt(pTerminalInstance.getTerminalCurrentData() != undefined ? pTerminalInstance.getTerminalCurrentData() : 0)
-            to: decimalToInt(1000000)
+            to: decimalToInt(10000000)
             stepSize: decimalFactor
             editable: true
             // e.g.:  value 110 decimalFactor 100 realValue 1.10
@@ -206,6 +211,40 @@ Popup {
         }
     }
 
+    Component {
+        id: arrayComponent
+        Rectangle{
+            width: targetTypeComboID.width
+            height: targetTypeComboID.height * 0.75
+            anchors.centerIn: parent
+            color: arrayMouseID.containsMouse ?  "#592f65" :  "#4F1C51"
+            border.color: arrayMouseID.containsMouse ?  "#40ffffff" :  "transparent"
+            Component.onCompleted: {
+                if( Array.isArray(pTerminalInstance.getTerminalCurrentData()) == false)
+                    pTerminalInstance.changeTerminalCurrentDataArray( [] )
+            }
+            Label{
+                anchors.centerIn: parent
+                text: "Edit"
+                color: "white"
+            }
+            MouseArea{
+                id: arrayMouseID
+                anchors.fill: parent
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    var tempComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml");
+                    var tempObj = tempComp.createObject(appMainWindowID ,  {
+                                                            "currentListOfInfo" : pTerminalInstance.getTerminalCurrentData() ,
+                                                            "depthOfPopup": 1 ,
+                                                            "parentPopUp": terminalModifyPupUpCompID ,
+                                                            "indexOfArrayObjInParentInfo": 0
+                                                        } );
+                }
+            }
+        }
+    }
 
 
 }

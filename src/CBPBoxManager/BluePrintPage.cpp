@@ -106,6 +106,19 @@ COperationBox *CBluePrintPage::getBPBoxFromUniqueID(const int &BPBoxID)
     return nullptr;
 }
 
+bool CBluePrintPage::showPageContentEnable() const
+{
+    return m_showPageContentEnable;
+}
+
+void CBluePrintPage::setShowPageContentEnable(const bool &newValue)
+{
+    if (m_showPageContentEnable == newValue)
+        return;
+    m_showPageContentEnable = newValue;
+    emit showPageContentEnableChanged();
+}
+
 
 /*!
  * \brief CBluePrintPage::lineFlowReleased

@@ -78,7 +78,7 @@ void CFlowConnectionLine::serializeFlowLineInfoIntoJson(QJsonObject &jsonObj)
     jsonObj["startBoxID"] = QString::number( pStartContainerBox->getBoxUniqueIDNumber() );
     jsonObj["endBoxID"] = QString::number( pEndContainerBox->getBoxUniqueIDNumber() );
     jsonObj["startTerminalIndex"] = QString::number( pStartContainerBox->getListOfOutputTerminals().indexOf(startPoint()));
-    jsonObj["endTerminalIndex"] = QString::number( pEndContainerBox->getListOfInputTerminals().indexOf(endPoint()));;
+    jsonObj["endTerminalIndex"] = QString::number( pEndContainerBox->getListOfInputTerminals().indexOf(endPoint()));
 }
 
 

@@ -5,11 +5,6 @@
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
 #include "../../CRawValueBase/RawValueBase.h"
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
-
-
-
 
 class CLogicalANDVisitor : public CValueVisitor {
 public:
@@ -66,7 +61,7 @@ public:
         }
     }
 
-    void visit(const CValue_list& lhs) override {
+    void visit(const CValue_array& lhs) override {
         Q_UNUSED(lhs)
     }
 
@@ -97,7 +92,7 @@ CLogicalAND::CLogicalAND ( int newBlueBox_xPos, int newBlueBox_yPos , QObject *p
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "logical AND";
+    m_blueBox_keyWords = "logical AND &&";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_LogicalOperation ;
 }
 

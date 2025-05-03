@@ -7,11 +7,6 @@
 #include "../../CRawValueBase/RawValueBase.h"
 #include <numeric>
 
-inline const static int blueBoxWidth  = 220 ;
-inline const static int blueBoxHeight = 120 ;
-
-
-
 class CMathDivisionVisitor : public CValueVisitor {
 public:
 
@@ -20,25 +15,29 @@ public:
 
     void visit(const CValue_int& lhs) override {
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() / (pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>(lhs.value() / (pVal->value() + epsln));
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value()  / (pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>(lhs.value()  / (pVal->value() + epsln));
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() / ((long double)pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>(lhs.value() / ((long double)pVal->value() + epsln));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>( "");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result =  lhs.value() / *pVal  ;
         }
     }
 
     void visit(const CValue_double& lhs) override {
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() / (pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>(lhs.value() / (pVal->value() + epsln));
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value()  / (pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>(lhs.value()  / (pVal->value() + epsln));
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>(lhs.value() / ((long double)pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>(lhs.value() / ((long double)pVal->value() + epsln));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>( "" );
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result =  lhs.value() / *pVal  ;
         }
     }
 
@@ -49,18 +48,30 @@ public:
 
     void visit(const CValue_bool& lhs) override {
         if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long double)lhs.value()  / (pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>((long double)lhs.value()  / (pVal->value() + epsln));
         } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long double)lhs.value()  / (pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>((long double)lhs.value()  / (pVal->value() + epsln));
         }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
-            m_result = std::make_shared<CValue_double>((long double)lhs.value() / ((long double)pVal->value() + m_epsilon));
+            m_result = std::make_shared<CValue_double>((long double)lhs.value() / ((long double)pVal->value() + epsln));
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result =  lhs.value() / *pVal  ;
         }
     }
 
-    void visit(const CValue_list& lhs) override {
-        Q_UNUSED(lhs)
+    void visit(const CValue_array& lhs) override {
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result =  lhs / pVal->value() ;
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result = lhs / pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result =lhs / pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            m_result = lhs  / pVal->value() ;
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = lhs /  *pVal  ;
+        }
     }
 
     void visit(const CValue_map& lhs) override {
@@ -69,8 +80,7 @@ public:
 
 private:
     std::shared_ptr<CRawValueBase> m_result{nullptr};
-    CRawValueBase* mp_rhs = nullptr;  // The second operand (factor)
-    const long double m_epsilon = std::numeric_limits<long double>::epsilon() ;
+    CRawValueBase* mp_rhs = nullptr;  // The second operand
 };
 
 
@@ -92,7 +102,7 @@ CMathDivision::CMathDivision ( int newBlueBox_xPos, int newBlueBox_yPos , QObjec
     outPutNode->setTerminalName("Out");
     m_listOfOutputTerminals.push_back( outPutNode );
 
-    m_blueBox_keyWords = "Math devision, devide";
+    m_blueBox_keyWords = "Math devision, devide /";
     m_blueBox_Catgr = CBPStatic::EBPBoxCategoryType::E_BP_MathOperation ;
 }
 

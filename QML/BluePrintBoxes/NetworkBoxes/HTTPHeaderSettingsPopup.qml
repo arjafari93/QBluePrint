@@ -153,8 +153,8 @@ Popup {
         }
         Rectangle{
             anchors.fill: parent
-            color: "#20000000"
-            border.color: "#10ffffff"
+            color: BPBoxManager.darkThemeEnabled ?  "#20000000" : "#20ffffff"
+            border.color: BPBoxManager.darkThemeEnabled ? "#10ffffff" : "#20000000"
         }
     }
 
@@ -190,6 +190,12 @@ Popup {
             anchors.centerIn: parent
             color: "white"
             text: "Add New Pair"
+        }
+        Rectangle{
+            anchors.fill: parent
+            color: "black"
+            z:-1
+            radius: addNewRowBtnID.radius
         }
     }
 
