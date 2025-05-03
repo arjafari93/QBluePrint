@@ -65,7 +65,7 @@ To build and run QBlueprint:
 1. **Install Qt** (Recommended: Qt 5.15; Qt 6 support coming soon).
 2. Clone the repository:
    ```sh
-   git clone https://github.com/arjafari93/QBlueprint.git
+   git clone --recurse-submodules https://github.com/arjafari93/QBlueprint.git
    cd QBlueprint
    ```
 3. Open the project in **Qt Creator** or compile manually with **qmake**:
