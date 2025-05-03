@@ -17,9 +17,9 @@ Tested on **Windows and Linux**.
 ![GitHub release](https://img.shields.io/github/v/release/arjafari93/QBluePrint)
 ![GitHub stars](https://img.shields.io/github/stars/arjafari93/QBluePrint?style=social)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)
+![copyright](https://img.shields.io/badge/%C2%A9-Alireza_Jafari-blue.svg)
 ![GitHub all releases](https://img.shields.io/github/downloads/arjafari93/QBluePrint/total)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
-
 
 ## Key Features
 
@@ -65,7 +65,7 @@ To build and run QBlueprint:
 1. **Install Qt** (Recommended: Qt 5.15; Qt 6 support coming soon).
 2. Clone the repository:
    ```sh
-   git clone https://github.com/arjafari93/QBlueprint.git
+   git clone --recurse-submodules https://github.com/arjafari93/QBlueprint.git
    cd QBlueprint
    ```
 3. Open the project in **Qt Creator** or compile manually with **qmake**:
