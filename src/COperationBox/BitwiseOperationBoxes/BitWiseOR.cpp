@@ -24,6 +24,8 @@ public:
             m_result = std::make_shared<CValue_int>(lhs.value() | (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal | lhs.value() ;
         }
     }
 
@@ -36,6 +38,8 @@ public:
             m_result = std::make_shared<CValue_double>((long long)lhs.value() | (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal | lhs.value() ;
         }
     }
 
@@ -49,6 +53,8 @@ public:
             m_result = std::make_shared<CValue_bool>(false);
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal | lhs.value() ;
         }
     }
 
@@ -61,11 +67,23 @@ public:
             m_result = std::make_shared<CValue_int>(lhs.value() | (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_string>("");
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal | lhs.value() ;
         }
     }
 
     void visit(const CValue_array& lhs) override {
-        Q_UNUSED(lhs)
+        if (auto* pVal = dynamic_cast<CValue_int*>(mp_rhs)) {
+            m_result =  lhs | pVal->value() ;
+        } else if (auto* pVal = dynamic_cast<CValue_double*>(mp_rhs)) {
+            m_result = lhs | pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(mp_rhs)) {
+            m_result =lhs | pVal->value();
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
+            m_result = lhs  | pVal->value() ;
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = lhs |  *pVal  ;
+        }
     }
 
     void visit(const CValue_map& lhs) override {
