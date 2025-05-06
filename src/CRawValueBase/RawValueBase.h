@@ -185,6 +185,8 @@ public:
     // Bitwise Right shift
     std::shared_ptr<CRawValueBase> operator>>(const int & shift) const;
 
+    std::shared_ptr<CRawValueBase> operator==(const CValue_array &  rhs) const;
+
 private:
     /*const*/ QList<std::shared_ptr<CRawValueBase>> m_value;  // TODO: consider using Qvector instead of QList
 };

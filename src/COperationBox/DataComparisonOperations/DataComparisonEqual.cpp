@@ -21,6 +21,8 @@ public:
             m_result = std::make_shared<CValue_bool>(lhs.value() == (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(lhs.value() == pVal->value().toLongLong());
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = std::make_shared<CValue_bool>(false);
         }
     }
 
@@ -33,6 +35,8 @@ public:
             m_result = std::make_shared<CValue_bool>(lhs.value() == (long double)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(lhs.value() == pVal->value().toDouble());
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = std::make_shared<CValue_bool>(false);
         }
     }
 
@@ -46,6 +50,8 @@ public:
             m_result = std::make_shared<CValue_bool>(lhs.value().toLongLong() == (long long)pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>(lhs.value() == pVal->value());
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = std::make_shared<CValue_bool>(false);
         }
     }
 
@@ -58,11 +64,17 @@ public:
             m_result = std::make_shared<CValue_bool>(lhs.value() == pVal->value());
         }else if (auto* pVal = dynamic_cast<CValue_string*>(mp_rhs)) {
             m_result = std::make_shared<CValue_bool>((long long)lhs.value() == pVal->value().size());
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = std::make_shared<CValue_bool>(false);
         }
     }
 
     void visit(const CValue_array& lhs) override {
-        Q_UNUSED(lhs)
+        if (auto* pVal = dynamic_cast<CValue_array*>(mp_rhs)) {
+            m_result = *pVal == lhs ;
+        }else{
+            m_result = std::make_shared<CValue_bool>(false);
+        }
     }
 
     void visit(const CValue_map& lhs) override {

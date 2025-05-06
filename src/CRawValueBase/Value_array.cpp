@@ -1362,3 +1362,48 @@ std::shared_ptr<CRawValueBase> CValue_array::operator>>(const int & shift) const
     }
     return std::make_shared<CValue_array>( std::move( result) ) ;
 }
+
+std::shared_ptr<CRawValueBase> CValue_array::operator==(const CValue_array &rhs) const
+{
+    std::shared_ptr<CRawValueBase> result = std::make_shared<CValue_bool>(false);
+    if( rhs.m_value.length() != m_value.length() ){
+        return result;
+    }
+
+    for( int iter=0 ; iter < m_value.length() ; iter++ ){
+        if (auto* pVal = dynamic_cast<CValue_int*>(m_value.at(iter).get())) {
+            if(auto* pRhsVal = dynamic_cast<CValue_int*>(rhs.m_value.at(iter).get())) {
+                if(pVal->value() == pRhsVal->value() )
+                    continue;
+            }
+            return  result;
+        }else if (auto* pVal = dynamic_cast<CValue_double*>(m_value.at(iter).get())) {
+            if(auto* pRhsVal = dynamic_cast<CValue_double*>(rhs.m_value.at(iter).get())) {
+                if(pVal->value() == pRhsVal->value() )
+                    continue;
+            }
+            return  result;
+        }else if (auto* pVal = dynamic_cast<CValue_bool*>(m_value.at(iter).get())) {
+            if(auto* pRhsVal = dynamic_cast<CValue_bool*>(rhs.m_value.at(iter).get())) {
+                if(pVal->value() == pRhsVal->value() )
+                    continue;
+            }
+            return  result;
+        }else if (auto* pVal = dynamic_cast<CValue_string*>(m_value.at(iter).get())) {
+            if(auto* pRhsVal = dynamic_cast<CValue_string*>(rhs.m_value.at(iter).get())) {
+                if(pVal->value() == pRhsVal->value() )
+                    continue;
+            }
+            return  result;
+        }else if (auto* pVal = dynamic_cast<CValue_array*>(m_value.at(iter).get())) {
+            if(auto* pRhsVal = dynamic_cast<CValue_array*>(rhs.m_value.at(iter).get())) {
+                if( dynamic_cast<CValue_bool*>( (*pVal == *pRhsVal).get() )->value() )
+                    continue;
+            }
+            return  result;
+        }
+        return  result;
+    }
+    result = std::make_shared<CValue_bool>(true);
+    return result;
+}
