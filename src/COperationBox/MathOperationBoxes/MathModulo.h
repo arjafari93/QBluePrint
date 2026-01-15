@@ -1,27 +1,23 @@
 #ifndef CMATHMODULO_H
 #define CMATHMODULO_H
 
-#include <QObject>
 #include "../OperationBox.h"
+#include <QObject>
 
 class CMathModulo : public COperationBox
 {
     Q_OBJECT
-    friend class CMathModuloFactory ;
+    friend class CMathModuloFactory;
     Q_DISABLE_COPY_MOVE(CMathModulo)
-    explicit CMathModulo(
-            int      newBlueBox_xPos  ,
-            int      newBlueBox_yPos  ,
-            QObject *parent = nullptr );
-public:
+    explicit CMathModulo(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent = nullptr);
 
-    virtual void  evaluateOperation(  ) override ;
+  public:
+    virtual void evaluateOperation() override;
 
     GETUNIQUENAMEFUNC;
 
-private:
-    inline const static QString    m_uniqueBoxName = "Math Modulo" ;
-
+  private:
+    inline const static QString m_uniqueBoxName = "Math Modulo";
 };
 
 #endif // CMATHMODULO_H

@@ -8,33 +8,29 @@
  * Licensed under the BSD 3-Clause License
  */
 
-
-
 #include <QApplication>
+#include <QFont>
+#include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 #include <QThread>
-#include <QIcon>
 #include <QUrl>
 #include <cmath>
-#include <QFont>
-#include <QQuickStyle>
-
 
 #include "src/CBPBoxManager/BPBoxManager.h"
+#include "src/CBPStatic/BPStatic.h"
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+#include "src/COperationBox/Miscellaneous/BlueScriptBox.h"
 #include "src/COperationBox/dataSinkBoxes/CSocketClientSink.h"
 #include "src/COperationBox/dataSinkBoxes/LineSeriesChartBox.h"
 #include "src/COperationBox/dataSinkBoxes/LiveDataXYModel.h"
-#include "src/COperationBox/Miscellaneous/BlueScriptBox.h"
 #include "src/COperationBox/dataSourceBoxes/HTTPGetter.h"
-#include "src/CBPStatic/BPStatic.h"
 
+QQmlApplicationEngine* pQmlEngine = nullptr;
 
-QQmlApplicationEngine *  pQmlEngine = nullptr ;
-
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setOrganizationName("QBluePrint");
@@ -44,16 +40,15 @@ int main(int argc, char *argv[])
 #endif
     QApplication app(argc, argv);
 
-    qmlRegisterUncreatableType<COperationBox>("org.bluePrintType.OperationBox", 1, 0, "COperationBox" , " can not create COperationBox");
-    qmlRegisterUncreatableType<CFlowConnectionLine>("org.bluePrintType.FlowConnectionLine", 1, 0, "CFlowConnectionLine" , " can not create CFlowConnectionLine");
-    qmlRegisterUncreatableType<QAbstractSocket>("org.bluePrintType.AbstractSocket", 1, 0, "QAbstractSocket" , " can not create AbstractSocket");
-    qmlRegisterUncreatableType<CLineSeriesChartBox>("org.bluePrintType.LineSeriesChartBox", 1, 0, "CLineSeriesChartBox" , " can not create LineSeriesChartBox");
-    qmlRegisterUncreatableType<CLiveDataXYModel>("org.bluePrintType.LiveDataXYModel", 1, 0, "CLiveDataXYModel" , " can not create CLiveDataXYModel");
+    qmlRegisterUncreatableType<COperationBox>("org.bluePrintType.OperationBox", 1, 0, "COperationBox", " can not create COperationBox");
+    qmlRegisterUncreatableType<CFlowConnectionLine>("org.bluePrintType.FlowConnectionLine", 1, 0, "CFlowConnectionLine", " can not create CFlowConnectionLine");
+    qmlRegisterUncreatableType<QAbstractSocket>("org.bluePrintType.AbstractSocket", 1, 0, "QAbstractSocket", " can not create AbstractSocket");
+    qmlRegisterUncreatableType<CLineSeriesChartBox>("org.bluePrintType.LineSeriesChartBox", 1, 0, "CLineSeriesChartBox", " can not create LineSeriesChartBox");
+    qmlRegisterUncreatableType<CLiveDataXYModel>("org.bluePrintType.LiveDataXYModel", 1, 0, "CLiveDataXYModel", " can not create CLiveDataXYModel");
 
+    qmlRegisterUncreatableType<CSocketClientSink>("org.bluePrintType.SocketClientSink", 1, 0, "CSocketClientSink", " can not create CSocketClientSink");
 
-    qmlRegisterUncreatableType<CSocketClientSink>("org.bluePrintType.SocketClientSink", 1, 0, "CSocketClientSink" , " can not create CSocketClientSink");
-
-    qmlRegisterUncreatableType<CIOTerminal>("org.bluePrintType.IOTerminal", 1, 0, "CIOTerminal" , " can not create CIOTerminal");
+    qmlRegisterUncreatableType<CIOTerminal>("org.bluePrintType.IOTerminal", 1, 0, "CIOTerminal", " can not create CIOTerminal");
     qmlRegisterUncreatableType<CInputTerminal>("org.bluePrintType.InputTerminal", 1, 0, "CInputTerminal", " can not create CInputTerminal");
     qmlRegisterUncreatableType<COutputTerminal>("org.bluePrintType.OutputTerminal", 1, 0, "COutputTerminal", " can not create COutputTerminal");
     qmlRegisterUncreatableType<CFlowConnectionLine>("org.bluePrintType.FlowConnectionLine", 1, 0, "CFlowConnectionLine", " can not create CFlowConnectionLine");
@@ -62,23 +57,23 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<CHTTPRawHeaderFormat>("org.bluePrintType.HTTPRawHeaderFormat", 1, 0, "CHTTPRawHeaderFormat", " can not create CHTTPRawHeaderFormat");
     qmlRegisterUncreatableType<CBluePrintPage>("org.bluePrintType.BluePrintPage", 1, 0, "CBluePrintPage", " can not create CBluePrintPage");
 
-    QQuickStyle::setStyle("Material") ;
+    QQuickStyle::setStyle("Material");
 
     QQmlApplicationEngine engine;
-    pQmlEngine = &engine ;
+    pQmlEngine = &engine;
     CBPBoxManager* mainAppInstance = CBPBoxManager::getInstance();
-    engine.rootContext()->setContextProperty("BPBoxManager", mainAppInstance );
+    engine.rootContext()->setContextProperty("BPBoxManager", mainAppInstance);
 
-    qmlRegisterType<CBPStatic>("org.bluePrintType.BPStatic", 1, 0, "CBPStatic" );
-
-
+    qmlRegisterType<CBPStatic>("org.bluePrintType.BPStatic", 1, 0, "CBPStatic");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+    QObject::connect(
+        &engine, &QQmlApplicationEngine::objectCreated, &app,
+        [url](QObject* obj, const QUrl& objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
     engine.load(url);
 
     return app.exec();

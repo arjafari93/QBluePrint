@@ -1,29 +1,23 @@
 #ifndef CJSONPARSER_H
 #define CJSONPARSER_H
 
-
-#include <QObject>
 #include "../OperationBox.h"
-
+#include <QObject>
 
 class CJsonParser : public COperationBox
 {
     Q_OBJECT
-    friend class CJsonParserFactory ;
+    friend class CJsonParserFactory;
     Q_DISABLE_COPY_MOVE(CJsonParser)
-    explicit CJsonParser(
-            int      newBlueBox_xPos  ,
-            int      newBlueBox_yPos  ,
-            QObject *parent = nullptr );
-public:
+    explicit CJsonParser(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent = nullptr);
 
-    virtual void  evaluateOperation(  ) override ;
+  public:
+    virtual void evaluateOperation() override;
 
     GETUNIQUENAMEFUNC;
 
-private:
-    inline const static QString    m_uniqueBoxName  = "Json Parser" ;
+  private:
+    inline const static QString m_uniqueBoxName = "Json Parser";
 };
-
 
 #endif // CJSONPARSER_H

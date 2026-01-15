@@ -1,14 +1,13 @@
 #ifndef CBPSTATIC_H
 #define CBPSTATIC_H
 
-#include <QObject>
-#include <QMap>
-#include <QColor>
 #include "src/CommonHeader.h"
+#include <QColor>
+#include <QMap>
+#include <QObject>
 
-class CIOTerminal ;
-class CRawValueBase ;
-
+class CIOTerminal;
+class CRawValueBase;
 
 /*!
  * \brief The CBPStatic class
@@ -17,74 +16,64 @@ class CRawValueBase ;
 class CBPStatic : public QObject
 {
     Q_OBJECT
-public:
+  public:
     Q_DISABLE_COPY_MOVE(CBPStatic);
-    explicit CBPStatic() {} ;
+    explicit CBPStatic(){};
 
-    enum  class EBPDelegateGUIType {
-        E_InvalidGUIType          ,
-        E_SimpleBluePrint         ,
-        E_OutputSinkWithString    ,
-        E_OutputSinkNetworkClient ,
-        E_InputSpinBoxWithTimer   ,
-        E_InputNetworkServer      ,
-        E_InputButtonSource       ,
-        E_BigTextOperator         ,
-        E_BigPictureOperator      ,
-        E_TypeConvrtrOperator     ,
-        E_StopWatch               ,
-        E_ScriptRunner            ,
+    enum class EBPDelegateGUIType
+    {
+        E_InvalidGUIType,
+        E_SimpleBluePrint,
+        E_OutputSinkWithString,
+        E_OutputSinkNetworkClient,
+        E_InputSpinBoxWithTimer,
+        E_InputNetworkServer,
+        E_InputButtonSource,
+        E_BigTextOperator,
+        E_BigPictureOperator,
+        E_TypeConvrtrOperator,
+        E_StopWatch,
+        E_ScriptRunner,
         E_ChartBoxLineSeries
     };
     Q_ENUM(EBPDelegateGUIType)
 
-
-    enum  class EBPBoxCategoryType {
-        E_BP_INVALIDTYPE          ,
-        E_BP_MathOperation        ,
-        E_BP_DataComparison       ,
-        E_BP_LogicalOperation     ,
-        E_BP_OutPutSink           ,
-        E_BP_InputSource          ,
-        E_BP_LoopsAndArrays       ,
-        E_BP_Miscellaneous        ,
+    enum class EBPBoxCategoryType
+    {
+        E_BP_INVALIDTYPE,
+        E_BP_MathOperation,
+        E_BP_DataComparison,
+        E_BP_LogicalOperation,
+        E_BP_OutPutSink,
+        E_BP_InputSource,
+        E_BP_LoopsAndArrays,
+        E_BP_Miscellaneous,
         E_BP_BigPictureOperator
     };
     Q_ENUM(EBPBoxCategoryType)
 
-    inline static const  QMap<CBPStatic::EBPBoxCategoryType, QString >  BPBoxCategoryName   = {
-        { EBPBoxCategoryType::E_BP_INVALIDTYPE            , "Ivalid"                         },
-        { EBPBoxCategoryType::E_BP_MathOperation          , "Math"                           },
-        { EBPBoxCategoryType::E_BP_DataComparison         , "Data Comparison/Conversion"     },
-        { EBPBoxCategoryType::E_BP_LogicalOperation       , "Logical"                        },
-        { EBPBoxCategoryType::E_BP_OutPutSink             , "Data Sink"                      },
-        { EBPBoxCategoryType::E_BP_InputSource            , "Data Source"                    },
-        { EBPBoxCategoryType::E_BP_Miscellaneous          , "Miscellaneous"                  },
-        { EBPBoxCategoryType::E_BP_LoopsAndArrays         , "Loops/Arrays"                   },
-        { EBPBoxCategoryType::E_BP_BigPictureOperator     , "Conditional Branch"             }
-    };
+    inline static const QMap<CBPStatic::EBPBoxCategoryType, QString> BPBoxCategoryName = {
+        {EBPBoxCategoryType::E_BP_INVALIDTYPE, "Ivalid"},          {EBPBoxCategoryType::E_BP_MathOperation, "Math"},          {EBPBoxCategoryType::E_BP_DataComparison, "Data Comparison/Conversion"},
+        {EBPBoxCategoryType::E_BP_LogicalOperation, "Logical"},    {EBPBoxCategoryType::E_BP_OutPutSink, "Data Sink"},        {EBPBoxCategoryType::E_BP_InputSource, "Data Source"},
+        {EBPBoxCategoryType::E_BP_Miscellaneous, "Miscellaneous"}, {EBPBoxCategoryType::E_BP_LoopsAndArrays, "Loops/Arrays"}, {EBPBoxCategoryType::E_BP_BigPictureOperator, "Conditional Branch"}};
 
-    inline static const QStringList  listOfSupportedTypes {"int" , "double" , "bool" , "string" , "array"};
+    inline static const QStringList listOfSupportedTypes{"int", "double", "bool", "string", "array"};
 
-public slots:
-    static QColor getColorOfNodeByType( CIOTerminal * pNode );
-    static QColor getColorByType(CRawValueBase *pValue);
+  public slots:
+    static QColor getColorOfNodeByType(CIOTerminal* pNode);
+    static QColor getColorByType(CRawValueBase* pValue);
 
-
-    static QString getNameOfCategory(const CBPStatic::EBPBoxCategoryType & categoryType ){
-        if(BPBoxCategoryName.contains( categoryType ) == true )
+    static QString getNameOfCategory(const CBPStatic::EBPBoxCategoryType& categoryType)
+    {
+        if (BPBoxCategoryName.contains(categoryType) == true)
             return BPBoxCategoryName[categoryType];
-        qDebug()<< "ERROR " << FILEINFOMACRO ;
+        qDebug() << "ERROR " << FILEINFOMACRO;
         return "ERROR";
     }
 
-    static QString getNameOfTypeAsString( CIOTerminal * pNode);
-    static QStringList  getListOfSupportedTypes  () {return listOfSupportedTypes ; };
-    static QString getFileNameFromPath( const QString & filePath);
-
+    static QString getNameOfTypeAsString(CIOTerminal* pNode);
+    static QStringList getListOfSupportedTypes() { return listOfSupportedTypes; };
+    static QString getFileNameFromPath(const QString& filePath);
 };
-
-
-
 
 #endif //  CBPSTATIC_H

@@ -1,38 +1,37 @@
 #ifndef CLIVEDATAXYMODEL_H
 #define CLIVEDATAXYMODEL_H
 
+#include <QAbstractTableModel>
 #include <QObject>
 #include <QPointF>
-#include <QAbstractTableModel>
 
-class CLiveDataXYModel :  public QAbstractTableModel
+class CLiveDataXYModel : public QAbstractTableModel
 {
     Q_OBJECT
-    Q_PROPERTY( int      totalLengthOfSessionData READ  totalLengthOfSessionData  NOTIFY    totalLengthOfSessionDataChanged    )
-    Q_PROPERTY( float    maxValueLiveData      MEMBER   m_maxValueLiveData        NOTIFY    maxValueLiveDataChanged            )
-    Q_PROPERTY( float    minValueLiveData      MEMBER   m_minValueLiveData        NOTIFY    minValueLiveDataChanged            )
-    Q_PROPERTY( float    lastLiveCapturedVal   MEMBER   m_lastLiveCapturedVal     NOTIFY    totalLengthOfSessionDataChanged    )
+    Q_PROPERTY(int totalLengthOfSessionData READ totalLengthOfSessionData NOTIFY totalLengthOfSessionDataChanged)
+    Q_PROPERTY(float maxValueLiveData MEMBER m_maxValueLiveData NOTIFY maxValueLiveDataChanged)
+    Q_PROPERTY(float minValueLiveData MEMBER m_minValueLiveData NOTIFY minValueLiveDataChanged)
+    Q_PROPERTY(float lastLiveCapturedVal MEMBER m_lastLiveCapturedVal NOTIFY totalLengthOfSessionDataChanged)
     Q_PROPERTY(int movingWindowLength READ movingWindowLength WRITE setMovingWindowLength NOTIFY movingWindowLengthChanged)
     Q_PROPERTY(int totalPointsCounter READ totalPointsCounter WRITE setTotalPointsCounter NOTIFY totalPointsCounterChanged)
 
-
-public: // functions
-    explicit   CLiveDataXYModel();
+  public: // functions
+    explicit CLiveDataXYModel();
     ~CLiveDataXYModel();
 
     // override functions for QAbstractTableModel -> used in line chart
-    int          rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int          columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant     headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    QVariant     data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
     /*!
      * \brief getMaxDataValue
      * getter function for max value
      * \return
      */
-    int          getMaxDataValue() const;
-    int          getMinDataValue() const;
+    int getMaxDataValue() const;
+    int getMinDataValue() const;
 
     /*!
      * \brief totalLengthOfSessionData
@@ -40,7 +39,7 @@ public: // functions
      * length of m_mainListOfValues
      * \return
      */
-    int          totalLengthOfSessionData() const;
+    int totalLengthOfSessionData() const;
 
     int movingWindowLength() const;
     void setMovingWindowLength(int newValue);
@@ -48,50 +47,48 @@ public: // functions
     int totalPointsCounter() const;
     void setTotalPointsCounter(int newTotalPointsCounter);
 
-public slots:
+  public slots:
     /*!
      * \brief newDataReceivedFromTerminal
      * \param newDataValue
      * this is connected to the outside world and it is called whenever a new data is recvd
      */
-    void              newDataReceivedFromTerminal(const  float & newDataValue );
-    QList<QPointF*>   mainListOfValues(){return m_mainListOfValues; }
+    void newDataReceivedFromTerminal(const float& newDataValue);
+    QList<QPointF*> mainListOfValues() { return m_mainListOfValues; }
 
-    void                                  resetRequestReceived();
+    void resetRequestReceived();
 
-
-private:  // variables
-
+  private: // variables
     /*!
      * \brief m_totalLengthOfSessionData
      * this is in fact number of points receved in current session, in other word, this is
      * length of m_mainListOfValues
      */
-    int                                    m_totalLengthOfSessionData    = 0 ;
+    int m_totalLengthOfSessionData = 0;
 
     /*!
      * \brief m_maxValueLiveData
      * maximum value between receieved values
      */
-    float                                    m_maxValueLiveData    = 0 ;
+    float m_maxValueLiveData = 0;
 
     /*!
      * \brief m_minValueLiveData
      * minimum values between receieved values
      */
-    float                                    m_minValueLiveData    = 0 ;
+    float m_minValueLiveData = 0;
 
     /*!
      * \brief m_lastLiveCapturedVal
      * last value received from terminal
      */
-    float                                    m_lastLiveCapturedVal = 0 ;
+    float m_lastLiveCapturedVal = 0;
 
     /*!
      * \brief m_mainListOfValues
      * this is the list of values recenved from terminal
      */
-    QList<QPointF*>                          m_mainListOfValues {};
+    QList<QPointF*> m_mainListOfValues{};
 
     /*!
      * \brief m_movingWindowLength
@@ -99,7 +96,7 @@ private:  // variables
      * time for every point we receive we remove the oldest point in the list, so its like we are moving the window
      * on the time axis and m_movingWindowLength is the length of this window
      */
-    int                                      m_movingWindowLength = 300 ;
+    int m_movingWindowLength = 300;
 
     /*!
      * \brief m_totalPointsCounter
@@ -107,24 +104,15 @@ private:  // variables
      * as the x axis of the chart, we can not use length of the m_mainListOfValues as the x
      * bcz when the length reaches to m_movingWindowLength it will be fixed
      */
-    int                       m_totalPointsCounter = 0 ;
+    int m_totalPointsCounter = 0;
 
-signals:
+  signals:
 
-    void  totalLengthOfSessionDataChanged();
-    void  maxValueLiveDataChanged () ;
-    void  minValueLiveDataChanged () ;
-    void  movingWindowLengthChanged();
-    void  totalPointsCounterChanged();
+    void totalLengthOfSessionDataChanged();
+    void maxValueLiveDataChanged();
+    void minValueLiveDataChanged();
+    void movingWindowLengthChanged();
+    void totalPointsCounterChanged();
 };
 
 #endif // CLIVEDATAXYMODEL_H
-
-
-
-
-
-
-
-
-

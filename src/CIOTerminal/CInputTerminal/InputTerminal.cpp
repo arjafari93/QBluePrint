@@ -2,28 +2,23 @@
 
 #include "src/COperationBox/OperationBox.h"
 
-CInputTerminal::CInputTerminal(const int &terminalIndexInBox, COperationBox *parent)
-    : CIOTerminal{terminalIndexInBox, parent}
+CInputTerminal::CInputTerminal(const int& terminalIndexInBox, COperationBox* parent) : CIOTerminal{terminalIndexInBox, parent} {}
+
+void CInputTerminal::receivedValueFromFlowLine(const std::shared_ptr<CRawValueBase>& newValue)
 {
-
-}
-
-
-
-
-
-
-void CInputTerminal::receivedValueFromFlowLine(const std::shared_ptr<CRawValueBase> &  newValue)
-{
-    try{
+    try
+    {
         emit nodeIsPassingNewValue();
-        setTerminalCurrentData(newValue );
-        if(m_emissionEnabled)
-            mp_containerBPBox->evaluateOperation(  );
-    }catch(const std::exception & e){
+        setTerminalCurrentData(newValue);
+        if (m_emissionEnabled)
+            mp_containerBPBox->evaluateOperation();
+    }
+    catch (const std::exception& e)
+    {
         DEBUG_MSG_PRINT << " exception: " << e.what();
-    }catch(...){
-        DEBUG_MSG_PRINT << " exception happened" ;
+    }
+    catch (...)
+    {
+        DEBUG_MSG_PRINT << " exception happened";
     }
 }
-
