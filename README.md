@@ -8,9 +8,7 @@
 
 QBlueprint is a **visual programming tool** built with **Qt C++ and QML**. It is inspired by Unreal Engine’s Blueprint system but is much simpler and designed for general-purpose use. Users can create logic visually by **dragging and dropping boxes** onto a workspace, connecting their input and output terminals, and allowing data to flow between them.
 
-The project currently uses **Qt 5.15** and **qmake**, with plans to support **CMake and Qt 6** in future updates.
-
-Tested on **Windows and Linux**.
+Based on Qt6, Tested on **Windows and Linux**.
 
 ![License: BSD 3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)
 ![Build Status](https://github.com/arjafari93/QBluePrint/actions/workflows/main.yml/badge.svg)
@@ -62,19 +60,18 @@ QBlueprint is still in its early stages, with many planned improvements:
 ## 🛠️ Installation Guide
 To build and run QBlueprint:
 
-1. **Install Qt** (Recommended: Qt 5.15; Qt 6 support coming soon).
+1. **Install Qt** (Recommended: Qt 6.7).
 2. Clone the repository:
    ```sh
    git clone --recurse-submodules https://github.com/arjafari93/QBlueprint.git
    cd QBlueprint
    ```
-3. Open the project in **Qt Creator** or compile manually with **qmake**:
+3. Open the project in **Qt Creator** or compile manually with **cmake**:
    ```sh
-   qmake QBlueprint.pro
-   make -j$(nproc)
+   cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+   cmake --build build --config Release
    ./QBlueprint
    ```
-   _(CMake-based builds will be introduced in future updates.)_
 
 ## 📝 Code Overview
 

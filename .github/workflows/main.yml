@@ -7,16 +7,17 @@ on:
 jobs:
   build_and_test:
     timeout-minutes: 360  # Set the timeout to the maximum allowed
-    name: "Build and test"
+    name: "Build and test (Qt6)"
     env:
-      QT_VERSION: "5.15.2"  # Define the Qt version as a variable
+      QT_VERSION: "6.7.0"  # Define the Qt version as a variable
+      BUILD_TYPE: "Release"
     strategy:
       matrix:
         os: [ubuntu-latest] # we build on GitHub-provided Windows and Linux images
     runs-on: ${{ matrix.os }} # use value from the matrix
     steps:
     - name: Install dependencies (linux)
-      run: sudo apt install ninja-build
+      run: sudo apt install -y ninja-build build-essential cmake libgl1-mesa-dev
       if: matrix.os == 'ubuntu-latest' # conditional, runs this step only on the Ubuntu runner
     - name: Install Ninja (windows)    # Ninja is not available in GitHub-provided images,
                                        # see https://github.com/actions/runner-images/issues/514
@@ -39,7 +40,7 @@ jobs:
       
 
     - name: list packages
-      run: aqt list-qt linux desktop --modules $QT_VERSION gcc_64
+      run: aqt list-qt linux desktop --modules $QT_VERSION linux_gcc_64
 
 
     #- name: Install Qt on Linux
@@ -51,7 +52,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        version: '5.15.2'
+        version: ${{ env.QT_VERSION }}
         host: linux
         modules: qtcharts
         #modules: qtbase, qtdeclarative, qtquickcontrols2, qtquickcontrols, qtquick charts datavisualization
@@ -60,9 +61,13 @@ jobs:
                                    # sources (e.g. when someone comments on an issue)
 
     # Here we call CMake manually, there are solutions for that in the Marketplace: https://github.com/marketplace/actions/run-cmake
-    - name: Build
-      # We don't need to set up the environment variable for CMake to see Qt because the install-qt-action
-      # sets up the necessary variables automatically
+    - name: Configure (CMake)
       run: |
-          qmake CONFIG+=release
-          make
+        cmake -S . -B build -G Ninja \
+          -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+
+    - name: Build
+      run: cmake --build build --config ${{ env.BUILD_TYPE }}
+
+    - name: Test
+      run: ctest --test-dir build --output-on-failure
