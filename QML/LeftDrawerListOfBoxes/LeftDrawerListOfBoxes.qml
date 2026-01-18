@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 
 Drawer {
@@ -21,7 +21,6 @@ Drawer {
     background: Rectangle{
         color: "#e0000000"
     }
-
 
     TextArea{
         id: searchTextBoxID
@@ -64,8 +63,6 @@ Drawer {
         }
     }
 
-
-
     ListView{
         id:bpBoxBrowserListViewID
         anchors.top: searchTextBoxID.bottom
@@ -105,10 +102,6 @@ Drawer {
         }
     }
 
-
-
-
-
     Component{
         id: bpBoxBrowserDelegateCompID
         Rectangle{
@@ -131,7 +124,6 @@ Drawer {
                 GradientStop { position: 1.0; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.25 ) }
             }
 
-
             Rectangle{
                 anchors.fill: parent
                 gradient: Gradient {
@@ -140,7 +132,6 @@ Drawer {
                     GradientStop { position: 0.5; color:   "black" }
                     GradientStop { position: 1.0; color:  "#30000000" }
                 }
-
             }
 
             Label {
@@ -180,8 +171,6 @@ Drawer {
                 color: "#40ffffff"
             }
 
-
-
             MouseArea{
                 id: pbBoxDelagateMouseAreaID
                 property  bool isMouseAreaPressed : false
@@ -195,7 +184,7 @@ Drawer {
                 onExited: {
                     bpBoxBrowserDelegateMainRectID.border.color = "transparent"
                 }
-                onPressed: {
+                onPressed:(mouse)=> {
                     removeThumbnailCompRectID.opacity = 1
                     bpBoxBrowserListViewID.interactive = false ;
                     if(leftSideDrawerID.dragImageObject != undefined){
@@ -214,14 +203,14 @@ Drawer {
                     leftSideDrawerID.dragImageObject =
                             dragBoxComp.createObject(currentPageInstance ,
                                                      {
-                                                         "x":(posInParentCoord.x - mouse.x*0.5) *  currentPageInstance.scaleFactorOfApp  - currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentX ,
-                                                         "y":(posInParentCoord.y - mouse.y*0.5 )*  currentPageInstance.scaleFactorOfApp  - currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentY ,
+                                                         "x":(posInParentCoord.x - mouse.x*0.5) *  currentPageInstance.scaleFactorOfApp  - currentPageInstance.scrollViewInappMainWindowID.contentItem.contentX ,
+                                                         "y":(posInParentCoord.y - mouse.y*0.5 )*  currentPageInstance.scaleFactorOfApp  - currentPageInstance.scrollViewInappMainWindowID.contentItem.contentY ,
                                                          "opacity":0.4,
                                                          "scale":  currentPageInstance.scaleFactorOfApp
                                                      });
                     pbBoxDelagateMouseAreaID.drag.target =  leftSideDrawerID.dragImageObject ;
                 }
-                onReleased: {
+                onReleased: (mouse)=>{
                     removeThumbnailCompRectID.opacity = 0;
                     bpBoxBrowserListViewID.interactive = true;
                     if(leftSideDrawerID.dragImageObject == undefined){
@@ -249,7 +238,7 @@ Drawer {
                     leftSideDrawerID.dragImageObject = undefined;
                 }
 
-                onPositionChanged: {
+                onPositionChanged: (mouse)=> {
                     var posInParentCoord = bpBoxBrowserDelegateMainRectID.mapToGlobal( mouse.x, mouse.y);
                     if(posInParentCoord.y <= (appMainWindowID.y + removeThumbnailCompRectID.height * 0.5) ){
                         removeThumbnailCompRectID.removeAreaIntersection = true
@@ -260,11 +249,5 @@ Drawer {
             }
         }
     }
-
-
-
-
-
-
 
 }

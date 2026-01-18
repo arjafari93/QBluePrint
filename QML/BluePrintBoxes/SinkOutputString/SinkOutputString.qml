@@ -6,6 +6,27 @@ import "../SingleBoxInstance"
 SingleBoxInstance{
     id:timerSpinBoxMainBoxID
 
+    Image {
+        id: name
+        source: "qrc:/Images/copy.png"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: height * 0.5
+        anchors.topMargin: boxHeaderRectID.height + anchors.rightMargin
+        width: height
+        height: fontMetricsID.height * 1.5
+        opacity:copyTextMouseID.containsMouse ? 1.0 : 0.5
+        MouseArea{
+            id: copyTextMouseID
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            onClicked: {
+                cBPStatic.copyTextToClipboard(stringToBeDisplayed);
+            }
+        }
+    }
+
     Label{
         id: stringLabelSinkID
         text: "Output:  " + stringToBeDisplayed
@@ -21,8 +42,6 @@ SingleBoxInstance{
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment:  Text.AlignVCenter
     }
-
-
 
 }
 

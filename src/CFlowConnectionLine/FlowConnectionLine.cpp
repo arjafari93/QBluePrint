@@ -19,7 +19,7 @@ CFlowConnectionLine::CFlowConnectionLine(COutputTerminal* pStartTerminal, QObjec
 {
     // we have to find start positions from COutputTerminal
     m_flowLine_startX = pStartTerminal->containerBPBox()->blueBox_xPos() + pStartTerminal->containerBPBox()->blueBox_width();
-    m_flowLine_startY = pStartTerminal->containerBPBox()->blueBox_yPos() + pStartTerminal->terminalYPos() + pStartTerminal->terminalSize();
+    m_flowLine_startY = pStartTerminal->containerBPBox()->blueBox_yPos() + pStartTerminal->terminalYPos() + pStartTerminal->terminalSize() ;
     m_flowLine_endX = 0;
     m_flowLine_endY = 0;
 }

@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
+import org.QBluePrint.Controls 1.0 as QbpC
 import "../SingleTerminalInstance"
 import "../SingleBoxInstance"
 
@@ -23,7 +24,7 @@ SingleBoxInstance{
                 text: "Interval(ms): "
                 color: "white"
             }
-            SpinBox{
+            QbpC.SpinBox{
                 id: intervalSpingBoxID
                 Material.theme : Material.Dark
                 anchors.verticalCenter: intervalLabelID.verticalCenter
@@ -52,7 +53,7 @@ SingleBoxInstance{
                 color: "white"
             }
 
-            SpinBox{
+            QbpC.SpinBox{
                 id: valueToBeSendSpinBox
                 Material.theme : Material.Dark
                 anchors.left: parent.left
@@ -79,7 +80,7 @@ SingleBoxInstance{
                 font.pointSize: fontMetricsID.font.pointSize
                 color: "white"
             }
-            SpinBox {
+            QbpC.SpinBox {
                 id: valueToBeSendDoubleSpinBox
                 Material.theme : Material.Dark
                 anchors.left: parent.left
@@ -223,11 +224,7 @@ SingleBoxInstance{
                 }
             }
         }
-
-
-
     }
-
 }
 
 

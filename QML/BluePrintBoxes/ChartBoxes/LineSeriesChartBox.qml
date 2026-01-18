@@ -3,7 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtCharts 2.15
 
 import "../SingleTerminalInstance"
@@ -17,7 +17,6 @@ SingleBoxInstance{
     id:timerSpinBoxMainBoxID
     property CLineSeriesChartBox pMainBox : modelData
     property CLiveDataXYModel pChartModel : modelData.dataListModelInstace
-
 
     Label{
         id: countLableID
@@ -36,7 +35,6 @@ SingleBoxInstance{
         anchors.topMargin: fontMetricsID.height * 0.25
         color: "white"
     }
-
 
     ChartView {
         id: mainChartViewID
@@ -71,6 +69,7 @@ SingleBoxInstance{
                       timerSpinBoxMainBoxID.pChartModel.totalPointsCounter - timerSpinBoxMainBoxID.pChartModel.movingWindowLength : 0)
                    : 0
         }
+
         ValueAxis {
             id: axisYOfChart
             labelsVisible: true
@@ -118,7 +117,6 @@ SingleBoxInstance{
                 // oldY = y;
             }
         }
-
     }
 
 }

@@ -215,8 +215,7 @@ static inline bool setInputTerminalValuesForBox(const QJsonObject& jsonObj, COpe
     else if (terminalType == "string")
         pDataVal = std::make_shared<CValue_string>(jsonObj["Value"].toString());
     else if (terminalType == "array")
-        DEBUG_MSG_PRINT << "To be implemented";
-    // pDataVal = std::make_shared<CValue_array>(jsonObj["Value"].toString());
+        pDataVal = CValue_array::convertFromString(jsonObj["Value"].toString());
     else
     {
         DEBUG_MSG_PRINT << "type is not known: " << terminalType;

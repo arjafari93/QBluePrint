@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
+import org.QBluePrint.Controls 1.0 as QbpC
 
 import "../Style"
 
@@ -30,15 +31,11 @@ ShadowedRectangle {
         }
     }
 
-
     ResizeHandle{
         id:resizeHandelID
     }
 
-
-
-
-    SpinBox {
+    QbpC.SpinBox {
         id: scaleSpinBpxID
         from: decimalToInt(0.001)   // Ensure 'from' is correctly scaled
         value: decimalToInt(1.0)
@@ -51,7 +48,10 @@ ShadowedRectangle {
         property int decimals: 2
         property real realValue: value / decimalFactor
         readonly property int decimalFactor: Math.pow(10, decimals)
-
+        background: Rectangle {
+                border.color: "transparent"
+                color: "transparent"
+            }
         function decimalToInt(decimal) {
             return Math.round(decimal * decimalFactor) // Ensuring integer values
         }
@@ -147,18 +147,13 @@ ShadowedRectangle {
                         console.log("page not loaded yet")
                         return ;
                     }
-                    currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentY = 0 ;
-                    currentPageInstance.scrollViewInappMainWindowID.flickableItem.contentX = 0 ;
+                    currentPageInstance.scrollViewInappMainWindowID.contentItem.contentY = 0 ;
+                    currentPageInstance.scrollViewInappMainWindowID.contentItem.contentX = 0 ;
                     currentPageInstance.pBluePrintPage.applicationScaleFactor = 1.0 ;
                 }
             }
         }
-
     }
-
-
-
-
 
 }
 

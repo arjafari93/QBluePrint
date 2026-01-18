@@ -36,7 +36,6 @@ Item {
         }
     }
 
-
     Rectangle {
         id:maximizeButtonID
         anchors.right: closeButtonID.left
@@ -74,7 +73,6 @@ Item {
         }
     }
 
-
     Rectangle {
         id:minimizeButtonID
         anchors.right: maximizeButtonID.left
@@ -105,7 +103,6 @@ Item {
         }
     }
 
-
     Rectangle {
         id:themeSelectorRectID
         anchors.right: minimizeButtonID.left
@@ -135,8 +132,5 @@ Item {
             opacity: themeSelectionMouseID.containsMouse ? 1.0 : 0.5
         }
     }
-
-
-
 
 }

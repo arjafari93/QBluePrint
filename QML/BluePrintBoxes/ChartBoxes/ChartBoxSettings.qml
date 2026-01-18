@@ -2,9 +2,9 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt.labs.platform 1.0
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
 
@@ -28,13 +28,9 @@ Popup {
 
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
-
-
-
     TempQuick.Overlay.modal:  Rectangle{
         color: "#E0000000"
     }
-
 
     enter: Transition {
         NumberAnimation { properties: "scale"; from: 0.5; to: 1; duration: 500 ; easing.type: Easing.OutBack; }
@@ -48,7 +44,6 @@ Popup {
         }
     }
 
-
     Component.onCompleted: {
         leftDrawerInappMainWindowID.close();
         pupUpCompID.open();
@@ -58,7 +53,6 @@ Popup {
         pupUpCompID.destroy();
     }
 
-
     Label{
         id: setChartMaxLenLableID
         text: "Max Displayed Length: "
@@ -66,7 +60,6 @@ Popup {
         anchors.left: parent.left
         anchors.leftMargin: fontMetricsID.height * 2
     }
-
 
     SpinBox{
         id: maxLenSpinBoxID
@@ -83,7 +76,5 @@ Popup {
             pupUpCompID.pChartModel.movingWindowLength = maxLenSpinBoxID.value ;
         }
     }
-
-
 
 }

@@ -2,12 +2,11 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt.labs.platform 1.0
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
-
 
 import "../../Style"
 
@@ -27,7 +26,6 @@ Popup {
         color: "#E0000000"
     }
 
-
     enter: Transition {
         NumberAnimation { properties: "scale"; from: 0.5; to: 1; duration: 500 ; easing.type: Easing.OutBack; }
         NumberAnimation { properties: "opacity"; from: 0.1; to: 1; duration: 500 ;  }
@@ -39,7 +37,6 @@ Popup {
             anchors.margins: fontMetricsID.height * 2
         }
     }
-
 
     Component.onCompleted: {
         leftDrawerInappMainWindowID.close();
@@ -74,7 +71,6 @@ Popup {
         text: "This Action Will Remove Selected Box And Associated Connections\n Do You Confirm?"
     }
 
-
     Rectangle{
         id: seperatorRectID
         anchors.left: parent.left
@@ -86,9 +82,6 @@ Popup {
         height: 1
         color: "#90ffffff"
     }
-
-
-
 
     Rectangle{
         id:okButtonPopUpWrapperRectID
@@ -106,7 +99,7 @@ Popup {
             okButtonPopUpWrapperRectID.forceActiveFocus()
         }
 
-        Keys.onPressed: {
+        Keys.onPressed: (event)=> {
             if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return ) {
                 event.accepted = true;
                 var junk;
@@ -148,7 +141,6 @@ Popup {
         }
     }
 
-
     Rectangle{
         id:cancelButtonPopUpWrapperRectID
         anchors.bottom: okButtonPopUpWrapperRectID.bottom
@@ -184,6 +176,5 @@ Popup {
             }
         }
     }
-
 
 }

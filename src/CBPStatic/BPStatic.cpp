@@ -2,6 +2,10 @@
 
 #include "src/CIOTerminal/IOTerminal.h"
 #include "src/CRawValueBase/RawValueBase.h"
+#include <QFont>
+#include <QFontMetrics>
+#include <QApplication>
+#include <QClipboard>
 
 QColor CBPStatic::getColorOfNodeByType(CIOTerminal* pNode)
 {
@@ -95,8 +99,61 @@ QString CBPStatic::getNameOfTypeAsString(CIOTerminal* pNode)
     return "INVALID";
 }
 
+QString CBPStatic::getNameOfTypeAsString(CRawValueBase *pValue)
+{
+    if (!pValue)
+        return "INVALID";
+
+    if (auto* pBox = dynamic_cast<CValue_int*>(pValue))
+    {
+        return "int";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_double*>(pValue))
+    {
+        return "double";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_bool*>(pValue))
+    {
+        return "bool";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_string*>(pValue))
+    {
+        return "string";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_array*>(pValue))
+    {
+        return "array";
+    }
+
+    DEBUG_MSG_PRINT << " failed to find the name for pValue ";
+    return "INVALID";
+}
+
+
 QString CBPStatic::getFileNameFromPath(const QString& filePath)
 {
     QFileInfo fileInfo(filePath);
     return fileInfo.fileName();
+}
+
+void CBPStatic::copyTextToClipboard(const QString& textToCopy)
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setText(textToCopy);
+}
+
+int CBPStatic::dataTerminalSize()
+{
+    QFont appFont = qApp->font();
+    appFont.setPointSize(CBPStatic::defaultFontPointSize());
+    QFontMetrics fontMetrics(appFont);
+    return  fontMetrics.height();
+}
+
+int CBPStatic::bluePrintBoxHeaderHeight()
+{
+    QFont appFont = qApp->font();
+    appFont.setPointSize(CBPStatic::defaultFontPointSize() );
+    QFontMetrics fontMetrics(appFont);
+    return  fontMetrics.height() * 2;
 }

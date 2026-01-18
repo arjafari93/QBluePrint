@@ -1,15 +1,15 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls 1.5 as QCtrl15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls.Material 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import "QML/BluePrintPagesSelector"
 import "QML/LeftDrawerListOfBoxes"
 import "QML/BottomStatusBar"
 import "QML/TopMenuBar"
 import "QML"
+import "QML/BluePrintBoxes/SingleTerminalInstance"
 
 import org.bluePrintType.BPStatic  1.0
 
@@ -35,24 +35,20 @@ ApplicationWindow  {
     title: "QBluePrint V" +  Qt.application.version
     flags: Qt.FramelessWindowHint  | Qt.Window
 
-
     Material.theme: BPBoxManager.darkThemeEnabled ?  Material.Dark : Material.Light
     Material.background: BPBoxManager.darkThemeEnabled  ?  "#171C22" : "#D5D5D5"
     Material.accent: BPBoxManager.darkThemeEnabled ?  "#522B76"  : "#3A1255"
 
-
     property alias fontMetricsID: fontMetricsID
     FontMetrics{
         id:fontMetricsID
+        font.family: Qt.application.font.family
+        font.pointSize: cBPStatic.defaultFontPointSize()
     }
-
-
-
 
     CBPStatic{
         id: cBPStatic
     }
-
 
     property alias removeThumbnailCompRectID: boxRemoverAreaID.removeThumbnailCompRectID
     BoxRemoverArea{
@@ -77,22 +73,15 @@ ApplicationWindow  {
         }
     }
 
-
-
-
     BottomStatusBar{
         id:bottomStatusBarInMainPageID
         z:999
     }
 
-
     TopMenuBar{
         id: topManuBarInMainPageID
         z:999
     }
-
-
-
 
     LeftDrawerListOfBoxes{
         id:leftDrawerInappMainWindowID
@@ -109,7 +98,6 @@ ApplicationWindow  {
         anchors.topMargin: fontMetricsID.height * 0.25
         anchors.bottom: bottomStatusBarInMainPageID.top
     }
-
 
     Rectangle {
         id: openCloseDrawerSignID
@@ -148,8 +136,6 @@ ApplicationWindow  {
         }
     }
 
-
-
     // Function to apply opacity to the color
     function applyOpacityToColor(color, opacity) {
         return Qt.rgba(color.r, color.g, color.b, opacity);
@@ -182,9 +168,8 @@ ApplicationWindow  {
         case CBPStatic.E_ScriptRunner:
             return "qrc:/QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerBox.qml"
         }
-        console.log("GUI Type Doesnt exist " ,guiType );
+        console.log("GUI Type Doesnt exist ", guiType );
         return "qrc:/QML/BluePrintBoxes/BigPictureOperator/BigPictureOperator.qml"
     }
-
 
 }

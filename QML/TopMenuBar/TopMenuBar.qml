@@ -4,9 +4,9 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls.Material 2.15
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs
 
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Templates 2.12 as TempQuick
 
 import "../Style"
@@ -18,7 +18,6 @@ ShadowedRectangle {
     anchors.left: parent.left
     anchors.right: parent.right
     height: fontMetricsID.height * 2
-
 
     MenuBar{
         id:mainMenuBarID
@@ -44,11 +43,11 @@ ShadowedRectangle {
             FileDialog {
                 id: openFileDialog
                 title: "Open QBlueprint File"
-                selectMultiple: false  // Ensure only one file is selected
+                // selectMultiple: false  // Ensure only one file is selected
                 nameFilters: ["QBlueprint Files (*.qbp)"]
                 onAccepted: {
                     var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
-                    if( currentPageInstance.pBluePrintPage.loadBluePrintInfo(fileUrl.toString().replace("file:///", ""))   )
+                    if( currentPageInstance.pBluePrintPage.loadBluePrintInfo(selectedFile.toString().replace("file:///", ""))   )
                         BPBoxManager.showStatusBarMessage("QBluePrint Loaded Successfully From " + currentPageInstance.pBluePrintPage.currentBluePrintFilePath , 5000)
                     else
                         BPBoxManager.showStatusBarMessage("Failed To Load QBluePrint File" , 5000)
@@ -82,11 +81,12 @@ ShadowedRectangle {
             FileDialog {
                 id: saveAsDialog
                 title: "Save As"
-                selectExisting: false  // Ensures a new file is selected
+                fileMode: FileDialog.SaveFile
+                //selectExisting: false  // Ensures a new file is selected
                 nameFilters: ["QBluePrint Files (*.qbp)"]
                 onAccepted: {
                     var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
-                    if( currentPageInstance.pBluePrintPage.saveBluePrintInfo(fileUrl.toString().replace("file:///", "")) )
+                    if( currentPageInstance.pBluePrintPage.saveBluePrintInfo(selectedFile.toString().replace("file:///", "")) )
                         BPBoxManager.showStatusBarMessage("BluePrint Info Saved to " + currentPageInstance.pBluePrintPage.currentBluePrintFilePath , 5000)
                     else
                         BPBoxManager.showStatusBarMessage("Failed To Save File" , 5000)
@@ -146,9 +146,6 @@ ShadowedRectangle {
         }
     }
 
-
-
-
     Label{
         id:applicaitonNameLabelID
         anchors.centerIn: parent
@@ -156,17 +153,13 @@ ShadowedRectangle {
         font.pointSize: fontMetricsID.font.pointSize + 1
     }
 
-
     ApplicationIconImage{
         id:appIconImageID
     }
 
-
     WindowControlButtons{
         id:winControlBtnsID
     }
-
-
 
     MouseArea {
         anchors.fill: parent
@@ -176,11 +169,11 @@ ShadowedRectangle {
         z:-1
         cursorShape : Qt.SizeAllCursor
 
-        onPressed: {
+        onPressed: (mouse)=>{
             startX = mouse.x
             startY = mouse.y
         }
-        onPositionChanged: {
+        onPositionChanged:(mouse)=> {
             if(appMainWindowID.visibility ==  Window.Maximized )
                 appMainWindowID.visibility =  Window.Windowed
             appMainWindowID.setX(appMainWindowID.x+mouse.x - startX)
@@ -193,6 +186,5 @@ ShadowedRectangle {
                 appMainWindowID.visibility =  Window.Maximized
         }
     }
-
 }
 

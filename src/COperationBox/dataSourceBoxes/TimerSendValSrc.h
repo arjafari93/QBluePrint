@@ -5,6 +5,7 @@
 #include <QObject>
 
 #include <QTimer>
+class CValue_array;
 
 class CTimerSendValSrc : public COperationBox
 {
@@ -21,7 +22,7 @@ class CTimerSendValSrc : public COperationBox
 
   public:
     virtual void evaluateOperation() override;
-
+    ~CTimerSendValSrc();
     virtual void serializeBoxInfoIntoJson(QJsonObject& jsonObj) override;
     virtual void deserializeBoxInfoFromJson(const QJsonObject& jsonObj) override;
     int sendValueInterval() const { return m_sendValueInterval; }
@@ -41,7 +42,7 @@ class CTimerSendValSrc : public COperationBox
     double m_valueToBeSentDouble;
     QString m_valueToBeSentString;
     bool m_valueToBeSentBool;
-    QList<std::shared_ptr<CRawValueBase>> m_valueToBeSentlist;
+    std::shared_ptr<CValue_array> m_valueToBeSentArray {};
     inline const static QString m_uniqueBoxName = "Send Source Timer";
 
   signals:

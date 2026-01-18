@@ -2,9 +2,9 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt.labs.platform 1.0
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
 
@@ -34,11 +34,9 @@ Popup {
         terminalModifyPupUpCompID.destroy();
     }
 
-
     TempQuick.Overlay.modal:  Rectangle{
         color: "#E0000000"
     }
-
 
     enter: Transition {
         NumberAnimation { properties: "scale"; from: 0.5; to: 1; duration: 500 ; easing.type: Easing.OutBack; }
@@ -56,8 +54,6 @@ Popup {
         // here dataIndexInParent desont matter, but we keep it to comply the saveChildInfoOnChildClose syntax in other popups
         pTerminalInstance.changeTerminalCurrentDataArray(childInfo);
     }
-
-
 
     Label{
         id: dataTypeLableID
@@ -88,7 +84,6 @@ Popup {
         }
     }
 
-
     Label{
         id: dataValueLableID
         text: "Value: "
@@ -96,8 +91,6 @@ Popup {
         anchors.top: dataTypeLableID.bottom
         anchors.topMargin: fontMetricsID.height * 2.5
     }
-
-
 
     Loader {
         id: dynamicTypeEditorID
@@ -219,8 +212,23 @@ Popup {
             anchors.centerIn: parent
             color: arrayMouseID.containsMouse ?  "#592f65" :  "#4F1C51"
             border.color: arrayMouseID.containsMouse ?  "#40ffffff" :  "transparent"
+            function isArrayLike(v) {
+                if (v === null || v === undefined) return false;
+                if (Array.isArray(v)) return true;                 // real JS array
+
+                // Qt 6 sequences: not JS arrays, but have numeric length + index access
+                if (typeof v === "object" &&
+                    typeof v.length === "number" &&
+                    Number.isFinite(v.length) &&
+                    v.length >= 0 &&
+                    Math.floor(v.length) === v.length) {
+                    return true;
+                }
+                return false;
+            }
+
             Component.onCompleted: {
-                if( Array.isArray(pTerminalInstance.getTerminalCurrentData()) == false)
+                if( isArrayLike(pTerminalInstance.getTerminalCurrentData()) == false)
                     pTerminalInstance.changeTerminalCurrentDataArray( [] )
             }
             Label{
@@ -245,6 +253,5 @@ Popup {
             }
         }
     }
-
 
 }

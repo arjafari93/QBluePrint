@@ -1,8 +1,6 @@
 #include "IOTerminal.h"
 
-#include <QFont>
-#include <QFontMetrics>
-#include <QGuiApplication>
+#include "CBPStatic/BPStatic.h"
 
 #include "src/CBPBoxManager/BPBoxManager.h"
 #include "src/CFlowConnectionLine/FlowConnectionLine.h"
@@ -14,12 +12,8 @@ CIOTerminal::CIOTerminal(const int& terminalIndexInBox, COperationBox* parent) :
 {
     ASSERTWITHINFO(parent);
     mp_containerBPBox = parent;
-    QFont appFont = qApp->font();
-    QFontMetrics fontMetrics(appFont);
-    // Get the default font height
-    int defaultFontHeight = fontMetrics.height();
-    m_terminalSize = defaultFontHeight * 2 * 0.65;
-    m_terminalYPos = (defaultFontHeight * 2 * m_terminalIndexInBox) + defaultFontHeight * 2;
+    m_terminalSize = CBPStatic::dataTerminalSize();
+    m_terminalYPos = (m_terminalSize * 2 * m_terminalIndexInBox) + CBPStatic::bluePrintBoxHeaderHeight();
 }
 
 void CIOTerminal::setTerminalCurrentData(const std::shared_ptr<CRawValueBase>& newValue)

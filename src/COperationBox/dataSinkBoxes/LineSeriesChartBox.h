@@ -4,11 +4,8 @@
 #include "../OperationBox.h"
 #include <QLineSeries>
 #include <QObject>
-class CLiveDataXYModel;
-namespace QtCharts
-{
+#include "LiveDataXYModel.h"
 class QVXYModelMapper;
-}
 
 class CLineSeriesChartBox : public COperationBox
 {
@@ -21,7 +18,7 @@ class CLineSeriesChartBox : public COperationBox
   public:
     ~CLineSeriesChartBox();
     virtual void evaluateOperation() override;
-    Q_INVOKABLE void setModelMapperLineSeries(QtCharts::QLineSeries* newLineSeries);
+    Q_INVOKABLE void setModelMapperLineSeries(QLineSeries* newLineSeries);
     Q_INVOKABLE CLiveDataXYModel* getDataListModelInstace() const { return mp_dataListModelInstace.get(); };
     GETUNIQUENAMEFUNC;
 
@@ -30,7 +27,7 @@ class CLineSeriesChartBox : public COperationBox
 
   private:
     inline const static QString m_uniqueBoxName = "Line Series Chart";
-    std::unique_ptr<QtCharts::QVXYModelMapper> mp_modelXYMapperLiveData;
+    std::unique_ptr<QVXYModelMapper> mp_modelXYMapperLiveData;
     std::unique_ptr<CLiveDataXYModel> mp_dataListModelInstace;
 };
 

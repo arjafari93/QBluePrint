@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QMap>
 #include <QObject>
+#include <QMetaEnum>
 
 class CIOTerminal;
 class CRawValueBase;
@@ -53,7 +54,7 @@ class CBPStatic : public QObject
     Q_ENUM(EBPBoxCategoryType)
 
     inline static const QMap<CBPStatic::EBPBoxCategoryType, QString> BPBoxCategoryName = {
-        {EBPBoxCategoryType::E_BP_INVALIDTYPE, "Ivalid"},          {EBPBoxCategoryType::E_BP_MathOperation, "Math"},          {EBPBoxCategoryType::E_BP_DataComparison, "Data Comparison/Conversion"},
+        {EBPBoxCategoryType::E_BP_INVALIDTYPE, "Invalid"},          {EBPBoxCategoryType::E_BP_MathOperation, "Math"},          {EBPBoxCategoryType::E_BP_DataComparison, "Data Comparison/Conversion"},
         {EBPBoxCategoryType::E_BP_LogicalOperation, "Logical"},    {EBPBoxCategoryType::E_BP_OutPutSink, "Data Sink"},        {EBPBoxCategoryType::E_BP_InputSource, "Data Source"},
         {EBPBoxCategoryType::E_BP_Miscellaneous, "Miscellaneous"}, {EBPBoxCategoryType::E_BP_LoopsAndArrays, "Loops/Arrays"}, {EBPBoxCategoryType::E_BP_BigPictureOperator, "Conditional Branch"}};
 
@@ -63,17 +64,39 @@ class CBPStatic : public QObject
     static QColor getColorOfNodeByType(CIOTerminal* pNode);
     static QColor getColorByType(CRawValueBase* pValue);
 
-    static QString getNameOfCategory(const CBPStatic::EBPBoxCategoryType& categoryType)
+    static QString getNameOfCategory(const QString& categoryType)
     {
-        if (BPBoxCategoryName.contains(categoryType) == true)
-            return BPBoxCategoryName[categoryType];
-        qDebug() << "ERROR " << FILEINFOMACRO;
+        bool ok = false;
+        QMetaEnum metaEnum = QMetaEnum::fromType<EBPBoxCategoryType>();
+        auto value = static_cast<EBPBoxCategoryType>( metaEnum.keyToValue(categoryType.toLatin1().constData(), &ok));
+        if (!ok) {
+            DEBUG_MSG_PRINT << "ERROR " << categoryType;
+            return "ERROR";
+        }
+        if (BPBoxCategoryName.contains(value) == true)
+            return BPBoxCategoryName[value];
+        DEBUG_MSG_PRINT << "ERROR " << categoryType;
         return "ERROR";
     }
 
     static QString getNameOfTypeAsString(CIOTerminal* pNode);
+    static QString getNameOfTypeAsString(CRawValueBase* pValue);
     static QStringList getListOfSupportedTypes() { return listOfSupportedTypes; };
     static QString getFileNameFromPath(const QString& filePath);
+
+    static void copyTextToClipboard(const QString& textToCopy);
+
+    /*!
+     * \brief dataTerminalSize
+     * returns the terminal size on blueprint boxes
+     * each terminal has width=height=dataTerminalSize
+     * there is a padding for each terminal, so the total size of a
+     * terminal box is twice this number
+     * \return
+     */
+    static int dataTerminalSize();
+    constexpr static int defaultFontPointSize(){ return 8;};
+    static int bluePrintBoxHeaderHeight();
 };
 
 #endif //  CBPSTATIC_H

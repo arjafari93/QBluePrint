@@ -28,13 +28,13 @@ Shape {
     MouseArea {
         anchors.fill: parent // Make the MouseArea cover the entire shape
         hoverEnabled: true
-        onEntered: {
-            console.log("entered ")
-        }
+        // onEntered: {
+        //     console.log("entered ")
+        // }
 
-        onClicked: {
-            console.log("Shape clicked")
-        }
+        // onClicked: {
+        //     console.log("Shape clicked")
+        // }
     }
 }
 

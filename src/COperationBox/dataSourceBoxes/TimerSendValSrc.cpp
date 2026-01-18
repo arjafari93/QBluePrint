@@ -5,6 +5,8 @@
 #include <QJsonObject>
 #include <memory>
 
+CTimerSendValSrc::~CTimerSendValSrc() = default;
+
 CTimerSendValSrc::CTimerSendValSrc(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)
     : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 130, blueBoxHeight + 200, parent}
 {
@@ -12,10 +14,12 @@ CTimerSendValSrc::CTimerSendValSrc(int newBlueBox_xPos, int newBlueBox_yPos, QOb
     m_valueToBeSentDouble = 15;
     m_valueToBeSentString = "test string";
     m_valueToBeSentBool = false;
-    m_valueToBeSentlist.push_back(std::make_shared<CValue_int>(12));
-    m_valueToBeSentlist.push_back(std::make_shared<CValue_double>(12.5));
-    m_valueToBeSentlist.push_back(std::make_shared<CValue_string>("test string in array"));
-    m_valueToBeSentlist.push_back(std::make_shared<CValue_bool>(false));
+    QList<std::shared_ptr<CRawValueBase>> listOfVals;
+    listOfVals.push_back(std::make_shared<CValue_int>(12));
+    listOfVals.push_back(std::make_shared<CValue_double>(12.5));
+    listOfVals.push_back(std::make_shared<CValue_string>("test string in array"));
+    listOfVals.push_back(std::make_shared<CValue_bool>(false));
+    m_valueToBeSentArray = std::make_shared<CValue_array>(listOfVals);
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_InputSpinBoxWithTimer;
     m_blueBox_HeaderIcon = "qrc:/Images/clock.png";
     m_blueBox_HeadColor = QColor(0, 169, 255);
@@ -59,6 +63,7 @@ void CTimerSendValSrc::serializeBoxInfoIntoJson(QJsonObject& jsonObj)
     jsonObj["doubleVal"] = QString::number(m_valueToBeSentDouble);
     jsonObj["boolVal"] = QString::number(m_valueToBeSentBool);
     jsonObj["stringVal"] = m_valueToBeSentString;
+    jsonObj["arrayVal"] = m_valueToBeSentArray.get()->convertToString();
 }
 
 void CTimerSendValSrc::deserializeBoxInfoFromJson(const QJsonObject& jsonObj)
@@ -70,6 +75,9 @@ void CTimerSendValSrc::deserializeBoxInfoFromJson(const QJsonObject& jsonObj)
     m_valueToBeSentBool = (bool)jsonObj["boolVal"].toString().toInt();
     m_valueToBeSentString = jsonObj["stringVal"].toString();
     mp_sendValueTimer->setInterval(m_sendValueInterval);
+    auto pArrVal = CValue_array::convertFromString(jsonObj["arrayVal"].toString());
+    ASSERTWITHINFO(pArrVal.get())
+    m_valueToBeSentArray = pArrVal;
 }
 
 void CTimerSendValSrc::setSendValueInterval(const int& newValue)
@@ -87,20 +95,21 @@ void CTimerSendValSrc::sendValueTimerTimeOut()
     m_listOfOutputTerminals.at(1)->sendValueToFlowLine(std::make_shared<CValue_double>(m_valueToBeSentDouble));
     m_listOfOutputTerminals.at(2)->sendValueToFlowLine(std::make_shared<CValue_string>(m_valueToBeSentString));
     m_listOfOutputTerminals.at(3)->sendValueToFlowLine(std::make_shared<CValue_bool>(m_valueToBeSentBool));
-    m_listOfOutputTerminals.at(4)->sendValueToFlowLine(std::make_shared<CValue_array>(m_valueToBeSentlist));
+    m_listOfOutputTerminals.at(4)->sendValueToFlowLine(m_valueToBeSentArray);
 }
 
-QVariant CTimerSendValSrc::getArrayValueData() const
-{
-    CValue_array tempArr(m_valueToBeSentlist);
-    return tempArr.convertToVariant();
+QVariant CTimerSendValSrc::getArrayValueData() const {
+    if(m_valueToBeSentArray.get())
+        return m_valueToBeSentArray.get()->convertToVariant();
+    return {};
 }
 
 void CTimerSendValSrc::changeArrayValueData(const QVariant& newValue)
 {
     using recFuncType = std::function<void(QList<std::shared_ptr<CRawValueBase>>&, const QVariant&)>;
     recFuncType recursiveInsertor;
-    recursiveInsertor = [&](QList<std::shared_ptr<CRawValueBase>>& listOfRawVals, const QVariant& recVal) {
+    recursiveInsertor = [&](QList<std::shared_ptr<CRawValueBase>>& listOfRawVals, const QVariant& recVal)
+    {
         switch (recVal.type())
         {
         case QVariant::Int:
@@ -142,5 +151,5 @@ void CTimerSendValSrc::changeArrayValueData(const QVariant& newValue)
     {
         recursiveInsertor(listOfRawVals, currentVal);
     }
-    m_valueToBeSentlist = listOfRawVals;
+    m_valueToBeSentArray = std::make_shared<CValue_array>(listOfRawVals);
 }

@@ -15,8 +15,8 @@
 #include <QQmlContext>
 #include <QQuickStyle>
 #include <QThread>
+#include <QFontDatabase>
 #include <QUrl>
-#include <cmath>
 
 #include "src/CBPBoxManager/BPBoxManager.h"
 #include "src/CBPStatic/BPStatic.h"
@@ -30,16 +30,43 @@
 
 QQmlApplicationEngine* pQmlEngine = nullptr;
 
+
+static void loadAppFonts()
+{
+    const QStringList fontResPaths = {
+        ":/fonts/calibri.ttf",
+        ":/fonts/calibrib.ttf"
+    };
+
+    for (const auto& p : fontResPaths) {
+        int id = QFontDatabase::addApplicationFont(p);
+        if (id < 0) {
+            qWarning() << "Failed to load font:" << p;
+        }
+    }
+
+    const QString family = QFontDatabase::applicationFontFamilies(
+                               QFontDatabase::addApplicationFont(":/fonts/calibri.ttf")
+                               ).value(0);
+
+    if (!family.isEmpty()) {
+        QFont fnt(family);
+        fnt.setPointSize(CBPStatic::defaultFontPointSize());
+        QApplication::setFont(fnt);
+    }
+}
+
 int main(int argc, char* argv[])
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+
     QCoreApplication::setOrganizationName("QBluePrint");
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QCoreApplication::setApplicationVersion(QString(APP_VERSION));
-#endif
-    QApplication app(argc, argv);
+    qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
+    QQuickStyle::setStyle("Material");
 
+    QApplication app(argc, argv);
+    loadAppFonts();
     qmlRegisterUncreatableType<COperationBox>("org.bluePrintType.OperationBox", 1, 0, "COperationBox", " can not create COperationBox");
     qmlRegisterUncreatableType<CFlowConnectionLine>("org.bluePrintType.FlowConnectionLine", 1, 0, "CFlowConnectionLine", " can not create CFlowConnectionLine");
     qmlRegisterUncreatableType<QAbstractSocket>("org.bluePrintType.AbstractSocket", 1, 0, "QAbstractSocket", " can not create AbstractSocket");
@@ -56,8 +83,6 @@ int main(int argc, char* argv[])
     qmlRegisterUncreatableType<CHTTPGetter>("org.bluePrintType.HTTPGetter", 1, 0, "CHTTPGetter", " can not create CHTTPGetter");
     qmlRegisterUncreatableType<CHTTPRawHeaderFormat>("org.bluePrintType.HTTPRawHeaderFormat", 1, 0, "CHTTPRawHeaderFormat", " can not create CHTTPRawHeaderFormat");
     qmlRegisterUncreatableType<CBluePrintPage>("org.bluePrintType.BluePrintPage", 1, 0, "CBluePrintPage", " can not create CBluePrintPage");
-
-    QQuickStyle::setStyle("Material");
 
     QQmlApplicationEngine engine;
     pQmlEngine = &engine;

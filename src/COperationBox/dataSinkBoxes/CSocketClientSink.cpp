@@ -82,6 +82,10 @@ void CSocketClientSink::evaluateOperation()
     {
         resultString = QString::number(pVal->value());
     }
+    else if (auto* pVal = dynamic_cast<CValue_array*>(inputData))
+    {
+        resultString = pVal->convertToString();
+    }
     if (m_socketType == QAbstractSocket::TcpSocket)
     {
         mp_clientSocket->write(resultString.toUtf8());

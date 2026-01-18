@@ -2,12 +2,10 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt.labs.platform 1.0
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 import QtQuick.Templates 2.12 as TempQuick
-
-
 
 Popup {
     id: applicationInfoPopUpID
@@ -26,14 +24,10 @@ Popup {
         applicationInfoPopUpID.destroy();
     }
 
-
-
     enter: Transition {
         NumberAnimation { properties: "scale"; from: 0.2; to: 1; duration: 500 ; easing.type: Easing.OutBack; }
         NumberAnimation { properties: "opacity"; from: 0.1; to: 1; duration: 500 ;  }
     }
-
-
 
     background: Rectangle{
         radius: height * 0.075
@@ -47,12 +41,9 @@ Popup {
         border.color: "#90FFFFFF"
     }
 
-
     TempQuick.Overlay.modal:  Rectangle{
         color: "#E0000000"
     }
-
-
 
     Image {
         id: applicationIconImageID
@@ -98,22 +89,8 @@ Popup {
               height: applicationIconImageID.height
           }
 
-          fragmentShader: "
-                     varying highp vec2 qt_TexCoord0;
-                     uniform sampler2D source;
-                     uniform lowp float qt_Opacity;
-                    uniform lowp float u_time;
-                    uniform lowp float u_amplitute;
-                     void main() {
-                            float newY = u_amplitute * sin(qt_TexCoord0.y* 25.0  + u_time);
-                            float newOpacity = (1.0 - 1.015 * sqrt(sqrt(sqrt(qt_TexCoord0.y))) ) ;
-                             newOpacity =  newOpacity > 0.0 ? newOpacity : 0.0  ;
-                            gl_FragColor = texture2D(source, vec2(qt_TexCoord0.x , 1.0 - (qt_TexCoord0.y+ newY)) )
-                                              * qt_Opacity * newOpacity ;
-                     }"
+          fragmentShader: "qrc:/QML/shaders/wave.frag.qsb"
       }
-
-
 
     Column{
         id:columnOfTexts
@@ -130,16 +107,15 @@ Popup {
             anchors.left: parent.left
         }
 
-
         Text {
-            text: qsTr("Based on Qt 5.15.2")
+            text: qsTr("Based on Qt 6.7")
             color: "white"
             font.pointSize: fontMetricsID.font.pointSize + 2
             anchors.left: parent.left
         }
 
         Text {
-            text: qsTr("Release On April 2025")
+            text: qsTr("Release On Feb 2026")
             color: "white"
             font.pointSize: fontMetricsID.font.pointSize + 2
             anchors.left: parent.left
@@ -163,7 +139,6 @@ Popup {
             }
         }
 
-
         Text {
             text: "Demo Videos at my youtube channel "
             color: "#489EE2"
@@ -181,12 +156,7 @@ Popup {
                 }
             }
         }
-
     }
-
-
-
-
 
     ShaderEffect {
           id: shaderEffectOfColumns
@@ -218,23 +188,7 @@ Popup {
               height: columnOfTexts.height
           }
 
-          fragmentShader: "
-                     varying highp vec2 qt_TexCoord0;
-                     uniform sampler2D source;
-                     uniform lowp float qt_Opacity;
-                    uniform lowp float u_time;
-                    uniform lowp float u_amplitute;
-                     void main() {
-                            float newY = u_amplitute * sin(qt_TexCoord0.y* 25.0  + u_time);
-                            float newOpacity = (1.0 - 1.015 * sqrt(sqrt(sqrt(qt_TexCoord0.y))) ) ;
-                             newOpacity =  newOpacity > 0.0 ? newOpacity : 0.0  ;
-                            gl_FragColor = texture2D(source, vec2(qt_TexCoord0.x , 1.0 - (qt_TexCoord0.y+ newY)) )
-                                              * qt_Opacity * newOpacity ;
-                     }"
+          fragmentShader: "qrc:/QML/shaders/wave.frag.qsb"
       }
-
-
-
-
 
 }

@@ -119,6 +119,7 @@ class CValue_array : public CRawValueBase
     void accept(CValueVisitor& visitor) const override;
     virtual QString convertToString() const override;
     virtual QVariant convertToVariant() const override;
+    static std::shared_ptr<CValue_array> convertFromString(const QString &jsonString);
     int findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>& elmnt) const;
     std::shared_ptr<CRawValueBase> operator+(const long long& rhs) const;
     std::shared_ptr<CRawValueBase> operator+(const long double& rhs) const;

@@ -4,9 +4,9 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls.Material 2.15
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs
 
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Templates 2.12 as TempQuick
 
 import "../Style"
@@ -71,7 +71,6 @@ Popup {
         text: "You Are About To Leave Current BluePrint, Do You Want To Save Current BluePrint? "
     }
 
-
     Rectangle{
         id: seperatorRectID
         anchors.left: parent.left
@@ -83,9 +82,6 @@ Popup {
         height: 1
         color: "#90ffffff"
     }
-
-
-
 
     Rectangle{
         id:okButtonPopUpWrapperRectID
@@ -102,7 +98,7 @@ Popup {
             okButtonPopUpWrapperRectID.forceActiveFocus()
         }
 
-        Keys.onPressed: {
+        Keys.onPressed: (event)=> {
             if (event.key == Qt.Key_Enter || event.key == Qt.Key_Return ) {
                 event.accepted = true;
                 var junk;
@@ -205,7 +201,6 @@ Popup {
             }
         }
     }
-
 
     Rectangle{
         id:cancelButtonPopUpWrapperRectID

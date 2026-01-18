@@ -7,7 +7,6 @@ import "../SingleBoxInstance"
 SingleBoxInstance{
     id:timerSpinBoxMainBoxID
 
-
     Item{
         anchors.left: parent.left
         anchors.right: parent.right
@@ -39,13 +38,6 @@ SingleBoxInstance{
             }
         }
     }
-
-
-
-
-
-
-
 
 }
 

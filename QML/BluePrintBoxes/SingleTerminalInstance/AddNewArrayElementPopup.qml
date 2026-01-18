@@ -2,12 +2,11 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt.labs.platform 1.0
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
-
 
 import "../../Style"
 
@@ -33,11 +32,9 @@ Popup {
         addNewArrayElmntPopupID.destroy();
     }
 
-
     TempQuick.Overlay.modal:  Rectangle{
         color: "#90000000"
     }
-
 
     enter: Transition {
         NumberAnimation { properties: "scale"; from: 0.5; to: 1; duration: 500 ; easing.type: Easing.OutBack; }
@@ -50,9 +47,6 @@ Popup {
             anchors.margins: fontMetricsID.height * 2
         }
     }
-
-
-
 
     Label{
         id: dataTypeLableID
@@ -71,9 +65,7 @@ Popup {
         anchors.leftMargin: fontMetricsID.height * 12
         width: parent.width * 0.35
         anchors.verticalCenter: dataTypeLableID.verticalCenter
-
     }
-
 
     Label{
         id: dataValueLableID
@@ -82,8 +74,6 @@ Popup {
         anchors.top: dataTypeLableID.bottom
         anchors.topMargin: fontMetricsID.height * 2.5
     }
-
-
 
     Loader {
         id: dynamicTypeEditorID
@@ -223,6 +213,5 @@ Popup {
             }
         }
     }
-
 
 }

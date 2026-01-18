@@ -25,7 +25,7 @@ Rectangle{
         boxMainRectID.pBoxInstance.blueBox_yPos = y;
     }
 
-    Keys.onPressed: {
+    Keys.onPressed: (event)=> {
         if (event.key == Qt.Key_Delete) {
             event.accepted = true;
             var removeBoxComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleBoxInstance/RemoveBoxConfirm.qml");
@@ -40,7 +40,7 @@ Rectangle{
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: fontMetricsID.height * 2 // dont change this!!
+        height: cBPStatic.bluePrintBoxHeaderHeight()  // dont change this!!
         radius: boxMainRectID.radius
         border.color: boxMainRectID.pBoxInstance.blueBox_HeadColor
         gradient: Gradient {
@@ -83,14 +83,11 @@ Rectangle{
         }
     }
 
-
     ToolTip{
         id:boxToolTipID
         text: boxMainRectID.pBoxInstance.blueBox_name
         timeout: 3000
-
     }
-
 
     MouseArea {
         anchors.fill: parent
@@ -116,9 +113,6 @@ Rectangle{
         }
     }
 
-
-
-
     ListView{
         id: listViewOfInputTerminalsID
         z:10
@@ -138,11 +132,6 @@ Rectangle{
         }
     }
 
-
-
-
-
-
     ListView{
         id: listViewOfOutputTerminalsID
         z:10
@@ -156,7 +145,6 @@ Rectangle{
         delegate: SingleTerminalInstance {
             id: outputKnobsOfTheBoxDelegateID
             isInputTerminal: false
-            height: boxHeaderRectID.height
             width: height
             clip: false
         }
@@ -168,6 +156,7 @@ Rectangle{
         NumberAnimation { target: warningImageID; property: "opacity"; from: 1.0; to: 0.1; duration: 1000 }
         NumberAnimation { target: warningImageID; property: "opacity"; from: 0.1; to: 1.0; duration: 1000 }
     }
+
     Image {
         id: warningImageID
         z:100
@@ -214,6 +203,5 @@ Rectangle{
             }
         }
     }
-
 
 }

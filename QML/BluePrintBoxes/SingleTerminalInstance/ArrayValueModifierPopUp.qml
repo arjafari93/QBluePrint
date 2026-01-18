@@ -2,9 +2,9 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt.labs.platform 1.0
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
 
@@ -36,7 +36,6 @@ Popup {
         });
     }
 
-
     function saveChildInfoOnChildClose(childInfo , dataIndexInParent){ // called by child popup
         if( dataIndexInParent >= currentListOfInfo.length ||  dataIndexInParent < 0  ){
             console.log(" index out of range in saveChildInfoOnChildClose" , dataIndexInParent ,arrayModifyPupUpID.currentListOfInfo.length );
@@ -44,9 +43,7 @@ Popup {
         }
         currentListOfInfo[dataIndexInParent] = childInfo ;
         currentListOfInfo = currentListOfInfo; // Triggers change
-
     }
-
 
     anchors.centerIn: parent
     width: fontMetricsID.height * 45
@@ -58,8 +55,9 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     Component.onCompleted: {
         leftDrawerInappMainWindowID.close();
+        //console.log("currentListOfInfo is " , currentListOfInfo , typeof currentListOfInfo , isArrayLike(currentListOfInfo))
         //var dataType = cBPStatic.getNameOfTypeAsString(pTerminalInstance);
-        if(Array.isArray(currentListOfInfo) == false )
+        if(isArrayLike(currentListOfInfo) == false )
             currentListOfInfo = [];
         arrayModifyPupUpID.open()
     }
@@ -75,11 +73,9 @@ Popup {
         arrayModifyPupUpID.destroy();
     }
 
-
     TempQuick.Overlay.modal:  Rectangle{
         color: "#90000000"
     }
-
 
     enter: Transition {
         NumberAnimation { properties: "scale"; from: 0.5; to: 1; duration: 500 ; easing.type: Easing.OutBack; }
@@ -93,7 +89,6 @@ Popup {
         }
     }
 
-
     Label{
         id: keyLabelID
         text: "Array Data ( page " + depthOfPopup + " )"
@@ -103,7 +98,22 @@ Popup {
         font.pointSize: fontMetricsID.font.pointSize + 2
     }
 
-    function findDatTypeAsString(dataVal){
+    function isArrayLike(v) {
+        if (v === null || v === undefined) return false;
+        if (Array.isArray(v)) return true;                 // real JS array
+
+        // Qt 6 sequences: not JS arrays, but have numeric length + index access
+        if (typeof v === "object" &&
+            typeof v.length === "number" &&
+            Number.isFinite(v.length) &&
+            v.length >= 0 &&
+            Math.floor(v.length) === v.length) {
+            return true;
+        }
+        return false;
+    }
+
+    function findDataTypeAsString(dataVal){
         let dataType = typeof dataVal ;
         switch (dataType) {
         case "text": return "string";
@@ -118,7 +128,7 @@ Popup {
         case "float": return "double";
         case "string": return "string";
         case "object": {
-            if (Array.isArray(dataVal)) {
+            if (isArrayLike(dataVal)) {
                 return "array" ;
             } else  {
                 console.log(" unknown type detected: unknow object type not array" , dataVal );
@@ -126,14 +136,14 @@ Popup {
             }
         }
         default: {
-            console.log(" unknown type detected in findDatTypeAsString:" , dataVal , dataType );
+            console.log(" unknown type detected in findDataTypeAsString:" , dataVal , dataType );
             return "unknown";
         }
         }
     }
 
     function findDelegateForData(dataVal){
-        let dataType = findDatTypeAsString( dataVal); // Get the type
+        let dataType = findDataTypeAsString( dataVal); // Get the type
         switch (dataType) {
         case "string": return stringComponent;
         case "int": return intComponent;
@@ -147,11 +157,9 @@ Popup {
         }
     }
 
-
-
     ListView{
         id:listOfHeaderkeyValuesID
-        property int compHeight: fontMetricsID.height * 4
+        property int compHeight: fontMetricsID.height * 5
         property int compWidth: listOfHeaderkeyValuesID.width * 0.9
         property int leftEditorWidth: listOfHeaderkeyValuesID.width * 0.4
         anchors.top:keyLabelID.bottom
@@ -182,7 +190,6 @@ Popup {
             border.color: BPBoxManager.darkThemeEnabled ? "#10ffffff" : "#20000000"
         }
     }
-
 
     Rectangle{
         id: addNewRowBtnID
@@ -224,7 +231,6 @@ Popup {
             radius: addNewRowBtnID.radius
         }
     }
-
 
     // Components
     Component {

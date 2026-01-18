@@ -32,8 +32,6 @@ Image {
         }
     }
 
-
-
     MouseArea{
         id:appImageMouseID
         anchors.fill: parent

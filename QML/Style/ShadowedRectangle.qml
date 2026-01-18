@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 
 Item {
@@ -7,7 +7,6 @@ Item {
 
     property alias mainBackgroundRectID: mainBackgroundRectID
     property alias mainBackgroundShaddowID: mainBackgroundShaddowID
-
 
     Rectangle{
         id:mainBackgroundRectID
@@ -17,7 +16,6 @@ Item {
         radius: fontMetricsID.height
         visible: false
     }
-
 
     DropShadow {
         id:mainBackgroundShaddowID
@@ -29,5 +27,4 @@ Item {
         color:  Material.accent
         source: mainBackgroundRectID
     }
-
 }

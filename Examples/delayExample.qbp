@@ -63,7 +63,7 @@
             "yPos": "167"
         },
         {
-            "BoxName": "Delay",
+            "BoxName": "Delay/Queue",
             "inptTrmnls": [
                 {
                     "TrmnlIndex": "0",

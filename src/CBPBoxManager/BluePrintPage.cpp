@@ -1,6 +1,5 @@
 #include "BluePrintPage.h"
 
-#include "BPBoxManager.h"
 #include "src/CBPBoxFactory/BPBoxFactory.h"
 #include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
 #include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"

@@ -2,15 +2,27 @@
 #include "src/CommonHeader.h"
 #include <QVariantList>
 #include <cmath>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <CBPStatic/BPStatic.h>
+
 void CValue_array::accept(CValueVisitor& visitor) const { visitor.visit(*this); }
 
 QString CValue_array::convertToString() const
 {
-    QString result = "";
-    for (const auto& pVal : m_value)
+    QString result = "[";
+    for (const auto& pCurrentRawVal : m_value)
     {
-        result += (pVal->convertToString() + "\n");
+        if (auto* pVal = dynamic_cast<CValue_array*>(pCurrentRawVal.get())){
+            result += ("{\"" + CBPStatic::getNameOfTypeAsString(pCurrentRawVal.get()) + "\":" + pCurrentRawVal->convertToString() + "}");
+        }else{
+            result += ("{\"" + CBPStatic::getNameOfTypeAsString(pCurrentRawVal.get()) + "\":\"" + pCurrentRawVal->convertToString() + "\"}");
+        }
+        if (pCurrentRawVal != m_value.at(m_value.length() - 1))
+            result += ",";
     }
+    result += "]";
     return result;
 }
 
@@ -46,7 +58,82 @@ QVariant CValue_array::convertToVariant() const
         }
     }
     return QVariant(varList);
-    ;
+}
+
+static std::shared_ptr<CRawValueBase> parseTypedNode(const QJsonObject &obj);
+
+static QList<std::shared_ptr<CRawValueBase>> parseArrayNode(const QJsonArray &arr)
+{
+    QList<std::shared_ptr<CRawValueBase>> out;
+
+    for (const QJsonValue &v : arr) {
+        if (!v.isObject()) {
+            continue;
+        }
+        auto pVal = parseTypedNode(v.toObject());
+        ASSERTWITHRETURN(pVal.get(), QList<std::shared_ptr<CRawValueBase>>());
+        out.push_back(pVal);
+    }
+    return out;
+}
+
+static std::shared_ptr<CRawValueBase> parseTypedNode(const QJsonObject &obj)
+{
+    // Format: {"int":"12"} or {"array":[...]} etc.
+    ASSERTWITHRETURN(obj.size() == 1 , nullptr)
+
+    const QString key = obj.keys().front();
+    const QJsonValue val = obj.value(key);
+
+    if (key == "int") {
+        // stored as string in your JSON
+         return std::make_shared<CValue_int>(val.toString().toInt());
+    }
+    if (key == "double") {
+         return std::make_shared<CValue_double>(val.toString().toDouble());
+    }
+    if (key == "string") {
+        return std::make_shared<CValue_string>(val.toString());
+    }
+    if (key == "bool") {
+        // your JSON uses "0"/"1" strings; also accept true/false
+        if (val.isBool()) return std::make_shared<CValue_bool>(val.toBool());
+        const QString boolStr = val.toString().trimmed().toLower();
+        bool valBool = (boolStr == "1" || boolStr == "true");
+        return std::make_shared<CValue_bool>(valBool);
+    }
+    if (key == "array") {
+        if (!val.isArray()) return {};
+        return std::make_shared<CValue_array>( parseArrayNode(val.toArray()));
+    }
+    DEBUG_MSG_PRINT << "invalid data type " << key;
+    // Unknown type key
+    return {};
+}
+
+
+/*!
+ * \brief CValue_array::convertFromString
+ * takes a string json and returns a pointer to the equivalent CValue_array object
+ * might return nullptr, this is mostly used to parse the saved settings in the qbp file
+ * \param jsonString
+ * \return
+ */
+std::shared_ptr<CValue_array>  CValue_array::convertFromString(const QString & jsonString)
+{
+    QJsonParseError err;
+    const QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8(), &err);
+
+    if (err.error != QJsonParseError::NoError) {
+        DEBUG_MSG_PRINT << "JSON parse error:" << err.errorString() << "at offset" << err.offset << " the string was " << jsonString;
+        return nullptr;
+    }
+    if (!doc.isArray()) {
+        DEBUG_MSG_PRINT << "Expected top-level JSON array:" << " the string was " << jsonString;
+        return nullptr;
+    }
+
+    return std::make_shared<CValue_array>( parseArrayNode(doc.array()) );
 }
 
 int CValue_array::findIndexOfElementInArray(const std::shared_ptr<CRawValueBase>& elmnt) const

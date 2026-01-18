@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import org.bluePrintType.BPStatic 1.0
 import org.bluePrintType.IOTerminal 1.0
 
@@ -8,11 +8,10 @@ Item{
     id: terminalMainItemID
     property bool isInputTerminal : true
     property CIOTerminal pTerminalInstance: modelData
-    height: fontMetricsID.height * 2 // dont change this
+    height: cBPStatic.dataTerminalSize() * 2
     anchors.left: isInputTerminal ?  parent.left : undefined
     anchors.right: isInputTerminal ?  undefined : parent.right
     anchors.rightMargin:  pTerminalInstance.emissionEnabled ? 0 : 3
-
 
     Item {
         id: terminalImageWrapperItemID
@@ -21,7 +20,7 @@ Item{
         anchors.leftMargin: isInputTerminal ?  height * 0.1 : 0
         anchors.rightMargin:  isInputTerminal ? 0 : height * 0.1
         anchors.verticalCenter: parent.verticalCenter
-        height: fontMetricsID.height * 2 * 0.65
+        height: parent.height * 0.65
         width: height
         Image {
             id: terminalImageID
@@ -35,20 +34,8 @@ Item{
             layer.effect: ShaderEffect {
                 property variant source: ShaderEffectSource { sourceItem: terminalImageID; hideSource: true }
                 property color customColor: pTerminalInstance.terminalColor
-                fragmentShader: "
-                            varying highp vec2 qt_TexCoord0;
-                            uniform sampler2D source;
-                            uniform lowp vec4 customColor; // Custom color uniform
-                            void main() {
-                                // Get the original color of the pixel
-                                lowp vec4 color = texture2D(source, qt_TexCoord0);
-                                if(color.r + color.g + color.b < 0.2 ){
-                                    gl_FragColor = color ;
-                                    return ;
-                                }
-                                gl_FragColor = customColor;
-                            }
-                        "
+                // E:\projects_folder\QtProjects\QBluePrint\QML\shaders>D:\Softwares\Qt_6_7_0\6.7.0\msvc2019_64\bin\qsb.exe -o "E:\projects_folder\QtProjects\QBluePrint\QML\shaders\terminal_colorize.frag.qsb" "E:\projects_folder\QtProjects\QBluePrint\QML\shaders\terminal_colorize.frag" --glsl "100 es,120" --hlsl 50  --msl 12
+                fragmentShader: "qrc:/QML/shaders/terminal_colorize.frag.qsb"
             }
         }
     }
@@ -62,8 +49,6 @@ Item{
         color: "red"
         visible: !pTerminalInstance.emissionEnabled
     }
-
-
 
     Glow {
         id: terminalGlowID
@@ -95,7 +80,6 @@ Item{
         }
     }
 
-
     Label{
         id:nameOfTerminalLabelID
         anchors.verticalCenter: parent.verticalCenter
@@ -112,7 +96,7 @@ Item{
     ToolTip{
         id:terminalToolTipID
         onVisibleChanged: {
-            terminalToolTipID.text = "<font color='blue'>" + cBPStatic.getNameOfTypeAsString(pTerminalInstance) + "</font><br>"  + pTerminalInstance.getTerminalCurrentData()
+            terminalToolTipID.text = "<font color='blue'>" + cBPStatic.getNameOfTypeAsString(pTerminalInstance) + "</font><br>"  + JSON.stringify( pTerminalInstance.getTerminalCurrentData() )
         }
         width: Math.min((terminalToolTipID.text.length - 30 ) * fontMetricsID.height , fontMetricsID.height * 35 )
         text: cBPStatic.getNameOfTypeAsString(pTerminalInstance)
@@ -133,7 +117,7 @@ Item{
             terminalToolTipID.visible = false
         }
 
-        onPressed: {
+        onPressed:(mouse)=> {
             boxMainRectID.forceActiveFocus();
 
             if (mouse.button === Qt.RightButton) {
@@ -153,7 +137,6 @@ Item{
                                                            }
                                                            `, terminalConnectedLinesMenusID);
                     terminalConnectedLinesMenusID.addItem(categoryTitle);
-
 
                     for(var iter = 0 ; iter < Object.keys(listOfConnectedLines).length ; iter++ ){
                         var menuComp = Qt.createComponent("qrc:/QML/BluePrintBoxes/SingleTerminalInstance/TerminalMenus.qml");
@@ -198,8 +181,6 @@ Item{
                 terminalConnectedLinesMenusID.addItem(emissionCntrlComp);
                 terminalConnectedLinesMenusID.addItem(menuObject);
 
-
-
                 terminalConnectedLinesMenusID.open();
                 return ;
             }
@@ -210,7 +191,7 @@ Item{
             bpPageItemID.pBluePrintPage.lineFlowStartedFromConnectionPoint(  pTerminalInstance   );
         }
 
-        onReleased: {
+        onReleased: (mouse)=>{
             if(bpPageItemID.pBluePrintPage.isLineFlowDrawActive == false ) // this is possible for example when user has clicked on an input
                 return ;
             bpPageItemID.pBluePrintPage.isLineFlowDrawActive = false ;
@@ -219,7 +200,7 @@ Item{
             bpPageItemID.pBluePrintPage.lineFlowReleased(    posInParentCoord.x , posInParentCoord.y  );
         }
 
-        onPositionChanged: {
+        onPositionChanged: (mouse)=>{
             if( bpPageItemID.pBluePrintPage.isLineFlowDrawActive == false )
                 return ;
             var posInParentCoord = boxesMainRepeaterID.mapFromItem( terminalMainItemID , mouse.x, mouse.y);
@@ -228,14 +209,11 @@ Item{
         }
     }
 
-
-
     Menu {
         id: terminalConnectedLinesMenusID
         x: isInputTerminal ? 0 : -width
         font.pointSize: 8
     }
-
 
     Component {
         id: changeDataMenuCompID
@@ -254,16 +232,6 @@ Item{
         }
     }
 
-
-
 }
-
-
-
-
-
-
-
-
 
 

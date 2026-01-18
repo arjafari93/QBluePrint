@@ -86,5 +86,12 @@
         <file>QML/BluePrintBoxes/SingleTerminalInstance/ArrayValueModifierPopUp.qml</file>
         <file>QML/BluePrintBoxes/SingleTerminalInstance/AddNewArrayElementPopup.qml</file>
         <file>Images/hideIcon.png</file>
+        <file>QML/shaders/terminal_colorize.frag</file>
+        <file>QML/shaders/terminal_colorize.frag.qsb</file>
+        <file>QML/shaders/wave.frag</file>
+        <file>QML/shaders/wave.frag.qsb</file>
+        <file>fonts/calibri.ttf</file>
+        <file>fonts/calibrib.ttf</file>
+        <file>Images/copy.png</file>
     </qresource>
 </RCC>

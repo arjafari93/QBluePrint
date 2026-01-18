@@ -38,8 +38,8 @@ Repeater{
             return isVisible;
         }
 
-        property bool isItemNearVisibleArea : checkVisibility(scrollViewInappMainWindowID.flickableItem.contentX,
-                                                              scrollViewInappMainWindowID.flickableItem.contentY,
+        property bool isItemNearVisibleArea : checkVisibility(scrollViewInappMainWindowID.contentItem.contentX,
+                                                              scrollViewInappMainWindowID.contentItem.contentY,
                                                               scrollViewInappMainWindowID.width,
                                                               scrollViewInappMainWindowID.height,
                                                               bpPageItemID.scaleFactorOfApp,

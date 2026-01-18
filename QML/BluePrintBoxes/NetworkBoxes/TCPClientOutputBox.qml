@@ -31,8 +31,8 @@ SingleBoxInstance{
         SpinBox{
             id: valueToBeSendSpinBox
              Material.theme : Material.Dark
-            anchors.left: valueToBeSentIntLabelID.right
-            anchors.leftMargin: valueToBeSentIntLabelID.anchors.leftMargin
+            anchors.left: parent.left
+            anchors.leftMargin: fontMetricsID.height * 4
             anchors.verticalCenter: valueToBeSentIntLabelID.verticalCenter
             width: parent.width * 0.65
             value: pSocketInstance.remotePortNum
@@ -44,8 +44,6 @@ SingleBoxInstance{
             }
         }
     }
-
-
 
     Item{
         anchors.left: parent.left
@@ -64,8 +62,8 @@ SingleBoxInstance{
 
         TextField{
             id: remoteServerIPTextID
-            anchors.left: remoteServerIPLableID.right
-            anchors.leftMargin: valueToBeSendSpinBox.anchors.leftMargin
+            anchors.left: parent.left
+            anchors.leftMargin: fontMetricsID.height * 4
             anchors.verticalCenter: remoteServerIPLableID.verticalCenter
             width: valueToBeSendSpinBox.width
             text: pSocketInstance.remoteServerIPAddress
@@ -76,7 +74,6 @@ SingleBoxInstance{
             }
         }
     }
-
 
     Rectangle{
         id: connectBtnRectID
@@ -141,10 +138,6 @@ SingleBoxInstance{
             text: findStateText( pSocketInstance.clientSocketState )
         }
     }
-
-
-
-
 
 }
 

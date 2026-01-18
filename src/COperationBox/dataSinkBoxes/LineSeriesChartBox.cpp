@@ -16,7 +16,7 @@ CLineSeriesChartBox::CLineSeriesChartBox(int newBlueBox_xPos, int newBlueBox_yPo
 {
     m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/ChartBoxes/ChartBoxSettings.qml";
     mp_dataListModelInstace = std::make_unique<CLiveDataXYModel>();
-    mp_modelXYMapperLiveData = std::make_unique<QtCharts::QVXYModelMapper>();
+    mp_modelXYMapperLiveData = std::make_unique<QVXYModelMapper>();
     mp_modelXYMapperLiveData->setModel(mp_dataListModelInstace.get());
     mp_modelXYMapperLiveData->setXColumn(0);
     mp_modelXYMapperLiveData->setYColumn(1);
@@ -98,7 +98,7 @@ void CLineSeriesChartBox::evaluateOperation()
     sendValueOnAllOutputTerminals(std::make_shared<CValue_int>(mp_dataListModelInstace->totalLengthOfSessionData()));
 }
 
-void CLineSeriesChartBox::setModelMapperLineSeries(QtCharts::QLineSeries* newLineSeries)
+void CLineSeriesChartBox::setModelMapperLineSeries(QLineSeries* newLineSeries)
 {
     ASSERTWITHINFO(newLineSeries);
     mp_modelXYMapperLiveData->setSeries(newLineSeries);

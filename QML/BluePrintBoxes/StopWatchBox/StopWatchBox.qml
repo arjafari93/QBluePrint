@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import "../SingleTerminalInstance"
 import "../SingleBoxInstance"
 import "../../Style"
@@ -81,7 +81,6 @@ SingleBoxInstance{
         GradientStop { position: 0.5; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.15 ) }
         GradientStop { position: 1.0; color:  appMainWindowID.applyOpacityToColor(  blueBox_HeadColor , 0.4 ) }
     }
-
 }
 
 

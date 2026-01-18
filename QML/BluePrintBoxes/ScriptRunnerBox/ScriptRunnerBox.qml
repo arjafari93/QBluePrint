@@ -10,7 +10,6 @@ SingleBoxInstance{
     id:codeRunnerBoxID
     property CBlueScriptBox pScriptBox:  modelData
 
-
     ScrollView {
         width: parent.width * 0.7
         height: parent.height * 0.75
@@ -35,8 +34,6 @@ SingleBoxInstance{
             onTextChanged: pScriptBox.scriptFunctionBody = codeEditorID.text
         }
     }
-
-
 
 }
 
