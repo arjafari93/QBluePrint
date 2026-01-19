@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
-import org.QBluePrint.Controls 1.0 as QbpC
 
 import "../Style"
 
@@ -35,7 +34,7 @@ ShadowedRectangle {
         id:resizeHandelID
     }
 
-    QbpC.SpinBox {
+    SpinBox {
         id: scaleSpinBpxID
         from: decimalToInt(0.001)   // Ensure 'from' is correctly scaled
         value: decimalToInt(1.0)

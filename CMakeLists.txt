@@ -12,8 +12,6 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network C
 
 qt_standard_project_setup()
 
-add_subdirectory(libs/QBPControls)
-
 include(cmake/commonFiles.cmake)
 set(CMAKE_AUTORCC ON)
 qt_add_executable(QBluePrint
@@ -32,7 +30,6 @@ target_link_libraries(QBluePrint PRIVATE
     Qt6::QuickControls2
     Qt6::Network
     Qt6::Charts
-    QBPControls
 )
 
 target_include_directories(QBluePrint
