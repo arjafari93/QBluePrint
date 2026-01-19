@@ -105,7 +105,7 @@ ShadowedRectangle {
             MenuItem {
                 text: "Quit"
                 onTriggered: {
-                     Qt.quit();
+                    Qt.quit();
                 }
             }
         }
@@ -170,15 +170,15 @@ ShadowedRectangle {
         cursorShape : Qt.SizeAllCursor
 
         onPressed: (mouse)=>{
-            startX = mouse.x
-            startY = mouse.y
-        }
+                       startX = mouse.x
+                       startY = mouse.y
+                   }
         onPositionChanged:(mouse)=> {
-            if(appMainWindowID.visibility ==  Window.Maximized )
-                appMainWindowID.visibility =  Window.Windowed
-            appMainWindowID.setX(appMainWindowID.x+mouse.x - startX)
-            appMainWindowID.setY(appMainWindowID.y+mouse.y - startY)
-        }
+                              if(appMainWindowID.visibility ==  Window.Maximized )
+                              appMainWindowID.visibility =  Window.Windowed
+                              appMainWindowID.setX(appMainWindowID.x+mouse.x - startX)
+                              appMainWindowID.setY(appMainWindowID.y+mouse.y - startY)
+                          }
         onDoubleClicked: {
             if(appMainWindowID.visibility ==  Window.Maximized)
                 appMainWindowID.visibility =  Window.Windowed
