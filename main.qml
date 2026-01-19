@@ -4,6 +4,8 @@ import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls.Material 2.15
 import Qt5Compat.GraphicalEffects
+import QtCore
+
 import "QML/BluePrintPagesSelector"
 import "QML/LeftDrawerListOfBoxes"
 import "QML/BottomStatusBar"
@@ -170,6 +172,17 @@ ApplicationWindow  {
         }
         console.log("GUI Type Doesnt exist ", guiType );
         return "qrc:/QML/BluePrintBoxes/BigPictureOperator/BigPictureOperator.qml"
+    }
+
+    Settings {
+        id: settingsID
+        property bool terminalGlowEnable: BPBoxManager.terminalGlowEnable
+        property bool darkThemeEnabled: BPBoxManager.darkThemeEnabled
+    }
+
+    Component.onCompleted: {
+        BPBoxManager.terminalGlowEnable = settingsID.terminalGlowEnable
+        BPBoxManager.darkThemeEnabled = settingsID.darkThemeEnabled
     }
 
 }

@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
 {
 
     QCoreApplication::setOrganizationName("QBluePrint");
+    QCoreApplication::setApplicationName("QBluePrint");
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QCoreApplication::setApplicationVersion(QString(APP_VERSION));
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
