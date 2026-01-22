@@ -1,8 +1,8 @@
 #include "DataCounter.h"
 
-#include "../../CRawValueBase/RawValueBase.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+#include "RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
 #include <memory>
 
 CDataCounter::CDataCounter(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent) : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth, blueBoxHeight + 20, parent}

@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 
 CButtonSource::CButtonSource(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent) : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth, blueBoxHeight - 20, parent}
 {

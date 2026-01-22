@@ -4,6 +4,7 @@
 #include "../OperationBox.h"
 #include <QMap>
 #include <QObject>
+#include <QtQml>
 
 class QNetworkAccessManager;
 class QNetworkReply;
@@ -11,6 +12,8 @@ class QNetworkReply;
 class CHTTPRawHeaderFormat : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(QString headerName READ headerName WRITE setHeaderName NOTIFY headerNameChanged)
     Q_PROPERTY(QString headerValue READ headerValue WRITE setHeaderValue NOTIFY headerValueChanged)
     Q_DISABLE_COPY_MOVE(CHTTPRawHeaderFormat);

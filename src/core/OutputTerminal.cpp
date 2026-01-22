@@ -1,6 +1,6 @@
 #include "OutputTerminal.h"
 
-#include "src/CFlowConnectionLine/FlowConnectionLine.h"
+#include "FlowConnectionLine.h"
 
 COutputTerminal::COutputTerminal(const int& terminalIndexInBox, COperationBox* parent) : CIOTerminal{terminalIndexInBox, parent}
 {

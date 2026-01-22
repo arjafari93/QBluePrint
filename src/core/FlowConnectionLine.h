@@ -11,9 +11,10 @@
  * Licensed under the BSD 3-Clause License
  */
 
-#include "src/CommonHeader.h"
+#include "CommonHeader.h"
 #include <QColor>
 #include <QObject>
+#include <QtQml>
 
 class CInputTerminal;
 class COutputTerminal;
@@ -22,6 +23,8 @@ class CRawValueBase;
 class CFlowConnectionLine : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(int flowLine_startX READ flowLine_startX WRITE setFlowLine_startX NOTIFY flowLine_startXChanged)
     Q_PROPERTY(int flowLine_startY READ flowLine_startY WRITE setFlowLine_startY NOTIFY flowLine_startYChanged)
     Q_PROPERTY(int flowLine_endX READ flowLine_endX WRITE setFlowLine_endX NOTIFY flowLine_endXChanged)

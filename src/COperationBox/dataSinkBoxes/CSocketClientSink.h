@@ -4,10 +4,13 @@
 #include "../OperationBox.h"
 #include <QAbstractSocket>
 #include <QObject>
+#include <QtQml>
 
 class CSocketClientSink : public COperationBox
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(int remotePortNum READ remotePortNum WRITE setRemotePortNum NOTIFY remotePortNumChanged)
     Q_PROPERTY(QAbstractSocket::SocketType socketType READ socketType CONSTANT)
     Q_PROPERTY(QAbstractSocket::SocketState clientSocketState READ clientSocketState WRITE setClientSocketState NOTIFY clientSocketStateChanged)

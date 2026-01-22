@@ -4,9 +4,9 @@
 #include <QNetworkRequest>
 #include <memory>
 
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 
 CHTTPPoster::CHTTPPoster(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent) : CHTTPBase{newBlueBox_xPos, newBlueBox_yPos, m_uniqueBoxName, parent}
 {

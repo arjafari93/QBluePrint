@@ -1,12 +1,11 @@
-set(QBLUEPRINT_SOURCES
+qt_add_qml_module(QBluePrint
+    URI "org.QBluePrint.Boxes"
+    VERSION 1.0
+    SOURCES
+
     ${CMAKE_CURRENT_LIST_DIR}/../src/CBPBoxFactory/BPBoxFactory.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CBPBoxManager/BluePrintPage.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CBPStatic/BPStatic.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CFlowConnectionLine/FlowConnectionLine.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CIOTerminal/CInputTerminal/InputTerminal.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CIOTerminal/COutputTerminal/OutputTerminal.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CIOTerminal/IOTerminal.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/CBPBoxManager/BPBoxManager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/OperationBox.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/BitwiseOperationBoxes/BitWiseAND.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/BitwiseOperationBoxes/BitWiseComplement.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/BitwiseOperationBoxes/BitWiseLeftShift.cpp
@@ -51,20 +50,10 @@ set(QBLUEPRINT_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/dataSourceBoxes/TimerSendValSrc.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/dataSourceBoxes/UDPSocketServerSource.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/Miscellaneous/UniversalTypeConvertor.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/OperationBox.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CRawValueBase/RawValueBase.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CRawValueBase/Value_array.cpp
-)
 
-set(QBLUEPRINT_HEADERS
     ${CMAKE_CURRENT_LIST_DIR}/../src/CBPBoxFactory/BPBoxFactory.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CBPBoxManager/BluePrintPage.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CBPStatic/BPStatic.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CFlowConnectionLine/FlowConnectionLine.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CIOTerminal/CInputTerminal/InputTerminal.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CIOTerminal/COutputTerminal/OutputTerminal.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CIOTerminal/IOTerminal.h
     ${CMAKE_CURRENT_LIST_DIR}/../src/CBPBoxManager/BPBoxManager.h
+    ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/OperationBox.h
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/BitwiseOperationBoxes/BitWiseAND.h
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/BitwiseOperationBoxes/BitWiseComplement.h
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/BitwiseOperationBoxes/BitWiseLeftShift.h
@@ -109,7 +98,4 @@ set(QBLUEPRINT_HEADERS
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/dataSourceBoxes/TimerSendValSrc.h
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/dataSourceBoxes/UDPSocketServerSource.h
     ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/Miscellaneous/UniversalTypeConvertor.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/COperationBox/OperationBox.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CommonHeader.h
-    ${CMAKE_CURRENT_LIST_DIR}/../src/CRawValueBase/RawValueBase.h
 )

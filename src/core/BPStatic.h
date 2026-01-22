@@ -1,14 +1,17 @@
 #ifndef CBPSTATIC_H
 #define CBPSTATIC_H
 
-#include "src/CommonHeader.h"
+#include "CommonHeader.h"
 #include <QColor>
 #include <QMap>
-#include <QObject>
 #include <QMetaEnum>
+#include <QObject>
+#include <QtQml>
 
 class CIOTerminal;
+Q_DECLARE_OPAQUE_POINTER(CIOTerminal*)
 class CRawValueBase;
+Q_DECLARE_OPAQUE_POINTER(CRawValueBase*)
 
 /*!
  * \brief The CBPStatic class
@@ -17,6 +20,7 @@ class CRawValueBase;
 class CBPStatic : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
   public:
     Q_DISABLE_COPY_MOVE(CBPStatic);
     explicit CBPStatic(){};
@@ -54,7 +58,7 @@ class CBPStatic : public QObject
     Q_ENUM(EBPBoxCategoryType)
 
     inline static const QMap<CBPStatic::EBPBoxCategoryType, QString> BPBoxCategoryName = {
-        {EBPBoxCategoryType::E_BP_INVALIDTYPE, "Invalid"},          {EBPBoxCategoryType::E_BP_MathOperation, "Math"},          {EBPBoxCategoryType::E_BP_DataComparison, "Data Comparison/Conversion"},
+        {EBPBoxCategoryType::E_BP_INVALIDTYPE, "Invalid"},         {EBPBoxCategoryType::E_BP_MathOperation, "Math"},          {EBPBoxCategoryType::E_BP_DataComparison, "Data Comparison/Conversion"},
         {EBPBoxCategoryType::E_BP_LogicalOperation, "Logical"},    {EBPBoxCategoryType::E_BP_OutPutSink, "Data Sink"},        {EBPBoxCategoryType::E_BP_InputSource, "Data Source"},
         {EBPBoxCategoryType::E_BP_Miscellaneous, "Miscellaneous"}, {EBPBoxCategoryType::E_BP_LoopsAndArrays, "Loops/Arrays"}, {EBPBoxCategoryType::E_BP_BigPictureOperator, "Conditional Branch"}};
 
@@ -68,8 +72,9 @@ class CBPStatic : public QObject
     {
         bool ok = false;
         QMetaEnum metaEnum = QMetaEnum::fromType<EBPBoxCategoryType>();
-        auto value = static_cast<EBPBoxCategoryType>( metaEnum.keyToValue(categoryType.toLatin1().constData(), &ok));
-        if (!ok) {
+        auto value = static_cast<EBPBoxCategoryType>(metaEnum.keyToValue(categoryType.toLatin1().constData(), &ok));
+        if (!ok)
+        {
             DEBUG_MSG_PRINT << "ERROR " << categoryType;
             return "ERROR";
         }
@@ -95,7 +100,7 @@ class CBPStatic : public QObject
      * \return
      */
     static int dataTerminalSize();
-    constexpr static int defaultFontPointSize(){ return 8;};
+    constexpr static int defaultFontPointSize() { return 8; };
     static int bluePrintBoxHeaderHeight();
 };
 

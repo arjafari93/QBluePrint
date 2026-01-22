@@ -6,10 +6,10 @@
 #include <QQmlContext>
 #include <QVXYModelMapper>
 
-#include "../../CRawValueBase/RawValueBase.h"
+#include "RawValueBase.h"
 #include "LiveDataXYModel.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
 
 CLineSeriesChartBox::CLineSeriesChartBox(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)
     : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 280, blueBoxHeight + 230, parent}, mp_modelXYMapperLiveData{nullptr}, mp_dataListModelInstace{nullptr}

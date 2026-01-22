@@ -4,10 +4,10 @@
 #include <QTcpSocket>
 #include <QUdpSocket>
 
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
 
-#include "src/CRawValueBase/RawValueBase.h"
+#include "RawValueBase.h"
 
 CSocketClientSink::CSocketClientSink(int newBlueBox_xPos, int newBlueBox_yPos, QAbstractSocket::SocketType sockType, QObject* parent)
     : COperationBox{sockType == QAbstractSocket::TcpSocket ? "TCP Client" : "UDP Client", newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 80, blueBoxHeight + 110, parent}

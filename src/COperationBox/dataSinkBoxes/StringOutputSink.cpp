@@ -1,7 +1,7 @@
 #include "StringOutputSink.h"
 
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "InputTerminal.h"
+#include "RawValueBase.h"
 
 CStringOutputSink::CStringOutputSink(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)
     : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 80, blueBoxHeight + 30, parent}

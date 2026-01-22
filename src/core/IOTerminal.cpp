@@ -1,12 +1,12 @@
 #include "IOTerminal.h"
 
-#include "CBPStatic/BPStatic.h"
+#include "BPStatic.h"
 
 #include "src/CBPBoxManager/BPBoxManager.h"
-#include "src/CFlowConnectionLine/FlowConnectionLine.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "FlowConnectionLine.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 
 CIOTerminal::CIOTerminal(const int& terminalIndexInBox, COperationBox* parent) : m_terminalIndexInBox{terminalIndexInBox}
 {

@@ -2,10 +2,13 @@
 #define CHTTPGetter_H
 
 #include "HTTPBase.h"
+#include <QtQml>
 
 class CHTTPGetter : public CHTTPBase
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
 
     friend class CHTTPGetterFactory;
     Q_DISABLE_COPY_MOVE(CHTTPGetter);

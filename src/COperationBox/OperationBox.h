@@ -11,10 +11,11 @@
  * Licensed under the BSD 3-Clause License
  */
 
-#include "src/CBPStatic/BPStatic.h"
+#include "BPStatic.h"
 #include <QColor>
 #include <QObject>
 #include <QQmlListProperty>
+#include <QtQml>
 
 class CInputTerminal;
 class COutputTerminal;
@@ -28,6 +29,8 @@ class QJsonObject;
 class COperationBox : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Abstract Class")
     Q_PROPERTY(QString blueBox_name READ blueBox_name WRITE setBlueBox_name NOTIFY blueBox_nameChanged)
     Q_PROPERTY(QString blueBox_keyWords READ blueBox_keyWords WRITE setBlueBox_keyWords NOTIFY blueBox_keyWordsChanged)
     Q_PROPERTY(QString blueBox_warningMsg READ blueBox_warningMsg WRITE setBlueBox_warningMsg NOTIFY blueBox_warningMsgChanged)

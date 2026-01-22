@@ -1,8 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import Qt5Compat.GraphicalEffects
-import org.bluePrintType.BPStatic 1.0
-import org.bluePrintType.IOTerminal 1.0
+import org.QBluePrint.Boxes 1.0
 
 Item{
     id: terminalMainItemID

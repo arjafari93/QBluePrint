@@ -4,12 +4,15 @@
 #include "../OperationBox.h"
 #include <QJSValue>
 #include <QObject>
+#include <QtQml>
 
 class QJSEngine;
 
 class CBlueScriptBox : public COperationBox
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(QString scriptFunctionBody READ scriptFunctionBody WRITE setScriptFunctionBody NOTIFY scriptFunctionBodyChanged)
     Q_PROPERTY(int numInputs READ numInputs WRITE setNumInputs NOTIFY numInputsChanged)
     Q_PROPERTY(int numOutputs READ numOutputs WRITE setNumOutputs NOTIFY numOutputsChanged)

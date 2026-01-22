@@ -10,7 +10,7 @@ import QtQuick.Templates 2.12 as TempQuick
 
 import "../../Style"
 
-import org.bluePrintType.BlueScriptBox 1.0
+import org.QBluePrint.Boxes 1.0
 
 Popup {
     id: pupUpCompID

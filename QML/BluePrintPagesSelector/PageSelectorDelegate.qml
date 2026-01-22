@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 
-import org.bluePrintType.BluePrintPage 1.0
+import org.QBluePrint.Boxes 1.0
 
 Rectangle {
     id: selectorDlgtRectID

@@ -2,6 +2,8 @@ import QtQuick 2.15
 import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 
+import org.QBluePrint.Boxes 1.0
+
 Item {
     id:shaddowRectWrapperItemID
 

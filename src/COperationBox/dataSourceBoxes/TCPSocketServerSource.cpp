@@ -5,8 +5,8 @@
 #include <QTcpSocket>
 #include <memory>
 
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 
 CTCPSocketServerSource::CTCPSocketServerSource(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)
     : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 80, blueBoxHeight + 30, parent}, mp_tcpServer{nullptr}

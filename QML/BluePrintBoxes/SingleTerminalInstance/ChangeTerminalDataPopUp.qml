@@ -8,7 +8,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 import QtQuick.Templates 2.12 as TempQuick
 
-import org.bluePrintType.IOTerminal 1.0
+import org.QBluePrint.Boxes 1.0
 
 import "../../Style"
 

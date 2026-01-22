@@ -1,8 +1,8 @@
 #include "BluePrintPage.h"
 
-#include "src/CBPBoxFactory/BPBoxFactory.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+//#include "src/CBPBoxFactory/BPBoxFactory.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
 
 #include <QDir>
 #include <QFile>
@@ -15,9 +15,7 @@
 CBluePrintPage::CBluePrintPage(QObject* parent) : QObject{parent} {}
 
 CBluePrintPage::~CBluePrintPage() { clearCurrentBluePrintSession(); }
-
 QQmlListProperty<COperationBox> CBluePrintPage::listOfBlueBoxes() { return QQmlListProperty<COperationBox>(this, &m_listOfBlueBoxes); }
-
 QQmlListProperty<CFlowConnectionLine> CBluePrintPage::listOfFlowConnectionLines() { return QQmlListProperty<CFlowConnectionLine>(this, &m_listOfFlowConnectionLines); }
 
 void CBluePrintPage::lineFlowStartedFromConnectionPoint(QObject* startTerminal)
@@ -195,29 +193,6 @@ void CBluePrintPage::removeBPBoxFromListModel(QObject* boxToBeRemoved)
     }
 }
 
-bool CBluePrintPage::createNewBoxFromGivenType(const QString& boxName, const int& posX, const int& posY, const bool& emitSignal)
-{
-    try
-    {
-        auto pBox = CBPBoxFactory::getInstance()->createBPBoxInstance(boxName, posX, posY);
-        ASSERTWITHRETURN(pBox, false);
-        pBox->setParentBluePrintPage(this);
-        m_listOfBlueBoxes.push_back(pBox);
-        if (emitSignal)
-            emit listOfBlueBoxesChanged();
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        DEBUG_MSG_PRINT << " exception: " << e.what();
-    }
-    catch (...)
-    {
-        DEBUG_MSG_PRINT << " exception: ";
-    }
-    return false;
-}
-
 void CBluePrintPage::setApplicationScaleFactor(const float& newValue)
 {
     if (m_applicationScaleFactor == newValue)
@@ -324,82 +299,6 @@ bool CBluePrintPage::saveBluePrintInfo(const QString& pathToFile)
         return true;
     }
     return false;
-}
-
-bool CBluePrintPage::loadBluePrintInfo(const QString& pathToFile)
-{
-
-    // Read the JSON file
-    QFile file(pathToFile);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        DEBUG_MSG_PRINT << "Failed to open JSON file" << pathToFile;
-        return false;
-    }
-
-    QTextStream in(&file);
-    QString jsonString = in.readAll();
-    file.close();
-
-    // Parse the JSON document
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(jsonString.toUtf8());
-
-    // Check if the JSON document is valid
-    if (jsonDocument.isNull())
-    {
-        DEBUG_MSG_PRINT << "Failed to parse JSON document";
-        return false;
-    }
-    // lets clear current info if any
-    clearCurrentBluePrintSession();
-    setCurrentBluePrintFilePath(pathToFile);
-    // Access the main JSON object
-    QJsonObject mainObject = jsonDocument.object();
-
-    // Access BPBoxesInfo array
-    QJsonArray bpBoxesArray = mainObject["BPBoxesInfo"].toArray();
-
-    // Iterate through BPBoxesInfo objects
-    for (const QJsonValue& bpBoxValue : bpBoxesArray)
-    {
-        QJsonObject bpBoxObject = bpBoxValue.toObject();
-        auto res = createNewBoxFromGivenType(bpBoxObject["BoxName"].toString(), bpBoxObject["xPos"].toString().toInt(), bpBoxObject["yPos"].toString().toInt(), false);
-        if (!res)
-            continue;
-        auto pBox = m_listOfBlueBoxes.last();
-        pBox->deserializeBoxInfoFromJson(bpBoxObject);
-    }
-
-    emit listOfBlueBoxesChanged();
-
-    // Access BPFlowLinesInfo array
-    QJsonArray flowLinesArray = mainObject["BPFlowLinesInfo"].toArray();
-
-    // Iterate through BPFlowLinesInfo objects
-    for (const QJsonValue& flowLineValue : flowLinesArray)
-    {
-        bool isValid = false;
-        QJsonObject flowLineObject = flowLineValue.toObject();
-        auto pStartBPBox = getBPBoxFromUniqueID(flowLineObject["startBoxID"].toString().toInt());
-        ASSERTWITHRETURN(pStartBPBox, false);
-        auto pEndBPBox = getBPBoxFromUniqueID(flowLineObject["endBoxID"].toString().toInt());
-        ASSERTWITHRETURN(pEndBPBox, false);
-        int startTerminalIndex = flowLineObject["startTerminalIndex"].toString().toInt();
-        isValid = startTerminalIndex <= (pStartBPBox->getListOfOutputTerminals().length() - 1);
-        ASSERTWITHRETURN(isValid, false);
-        int endTerminalIndex = flowLineObject["endTerminalIndex"].toString().toInt();
-        isValid = endTerminalIndex <= (pEndBPBox->getListOfInputTerminals().length() - 1);
-        ASSERTWITHRETURN(isValid, false);
-        // if we are here it means all data are valid and we are good to create the flow line
-        m_listOfFlowConnectionLines.push_back(new CFlowConnectionLine(pStartBPBox->getListOfOutputTerminals().at(startTerminalIndex)));
-        CFlowConnectionLine::bindFlowLineToOutputTerminal(m_listOfFlowConnectionLines.last(), pStartBPBox->getListOfOutputTerminals().at(startTerminalIndex));
-        CFlowConnectionLine::bindFlowLineToInputTerminal(m_listOfFlowConnectionLines.last(), pEndBPBox->getListOfInputTerminals().at(endTerminalIndex));
-    }
-
-    emit listOfBlueBoxesChanged();
-    emit listOfFlowConnectionLinesChanged();
-    recalculateMaxPositions();
-    return true;
 }
 
 void CBluePrintPage::clearCurrentBluePrintSession()

@@ -10,6 +10,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Templates 2.12 as TempQuick
 
 import "../Style"
+import org.QBluePrint.Boxes 1.0
 
 ShadowedRectangle {
     id:mainMenuBarWrapperRectID
@@ -47,7 +48,7 @@ ShadowedRectangle {
                 nameFilters: ["QBlueprint Files (*.qbp)"]
                 onAccepted: {
                     var currentPageInstance = bpPageRepeaterID.itemAt(BPBoxManager.activePageIndex);
-                    if( currentPageInstance.pBluePrintPage.loadBluePrintInfo(selectedFile.toString().replace("file:///", ""))   )
+                    if( BPBoxManager.loadBluePrintInfoIntoPage(currentPageInstance.pBluePrintPage, selectedFile.toString().replace("file:///", "")))
                         BPBoxManager.showStatusBarMessage("QBluePrint Loaded Successfully From " + currentPageInstance.pBluePrintPage.currentBluePrintFilePath , 5000)
                     else
                         BPBoxManager.showStatusBarMessage("Failed To Load QBluePrint File" , 5000)

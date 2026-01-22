@@ -8,9 +8,9 @@
 #include <QNetworkRequest>
 #include <memory>
 
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 
 CHTTPBase::CHTTPBase(int newBlueBox_xPos, int newBlueBox_yPos, const QString& uniqueBoxName, QObject* parent)
     : COperationBox{uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth, blueBoxHeight - 20, parent}

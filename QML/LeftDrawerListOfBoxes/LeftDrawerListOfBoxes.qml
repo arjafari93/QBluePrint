@@ -4,6 +4,8 @@ import QtQuick.Controls 2.15
 import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material 2.15
 
+import org.QBluePrint.Boxes 1.0
+
 Drawer {
     id: leftSideDrawerID
     height:  appMainWindowID.height
@@ -233,7 +235,7 @@ Drawer {
                     }
                     var posInParentCoord = leftSideDrawerID.dragImageObject.mapToItem(currentPageInstance.mainWindowWrapperItemID, 0 , 0 );
                     // console.log("posInParentCoord is " , posInParentCoord.x , posInParentCoord.y )
-                    var res = currentPageInstance.pBluePrintPage.createNewBoxFromGivenType( blueBox_name , posInParentCoord.x , posInParentCoord.y  );
+                    var res = BPBoxManager.createNewBoxFromGivenType(currentPageInstance.pBluePrintPage, blueBox_name , posInParentCoord.x , posInParentCoord.y); // currentPageInstance.pBluePrintPage.createNewBoxFromGivenType( blueBox_name , posInParentCoord.x , posInParentCoord.y  );
                     leftSideDrawerID.dragImageObject.destroy();
                     leftSideDrawerID.dragImageObject = undefined;
                 }

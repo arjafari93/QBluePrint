@@ -13,7 +13,7 @@ import "QML/TopMenuBar"
 import "QML"
 import "QML/BluePrintBoxes/SingleTerminalInstance"
 
-import org.bluePrintType.BPStatic  1.0
+import org.QBluePrint.Boxes 1.0
 
 /*
  * Copyright (c) 2025 Alireza Jafari (https://github.com/arjafari93)

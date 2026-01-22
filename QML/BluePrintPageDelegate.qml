@@ -20,7 +20,7 @@ import "LeftDrawerListOfBoxes"
 import "BottomStatusBar"
 import "TopMenuBar"
 
-import org.bluePrintType.BluePrintPage 1.0
+import org.QBluePrint.Boxes 1.0
 
 Item {
     id: bpPageItemID

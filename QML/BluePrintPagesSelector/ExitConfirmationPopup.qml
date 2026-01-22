@@ -10,6 +10,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Templates 2.12 as TempQuick
 
 import "../Style"
+import org.QBluePrint.Boxes 1.0
 
 Popup {
     id: pupUpCompID

@@ -2,14 +2,18 @@
 #define CLINESERIESCHARTBOX_H
 
 #include "../OperationBox.h"
+#include "LiveDataXYModel.h"
 #include <QLineSeries>
 #include <QObject>
-#include "LiveDataXYModel.h"
+#include <QtQml>
+
 class QVXYModelMapper;
 
 class CLineSeriesChartBox : public COperationBox
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(CLiveDataXYModel* dataListModelInstace READ getDataListModelInstace CONSTANT)
     friend class CLineSeriesChartBoxFactory;
     Q_DISABLE_COPY_MOVE(CLineSeriesChartBox)

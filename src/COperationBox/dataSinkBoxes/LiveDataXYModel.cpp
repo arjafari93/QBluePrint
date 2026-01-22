@@ -1,6 +1,6 @@
 #include "LiveDataXYModel.h"
 
-#include "src/CommonHeader.h"
+#include "CommonHeader.h"
 
 CLiveDataXYModel::CLiveDataXYModel()
 {

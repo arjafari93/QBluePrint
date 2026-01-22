@@ -4,6 +4,16 @@
 #include "../OperationBox.h"
 #include <QObject>
 
+#include <QAbstractSocket>
+#include <QtQml>
+struct QAbstractSocketQml
+{
+    Q_GADGET
+    QML_FOREIGN(QAbstractSocket)
+    QML_NAMED_ELEMENT(QAbstractSocket)
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
+};
+
 class QTcpServer;
 
 class CTCPSocketServerSource : public COperationBox

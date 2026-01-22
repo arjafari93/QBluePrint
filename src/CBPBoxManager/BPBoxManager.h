@@ -13,12 +13,15 @@
 
 #include <QDebug>
 #include <QObject>
+#include <QtQml>
 
 #include "BluePrintPage.h"
 
 class CBPBoxManager : public QObject
 {
     Q_OBJECT
+    QML_SINGLETON
+    QML_NAMED_ELEMENT(BPBoxManager)
     Q_PROPERTY(QQmlListProperty<CBluePrintPage> listOfBluePrintPages READ listOfBluePrintPages NOTIFY listOfBluePrintPagesChanged)
     Q_PROPERTY(QQmlListProperty<COperationBox> bpBoxBrowserList READ bpBoxBrowserList NOTIFY bpBoxBrowserListChanged)
     Q_PROPERTY(QQmlListProperty<COperationBox> bpBoxBrowserListProxy READ bpBoxBrowserListProxy NOTIFY bpBoxBrowserListProxyChanged)
@@ -32,6 +35,8 @@ class CBPBoxManager : public QObject
 
   public:
     ~CBPBoxManager();
+    static CBPBoxManager* create(QQmlEngine* qmlEngine, QJSEngine* jsEngine) { return CBPBoxManager::getInstance(); }
+
     static CBPBoxManager* getInstance();
     QQmlListProperty<CBluePrintPage> listOfBluePrintPages();
     QQmlListProperty<COperationBox> bpBoxBrowserList();
@@ -40,7 +45,8 @@ class CBPBoxManager : public QObject
     Q_INVOKABLE void boxListSearchBoxTextChanged(const QString& newSearch);
     Q_INVOKABLE void addNewBluePrintPage(); // called by + button in GUI
     Q_INVOKABLE void removeBluePrintPage(const int& pageIndex);
-
+    Q_INVOKABLE bool createNewBoxFromGivenType(CBluePrintPage* pPage, const QString& boxName, const int& posX, const int& posY, const bool& emitSignal = true);
+    Q_INVOKABLE bool loadBluePrintInfoIntoPage(CBluePrintPage* pPage, const QString& pathToFile);
     bool darkThemeEnabled() const;
     void setDarkThemeEnabled(const bool& newValue);
 

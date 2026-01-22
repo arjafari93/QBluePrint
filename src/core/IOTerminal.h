@@ -6,6 +6,7 @@
 #include <QQmlListProperty>
 #include <QVariant>
 #include <memory>
+#include <QtQml>
 
 class COperationBox;
 class CFlowConnectionLine;
@@ -14,6 +15,8 @@ class CRawValueBase;
 class CIOTerminal : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(QString terminalName MEMBER m_terminalName CONSTANT)
     Q_PROPERTY(int terminalXPos MEMBER m_terminalXPos)
     Q_PROPERTY(int terminalYPos MEMBER m_terminalYPos)

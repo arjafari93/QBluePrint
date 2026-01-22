@@ -4,7 +4,7 @@ import QtQuick.Controls.Material 2.15
 import "../SingleTerminalInstance"
 import "../SingleBoxInstance"
 
-import org.bluePrintType.BlueScriptBox 1.0
+import org.QBluePrint.Boxes 1.0
 
 SingleBoxInstance{
     id:codeRunnerBoxID

@@ -1,7 +1,7 @@
 #include "TimerSendValSrc.h"
 
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 #include <QJsonObject>
 #include <memory>
 
@@ -98,8 +98,9 @@ void CTimerSendValSrc::sendValueTimerTimeOut()
     m_listOfOutputTerminals.at(4)->sendValueToFlowLine(m_valueToBeSentArray);
 }
 
-QVariant CTimerSendValSrc::getArrayValueData() const {
-    if(m_valueToBeSentArray.get())
+QVariant CTimerSendValSrc::getArrayValueData() const
+{
+    if (m_valueToBeSentArray.get())
         return m_valueToBeSentArray.get()->convertToVariant();
     return {};
 }
@@ -108,8 +109,7 @@ void CTimerSendValSrc::changeArrayValueData(const QVariant& newValue)
 {
     using recFuncType = std::function<void(QList<std::shared_ptr<CRawValueBase>>&, const QVariant&)>;
     recFuncType recursiveInsertor;
-    recursiveInsertor = [&](QList<std::shared_ptr<CRawValueBase>>& listOfRawVals, const QVariant& recVal)
-    {
+    recursiveInsertor = [&](QList<std::shared_ptr<CRawValueBase>>& listOfRawVals, const QVariant& recVal) {
         switch (recVal.type())
         {
         case QVariant::Int:

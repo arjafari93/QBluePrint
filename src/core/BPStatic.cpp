@@ -1,11 +1,42 @@
 #include "BPStatic.h"
 
-#include "src/CIOTerminal/IOTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "IOTerminal.h"
+#include "RawValueBase.h"
+#include <QClipboard>
 #include <QFont>
 #include <QFontMetrics>
-#include <QApplication>
-#include <QClipboard>
+#include <QGuiApplication>
+
+// we define this one outside class because it is used in other libs too
+QString getNameOfTypeAsString(CRawValueBase* pValue)
+{
+    if (!pValue)
+        return "INVALID";
+
+    if (auto* pBox = dynamic_cast<CValue_int*>(pValue))
+    {
+        return "int";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_double*>(pValue))
+    {
+        return "double";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_bool*>(pValue))
+    {
+        return "bool";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_string*>(pValue))
+    {
+        return "string";
+    }
+    else if (auto* pBox = dynamic_cast<CValue_array*>(pValue))
+    {
+        return "array";
+    }
+
+    DEBUG_MSG_PRINT << " failed to find the name for pValue ";
+    return "INVALID";
+}
 
 QColor CBPStatic::getColorOfNodeByType(CIOTerminal* pNode)
 {
@@ -99,36 +130,7 @@ QString CBPStatic::getNameOfTypeAsString(CIOTerminal* pNode)
     return "INVALID";
 }
 
-QString CBPStatic::getNameOfTypeAsString(CRawValueBase *pValue)
-{
-    if (!pValue)
-        return "INVALID";
-
-    if (auto* pBox = dynamic_cast<CValue_int*>(pValue))
-    {
-        return "int";
-    }
-    else if (auto* pBox = dynamic_cast<CValue_double*>(pValue))
-    {
-        return "double";
-    }
-    else if (auto* pBox = dynamic_cast<CValue_bool*>(pValue))
-    {
-        return "bool";
-    }
-    else if (auto* pBox = dynamic_cast<CValue_string*>(pValue))
-    {
-        return "string";
-    }
-    else if (auto* pBox = dynamic_cast<CValue_array*>(pValue))
-    {
-        return "array";
-    }
-
-    DEBUG_MSG_PRINT << " failed to find the name for pValue ";
-    return "INVALID";
-}
-
+QString CBPStatic::getNameOfTypeAsString(CRawValueBase* pValue) { return ::getNameOfTypeAsString(pValue); }
 
 QString CBPStatic::getFileNameFromPath(const QString& filePath)
 {
@@ -138,7 +140,7 @@ QString CBPStatic::getFileNameFromPath(const QString& filePath)
 
 void CBPStatic::copyTextToClipboard(const QString& textToCopy)
 {
-    QClipboard *clipboard = QGuiApplication::clipboard();
+    QClipboard* clipboard = QGuiApplication::clipboard();
     clipboard->setText(textToCopy);
 }
 
@@ -147,13 +149,13 @@ int CBPStatic::dataTerminalSize()
     QFont appFont = qApp->font();
     appFont.setPointSize(CBPStatic::defaultFontPointSize());
     QFontMetrics fontMetrics(appFont);
-    return  fontMetrics.height();
+    return fontMetrics.height();
 }
 
 int CBPStatic::bluePrintBoxHeaderHeight()
 {
     QFont appFont = qApp->font();
-    appFont.setPointSize(CBPStatic::defaultFontPointSize() );
+    appFont.setPointSize(CBPStatic::defaultFontPointSize());
     QFontMetrics fontMetrics(appFont);
-    return  fontMetrics.height() * 2;
+    return fontMetrics.height() * 2;
 }

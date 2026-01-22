@@ -9,9 +9,7 @@ import QtCharts 2.15
 import "../SingleTerminalInstance"
 import "../SingleBoxInstance"
 
-import org.bluePrintType.OperationBox 1.0
-import org.bluePrintType.LineSeriesChartBox 1.0
-import org.bluePrintType.LiveDataXYModel 1.0
+import org.QBluePrint.Boxes 1.0
 
 SingleBoxInstance{
     id:timerSpinBoxMainBoxID

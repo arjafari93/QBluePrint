@@ -4,10 +4,13 @@
 #include <QAbstractTableModel>
 #include <QObject>
 #include <QPointF>
+#include <QtQml>
 
 class CLiveDataXYModel : public QAbstractTableModel
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_UNCREATABLE("Provided in C++ only; it cannot be created in QML")
     Q_PROPERTY(int totalLengthOfSessionData READ totalLengthOfSessionData NOTIFY totalLengthOfSessionDataChanged)
     Q_PROPERTY(float maxValueLiveData MEMBER m_maxValueLiveData NOTIFY maxValueLiveDataChanged)
     Q_PROPERTY(float minValueLiveData MEMBER m_minValueLiveData NOTIFY minValueLiveDataChanged)

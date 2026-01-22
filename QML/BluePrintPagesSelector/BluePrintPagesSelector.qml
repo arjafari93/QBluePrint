@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 
 import "../Style"
+import org.QBluePrint.Boxes 1.0
 
 ShadowedRectangle {
     id: pageSelectorItemID

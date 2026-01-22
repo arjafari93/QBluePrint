@@ -4,8 +4,7 @@ import QtQuick.Shapes 1.15
 import QtQuick.Window 2.15
 import "SingleBoxInstance"
 
-import org.bluePrintType.BPStatic 1.0
-import org.bluePrintType.OperationBox 1.0
+import org.QBluePrint.Boxes 1.0
 
 Repeater{
     id:boxesMainRepeaterID

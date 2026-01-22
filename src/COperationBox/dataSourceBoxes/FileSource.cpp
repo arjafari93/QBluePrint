@@ -1,8 +1,8 @@
 #include "FileSource.h"
 
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
-#include "src/CRawValueBase/RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
+#include "RawValueBase.h"
 
 CFileSource::CFileSource(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent) : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth, blueBoxHeight - 30, parent}
 {

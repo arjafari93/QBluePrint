@@ -1,8 +1,8 @@
 #include "UniversalTypeConvertor.h"
 
-#include "../../CRawValueBase/RawValueBase.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+#include "RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
 #include <QJsonObject>
 
 CUniversalTypeConvertor::CUniversalTypeConvertor(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)

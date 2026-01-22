@@ -2,9 +2,9 @@
 
 #include <QTimer>
 
-#include "../../CRawValueBase/RawValueBase.h"
-#include "src/CIOTerminal/CInputTerminal/InputTerminal.h"
-#include "src/CIOTerminal/COutputTerminal/OutputTerminal.h"
+#include "RawValueBase.h"
+#include "InputTerminal.h"
+#include "OutputTerminal.h"
 
 CDelayMakerBox::CDelayMakerBox(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent) : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth, blueBoxHeight, parent}
 {

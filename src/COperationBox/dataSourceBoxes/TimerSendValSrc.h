@@ -42,7 +42,7 @@ class CTimerSendValSrc : public COperationBox
     double m_valueToBeSentDouble;
     QString m_valueToBeSentString;
     bool m_valueToBeSentBool;
-    std::shared_ptr<CValue_array> m_valueToBeSentArray {};
+    std::shared_ptr<CValue_array> m_valueToBeSentArray{};
     inline const static QString m_uniqueBoxName = "Send Source Timer";
 
   signals:
