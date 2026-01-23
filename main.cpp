@@ -59,20 +59,13 @@ int main(int argc, char* argv[])
 
     QQmlApplicationEngine engine;
     pQmlEngine = &engine;
-
-    engine.addImportPath(QCoreApplication::applicationDirPath());
-    engine.addImportPath(QDir(QCoreApplication::applicationDirPath()).absoluteFilePath("qml"));
-
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(
-        &engine, &QQmlApplicationEngine::objectCreated, &app,
-        [url](QObject* obj, const QUrl& objUrl)
-        {
-            if (!obj && url == objUrl)
-                QCoreApplication::exit(-1);
-        },
-        Qt::QueuedConnection);
-    engine.load(url);
+    engine.addImportPath(QCoreApplication::applicationDirPath());  // top-level qml folder
+    engine.loadFromModule("org.QBluePrint.GUI", "Main");
+    if (engine.rootObjects().isEmpty())
+    {
+        qDebug() << "failed to laod Main.qml" << QCoreApplication::applicationDirPath() + "/org/QBluePrint/GUI/QML";
+        return -1;
+    }
 
     return app.exec();
 }

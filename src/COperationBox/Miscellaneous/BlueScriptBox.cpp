@@ -10,7 +10,7 @@
 CBlueScriptBox::CBlueScriptBox(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)
     : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 280, blueBoxHeight + 230, parent}
 {
-    m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerSettingsPopup.qml";
+    m_blueBox_settingQMLPath = "qrc:/org/QBluePrint/GUI/QML/BluePrintBoxes/ScriptRunnerBox/ScriptRunnerSettingsPopup.qml";
     mp_jsEngine = new QJSEngine(this);
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_ScriptRunner;
     m_blueBox_HeaderIcon = "qrc:/Images/codeIcon.png";

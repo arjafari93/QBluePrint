@@ -15,7 +15,7 @@
 CHTTPBase::CHTTPBase(int newBlueBox_xPos, int newBlueBox_yPos, const QString& uniqueBoxName, QObject* parent)
     : COperationBox{uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth, blueBoxHeight - 20, parent}
 {
-    m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/NetworkBoxes/HTTPHeaderSettingsPopup.qml";
+    m_blueBox_settingQMLPath = "qrc:/org/QBluePrint/GUI/QML/BluePrintBoxes/NetworkBoxes/HTTPHeaderSettingsPopup.qml";
     m_blueBox_GUIType = CBPStatic::EBPDelegateGUIType::E_BigPictureOperator;
 
     auto outPutNodeString = new COutputTerminal(0, this);

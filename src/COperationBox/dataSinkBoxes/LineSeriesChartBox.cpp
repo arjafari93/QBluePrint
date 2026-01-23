@@ -14,7 +14,7 @@
 CLineSeriesChartBox::CLineSeriesChartBox(int newBlueBox_xPos, int newBlueBox_yPos, QObject* parent)
     : COperationBox{m_uniqueBoxName, newBlueBox_xPos, newBlueBox_yPos, blueBoxWidth + 280, blueBoxHeight + 230, parent}, mp_modelXYMapperLiveData{nullptr}, mp_dataListModelInstace{nullptr}
 {
-    m_blueBox_settingQMLPath = "qrc:/QML/BluePrintBoxes/ChartBoxes/ChartBoxSettings.qml";
+    m_blueBox_settingQMLPath = "qrc:/org/QBluePrint/GUI/QML/BluePrintBoxes/ChartBoxes/ChartBoxSettings.qml";
     mp_dataListModelInstace = std::make_unique<CLiveDataXYModel>();
     mp_modelXYMapperLiveData = std::make_unique<QVXYModelMapper>();
     mp_modelXYMapperLiveData->setModel(mp_dataListModelInstace.get());

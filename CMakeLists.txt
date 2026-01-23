@@ -14,14 +14,18 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Charts)
 
 qt_standard_project_setup()
+if (Qt6_VERSION VERSION_GREATER_EQUAL "6.8.0")
+    qt_policy(SET QTP0004 NEW)
+endif()
 
 add_subdirectory(src/dataTypes)
 add_subdirectory(src/core)
+add_subdirectory(src/GUI)
 
 qt_add_executable(QBluePrint
     main.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/CommonHeader.h
-    qml.qrc
+    resources.qrc
 )
 
 target_compile_definitions(QBluePrint PRIVATE
@@ -39,6 +43,7 @@ target_link_libraries(QBluePrint PRIVATE
     Qt6::Network
     Qt6::Charts
     QBluePrintCore
+    QBluePrintGUI
 )
 
 include(cmake/qmlModule.cmake)
@@ -82,7 +87,7 @@ install(TARGETS QBluePrint
 )
 
 set(QML_IMPORT_PATH
-    ${CMAKE_BINARY_DIR}/qml
+    ${CMAKE_BINARY_DIR}/
     CACHE STRING "" FORCE
 )
-set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
+set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
